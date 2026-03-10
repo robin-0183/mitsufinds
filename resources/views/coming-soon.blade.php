@@ -104,8 +104,7 @@
 
     <script>
         (function () {
-            var seventyTwoHours = 72 * 60 * 60 * 1000;
-            var endTime = Date.now() + seventyTwoHours;
+            var endTime = {{ $countdownEndsAtMs }};
             var el = document.getElementById('countdown');
             var daysEl = document.getElementById('countdown-days');
             var hoursEl = document.getElementById('countdown-hours');
