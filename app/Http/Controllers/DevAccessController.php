@@ -13,6 +13,15 @@ class DevAccessController extends Controller
         return view('coming-soon');
     }
 
+    public function showDevLoginForm(): View|RedirectResponse
+    {
+        if (session('dev_authenticated')) {
+            return redirect()->route('admin.products.index');
+        }
+
+        return view('dev-login');
+    }
+
     public function authenticate(Request $request): RedirectResponse
     {
         $password = config('dev.password');
@@ -30,7 +39,15 @@ class DevAccessController extends Controller
         }
 
         session(['dev_authenticated' => true]);
+        $request->session()->save();
 
-        return redirect()->intended(route('home'));
+        return redirect()->route('admin.products.index');
+    }
+
+    public function exit(Request $request): RedirectResponse
+    {
+        $request->session()->forget('dev_authenticated');
+
+        return redirect()->route('coming-soon');
     }
 }

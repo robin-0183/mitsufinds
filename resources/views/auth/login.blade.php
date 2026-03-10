@@ -101,24 +101,25 @@
     <body>
         <div class="page">
             <h1 class="title">Login</h1>
+            <p class="create-account note" style="margin-top:0;margin-bottom:1.25rem;">Use your admin credentials to access the admin panel.</p>
 
             @if ($errors->any())
                 <p class="error">{{ $errors->first() }}</p>
             @endif
 
-            <form method="POST" action="{{ url('/login') }}">
+            <form method="POST" action="{{ route('login') }}">
                 @csrf
                 <div class="form-group">
-                    <label for="username">Username</label>
+                    <label for="email">Email</label>
                     <input
                         type="text"
-                        id="username"
+                        id="email"
                         name="email"
                         value="{{ old('email') }}"
                         required
                         autofocus
-                        autocomplete="username"
-                        placeholder="Username or email"
+                        autocomplete="email"
+                        placeholder="e.g. your@email.com"
                     >
                 </div>
                 <div class="form-group">

@@ -12,8 +12,9 @@
             body {
                 margin: 0;
                 font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-                background: #020617;
+                background: #000000;
                 color: #e5e7eb;
+                font-weight: 600;
             }
 
             .shell {
@@ -27,46 +28,50 @@
             }
 
             .title {
-                font-size: 1.4rem;
-                font-weight: 600;
+                font-size: 1.85rem;
+                font-weight: 800;
             }
 
             .subtitle {
-                font-size: 0.9rem;
+                font-size: 1.05rem;
+                font-weight: 700;
                 opacity: 0.75;
             }
 
             form {
-                margin-top: 1.25rem;
-                padding: 1.5rem 1.5rem 1.75rem;
+                margin-top: 1.5rem;
+                padding: 2rem 1.75rem 2rem;
                 border-radius: 1rem;
-                background: #020617;
-                border: 1px solid #111827;
+                background: #000000;
+                border: 1px solid #1a1a1a;
             }
 
             .field {
-                margin-bottom: 1rem;
+                margin-bottom: 1.25rem;
             }
 
             label {
                 display: block;
-                font-size: 0.85rem;
+                font-size: 1rem;
+                font-weight: 700;
                 text-transform: uppercase;
                 letter-spacing: 0.08em;
-                margin-bottom: 0.3rem;
+                margin-bottom: 0.4rem;
                 color: #9ca3af;
             }
 
             input[type="text"],
             input[type="number"],
-            textarea {
+            textarea,
+            select {
                 width: 100%;
                 border-radius: 0.5rem;
-                border: 1px solid #1f2937;
-                background: #020617;
-                padding: 0.6rem 0.7rem;
+                border: 1px solid #333;
+                background: #0a0a0a;
+                padding: 0.75rem 0.85rem;
                 color: #e5e7eb;
-                font-size: 0.9rem;
+                font-size: 1.05rem;
+                font-weight: 600;
             }
 
             input[type="text"]:focus,
@@ -78,33 +83,35 @@
             }
 
             textarea {
-                min-height: 90px;
+                min-height: 110px;
                 resize: vertical;
             }
 
             .hint {
-                font-size: 0.8rem;
+                font-size: 0.95rem;
+                font-weight: 600;
                 opacity: 0.7;
-                margin-top: 0.2rem;
+                margin-top: 0.3rem;
             }
 
             .checkbox-row {
                 display: flex;
                 align-items: center;
-                gap: 0.45rem;
-                font-size: 0.9rem;
+                gap: 0.5rem;
+                font-size: 1.05rem;
+                font-weight: 700;
             }
 
             input[type="checkbox"] {
-                width: 16px;
-                height: 16px;
+                width: 20px;
+                height: 20px;
             }
 
             .actions {
                 display: flex;
                 justify-content: flex-end;
-                gap: 0.75rem;
-                margin-top: 1.25rem;
+                gap: 1rem;
+                margin-top: 1.5rem;
             }
 
             a.btn,
@@ -112,40 +119,50 @@
                 display: inline-flex;
                 align-items: center;
                 justify-content: center;
-                padding: 0.55rem 1.1rem;
+                padding: 0.7rem 1.25rem;
                 border-radius: 999px;
                 border: 1px solid transparent;
-                font-size: 0.85rem;
-                font-weight: 500;
+                font-size: 1rem;
+                font-weight: 700;
                 cursor: pointer;
                 text-decoration: none;
             }
 
             .btn-primary {
-                background: #f97316;
-                border-color: #ea580c;
-                color: #0b1120;
+                background: #000000;
+                border: 1px solid #333;
+                color: #e5e7eb;
+                padding: 0.85rem 1.75rem;
+                font-size: 1.15rem;
+                font-weight: 800;
             }
 
             .btn-primary:hover {
-                background: #fdba74;
-                border-color: #fb923c;
+                background: #1a1a1a;
+                border-color: #444;
+                color: #f9fafb;
+            }
+
+            .btn-primary:focus {
+                outline: none;
             }
 
             .btn-ghost {
                 background: transparent;
                 border-color: #374151;
                 color: #e5e7eb;
+                font-weight: 700;
             }
 
             .btn-ghost:hover {
-                background: #020617;
+                background: #111;
                 border-color: #4b5563;
             }
 
             .error {
-                margin-top: 0.2rem;
-                font-size: 0.8rem;
+                margin-top: 0.25rem;
+                font-size: 0.95rem;
+                font-weight: 600;
                 color: #fecaca;
             }
         </style>
@@ -175,21 +192,47 @@
                 </div>
 
                 <div class="field">
-                    <label for="category">Category</label>
+                    <label for="category">Section</label>
                     <select
                         id="category"
                         name="category"
-                        style="width:100%;border-radius:0.5rem;border:1px solid #1f2937;background:#020617;padding:0.6rem 0.7rem;color:#e5e7eb;font-size:0.9rem;"
+                        style="width:100%;border-radius:0.5rem;border:1px solid #333;background:#0a0a0a;padding:0.75rem 0.85rem;color:#e5e7eb;font-size:1.05rem;font-weight:600;"
                     >
                         @php
                             $currentCategory = old('category', 'hoodies');
                         @endphp
                         <option value="hoodies" {{ $currentCategory === 'hoodies' ? 'selected' : '' }}>Hoodies</option>
                         <option value="tees" {{ $currentCategory === 'tees' ? 'selected' : '' }}>Tees</option>
-                        <option value="jeans_sweats" {{ $currentCategory === 'jeans_sweats' ? 'selected' : '' }}>Jeans / Sweats</option>
+                        <option value="jeans" {{ $currentCategory === 'jeans' ? 'selected' : '' }}>Jeans</option>
+                        <option value="sweats" {{ $currentCategory === 'sweats' ? 'selected' : '' }}>Sweats</option>
+                        <option value="boots" {{ $currentCategory === 'boots' ? 'selected' : '' }}>boots</option>
+                        <option value="shoes" {{ $currentCategory === 'shoes' ? 'selected' : '' }}>shoes</option>
                         <option value="jewelry" {{ $currentCategory === 'jewelry' ? 'selected' : '' }}>Jewelry</option>
                     </select>
+                    <div class="hint">Product will appear in this section on the home page and on the Products page.</div>
                     @error('category')
+                        <div class="error">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                <div class="field" id="brand-field">
+                    <label for="brand">Brand (hoodies only)</label>
+                    <select
+                        id="brand"
+                        name="brand"
+                        style="width:100%;border-radius:0.5rem;border:1px solid #333;background:#0a0a0a;padding:0.75rem 0.85rem;color:#e5e7eb;font-size:1.05rem;font-weight:600;"
+                    >
+                        @php
+                            $currentBrand = old('brand', '');
+                        @endphp
+                        <option value="" {{ $currentBrand === '' ? 'selected' : '' }}>—</option>
+                        <option value="balenciaga" {{ $currentBrand === 'balenciaga' ? 'selected' : '' }}>Balenciaga</option>
+                        <option value="mm6" {{ $currentBrand === 'mm6' ? 'selected' : '' }}>mm6</option>
+                        <option value="rick_owens" {{ $currentBrand === 'rick_owens' ? 'selected' : '' }}>rick owens</option>
+                        <option value="supreme" {{ $currentBrand === 'supreme' ? 'selected' : '' }}>supreme</option>
+                        <option value="erd" {{ $currentBrand === 'erd' ? 'selected' : '' }}>erd</option>
+                    </select>
+                    @error('brand')
                         <div class="error">{{ $message }}</div>
                     @enderror
                 </div>

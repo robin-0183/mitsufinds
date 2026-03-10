@@ -89,103 +89,6 @@
             outline: none;
             border-color: #666;
         }
-
-        .dev-overlay {
-            position: fixed;
-            inset: 0;
-            z-index: 200;
-            background: rgba(0, 0, 0, 0.85);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 1.5rem;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.2s, visibility 0.2s;
-        }
-
-        .dev-overlay.is-open {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .dev-modal {
-            background: #111;
-            border: 1px solid #333;
-            border-radius: 0.5rem;
-            padding: 1.5rem 2rem;
-            max-width: 340px;
-            width: 100%;
-        }
-
-        .dev-modal h2 {
-            margin: 0 0 1rem;
-            font-size: 1rem;
-            font-weight: 700;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-        }
-
-        .dev-modal form {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .dev-modal input[type="password"] {
-            width: 100%;
-            padding: 0.6rem 0.75rem;
-            font-size: 1rem;
-            color: #fff;
-            background: #1a1a1a;
-            border: 1px solid #333;
-            border-radius: 0.25rem;
-        }
-
-        .dev-modal input[type="password"]:focus {
-            outline: none;
-            border-color: #555;
-        }
-
-        .dev-modal input::placeholder {
-            color: rgba(255, 255, 255, 0.4);
-        }
-
-        .dev-modal .error {
-            font-size: 0.875rem;
-            color: #e57373;
-        }
-
-        .dev-modal .actions {
-            display: flex;
-            gap: 0.5rem;
-            justify-content: flex-end;
-        }
-
-        .dev-modal button[type="button"].dev-cancel {
-            padding: 0.5rem 1rem;
-            font-size: 0.875rem;
-            color: rgba(255, 255, 255, 0.8);
-            background: transparent;
-            border: 1px solid #444;
-            border-radius: 0.25rem;
-            cursor: pointer;
-        }
-
-        .dev-modal button[type="submit"] {
-            padding: 0.5rem 1rem;
-            font-size: 0.875rem;
-            font-weight: 600;
-            color: #000;
-            background: #fff;
-            border: none;
-            border-radius: 0.25rem;
-            cursor: pointer;
-        }
-
-        .dev-modal button:focus {
-            outline: none;
-        }
     </style>
 </head>
 <body>
@@ -197,24 +100,7 @@
         </div>
     </div>
 
-    <button type="button" class="dev-btn" id="dev-btn" aria-label="Developer settings">Settings (dev)</button>
-
-    <div class="dev-overlay" id="dev-overlay" aria-hidden="true">
-        <div class="dev-modal" role="dialog" aria-labelledby="dev-modal-title">
-            <h2 id="dev-modal-title">Developer access</h2>
-            <form method="post" action="{{ route('dev-auth') }}">
-                @csrf
-                @if ($errors->has('dev_password'))
-                    <p class="error" role="alert">{{ $errors->first('dev_password') }}</p>
-                @endif
-                <input type="password" name="dev_password" placeholder="Developer password" required autofocus>
-                <div class="actions">
-                    <button type="button" class="dev-cancel" id="dev-cancel">Cancel</button>
-                    <button type="submit">Enter</button>
-                </div>
-            </form>
-        </div>
-    </div>
+    <a href="{{ route('dev-login') }}" class="dev-btn" id="dev-btn" aria-label="Login" style="text-decoration:none;color:inherit;display:inline-block;">Login</a>
 
     <script>
         (function () {
@@ -250,31 +136,6 @@
 
             tick();
             setInterval(tick, 1000);
-
-            var btn = document.getElementById('dev-btn');
-            var overlay = document.getElementById('dev-overlay');
-            var cancel = document.getElementById('dev-cancel');
-
-            if (btn && overlay) {
-                btn.addEventListener('click', function () {
-                    overlay.classList.add('is-open');
-                    overlay.setAttribute('aria-hidden', 'false');
-                });
-            }
-
-            function closeOverlay() {
-                if (overlay) {
-                    overlay.classList.remove('is-open');
-                    overlay.setAttribute('aria-hidden', 'true');
-                }
-            }
-
-            if (cancel) cancel.addEventListener('click', closeOverlay);
-            if (overlay) {
-                overlay.addEventListener('click', function (e) {
-                    if (e.target === overlay) closeOverlay();
-                });
-            }
         })();
     </script>
 </body>

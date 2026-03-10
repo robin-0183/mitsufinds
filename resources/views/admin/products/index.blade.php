@@ -12,41 +12,53 @@
             body {
                 margin: 0;
                 font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-                background: #020617;
+                background: #000000;
                 color: #e5e7eb;
             }
 
             .shell {
                 max-width: 1100px;
                 margin: 0 auto;
-                padding: 2rem 1.5rem 3rem;
-            }
-
-            header {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                margin-bottom: 1.75rem;
+                padding: 5rem 1.5rem 3rem;
             }
 
             .title {
-                font-size: 1.4rem;
-                font-weight: 600;
+                position: fixed;
+                top: 1.5rem;
+                left: 1.5rem;
+                font-size: 2rem;
+                font-weight: 800;
+                letter-spacing: 0.02em;
+                margin: 0;
+                z-index: 10;
             }
 
-            .subtitle {
-                font-size: 0.9rem;
-                opacity: 0.7;
-            }
-
-            .actions {
+            .header-actions {
+                position: fixed;
+                top: 1.5rem;
+                right: 1.5rem;
                 display: flex;
                 align-items: center;
-                gap: 0.75rem;
+                gap: 1rem;
+                z-index: 10;
             }
 
             .actions form {
                 margin: 0;
+            }
+
+            .header-actions .btn,
+            .empty-actions .btn {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                padding: 0.65rem 1.15rem;
+                border-radius: 999px;
+                border: 1px solid transparent;
+                font-size: 1rem;
+                font-weight: 700;
+                cursor: pointer;
+                text-decoration: none;
             }
 
             a.btn,
@@ -72,6 +84,22 @@
             .btn-primary:hover {
                 background: #fdba74;
                 border-color: #fb923c;
+            }
+
+            .btn-add {
+                background: #000000;
+                border: none;
+                color: #e5e7eb;
+            }
+
+            .btn-add:hover {
+                background: #1a1a1a;
+                border: none;
+                color: #f9fafb;
+            }
+
+            .btn-add:focus {
+                outline: none;
             }
 
             .btn-ghost {
@@ -152,6 +180,19 @@
                 font-size: 0.95rem;
             }
 
+            .empty-actions {
+                margin-top: 1.5rem;
+            }
+
+            .empty-actions .btn {
+                padding: 0.65rem 1.25rem;
+                font-size: 1rem;
+            }
+
+            .btn-add {
+                font-weight: 700;
+            }
+
             .price-cell {
                 white-space: nowrap;
             }
@@ -183,21 +224,22 @@
     </head>
     <body>
         <div class="shell">
-            <header>
-                <div>
-                    <div class="title">Products</div>
-                    <div class="subtitle">Manage items shown on the mxtsu home page.</div>
-                </div>
+            <h1 class="title">Admin dashboard</h1>
 
-                <div class="actions">
-                    <a href="{{ route('home') }}" class="btn btn-ghost">View site</a>
-                    <a href="{{ route('admin.products.create') }}" class="btn btn-primary">Add product</a>
-                    <form method="POST" action="{{ route('logout') }}" class="actions-form">
+            <div class="header-actions">
+                <a href="{{ route('home') }}" class="btn btn-ghost">View site</a>
+                <a href="{{ route('admin.products.create') }}" class="btn btn-add">Add product</a>
+                @auth
+                    <form method="POST" action="{{ route('logout') }}" class="actions-form" style="margin:0;">
                         @csrf
                         <button type="submit" class="btn btn-ghost">Logout</button>
                     </form>
-                </div>
-            </header>
+                @else
+                    @if (session('dev_authenticated'))
+                        <a href="{{ route('dev-exit') }}" class="btn btn-ghost">Exit</a>
+                    @endif
+                @endauth
+            </div>
 
             @if (session('status'))
                 <div style="margin-bottom: 1rem; font-size: 0.9rem; color: #bbf7d0;">
@@ -207,9 +249,15 @@
 
             @if ($products->isEmpty())
                 <div class="empty">
-                    No products yet. Click “Add product” to create your first ACBuy affiliate item.
+                    <p>No products yet. Add products to show them on the home page and the Products page.</p>
+                    <div class="empty-actions">
+                        <a href="{{ route('admin.products.create') }}" class="btn btn-primary btn-add">Add product</a>
+                    </div>
                 </div>
             @else
+                <div class="actions" style="margin-bottom: 1rem;">
+                    <a href="{{ route('admin.products.create') }}" class="btn btn-primary btn-add">Add product</a>
+                </div>
                 <table>
                     <thead>
                         <tr>

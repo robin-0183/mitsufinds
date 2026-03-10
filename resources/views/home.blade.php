@@ -89,6 +89,166 @@
                 outline: none;
             }
 
+            .discord-cta-wrap {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                min-height: 75vh;
+                padding: 2rem;
+                gap: 3rem;
+                margin-left: -4rem;
+            }
+
+            .discord-cta {
+                max-width: 420px;
+                margin-top: -10rem;
+                padding: 2rem 2.5rem;
+                background: #0a0a0a;
+                border-radius: 1rem;
+                border: 1px solid rgba(255, 255, 255, 0.35);
+                box-shadow:
+                    0 0 20px rgba(255, 255, 255, 0.2),
+                    0 0 40px rgba(255, 255, 255, 0.12),
+                    inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+                text-align: center;
+                transition: transform 0.25s ease;
+            }
+
+            .discord-cta:hover {
+                transform: scale(1.08);
+            }
+
+            .discord-cta a {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                gap: 0.5rem;
+                color: #f9fafb;
+                text-decoration: none;
+                font-size: 1.1rem;
+                font-weight: 700;
+                text-shadow:
+                    0 0 12px rgba(255, 255, 255, 0.9),
+                    0 0 24px rgba(255, 255, 255, 0.5),
+                    0 0 36px rgba(255, 255, 255, 0.3);
+            }
+
+            @keyframes arrow-bounce {
+                0%, 100% { transform: translateX(0) scale(1); }
+                50% { transform: translateX(8px) scale(1.2); }
+            }
+
+            .discord-cta-arrow {
+                color: #fff;
+                font-size: 1.1rem;
+                text-shadow:
+                    0 0 10px rgba(255, 255, 255, 0.9),
+                    0 0 20px rgba(255, 255, 255, 0.5);
+                display: inline-block;
+                transition: transform 0.2s ease;
+            }
+
+            .discord-cta:hover .discord-cta-arrow {
+                animation: arrow-bounce 0.6s ease infinite;
+            }
+
+            .discord-cta-sub {
+                display: block;
+                margin-top: 0.75rem;
+                font-size: 0.65rem;
+                font-weight: 600;
+                letter-spacing: 0.08em;
+                text-transform: uppercase;
+                color: #6b7280;
+            }
+
+            .tiktok-cta {
+                max-width: 420px;
+                margin-top: -10rem;
+                padding: 2rem 2.5rem;
+                background: #0a0a0a;
+                border-radius: 1rem;
+                border: 1px solid rgba(255, 255, 255, 0.35);
+                box-shadow:
+                    0 0 20px rgba(255, 255, 255, 0.2),
+                    0 0 40px rgba(255, 255, 255, 0.12),
+                    inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+                text-align: center;
+                transition: transform 0.25s ease;
+            }
+
+            .tiktok-cta:hover {
+                transform: scale(1.08);
+            }
+
+            .tiktok-cta a {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                gap: 0.5rem;
+                color: #f9fafb;
+                text-decoration: none;
+                font-size: 1.1rem;
+                font-weight: 700;
+                text-shadow:
+                    0 0 12px rgba(255, 255, 255, 0.9),
+                    0 0 24px rgba(255, 255, 255, 0.5),
+                    0 0 36px rgba(255, 255, 255, 0.3);
+            }
+
+            .tiktok-cta-arrow {
+                color: #fff;
+                font-size: 1.1rem;
+                text-shadow:
+                    0 0 10px rgba(255, 255, 255, 0.9),
+                    0 0 20px rgba(255, 255, 255, 0.5);
+                display: inline-block;
+                transition: transform 0.2s ease;
+            }
+
+            .tiktok-cta:hover .tiktok-cta-arrow {
+                animation: arrow-bounce 0.6s ease infinite;
+            }
+
+            .tiktok-cta-sub {
+                display: block;
+                margin-top: 0.75rem;
+                font-size: 0.65rem;
+                font-weight: 600;
+                letter-spacing: 0.08em;
+                text-transform: uppercase;
+                color: #6b7280;
+            }
+
+            .category-strip {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 1rem;
+                margin-bottom: 2rem;
+            }
+
+            .category-strip a {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                min-width: 120px;
+                padding: 1.25rem 1.5rem;
+                background: #0a0a0a;
+                border: 1px solid #333;
+                border-radius: 1rem;
+                color: #f9fafb;
+                font-size: 1rem;
+                font-weight: 700;
+                text-decoration: none;
+                transition: transform 0.2s ease, border-color 0.2s ease;
+            }
+
+            .category-strip a:hover {
+                border-color: #555;
+                transform: scale(1.03);
+            }
+
             .top-nav-item + .top-nav-item {
                 position: relative;
             }
@@ -249,12 +409,12 @@
             }
 
             .welcome-modal {
-                width: 420px;
-                max-width: 92vw;
-                border-radius: 1.5rem;
+                width: 1260px;
+                max-width: 96vw;
+                border-radius: 2.25rem;
                 background: #050608;
                 border: none;
-                padding: 2.25rem 2rem 1.9rem;
+                padding: 4rem 3.5rem 3.5rem;
                 box-shadow: none;
                 position: relative;
                 text-align: center;
@@ -272,25 +432,31 @@
 
             .welcome-close {
                 position: absolute;
-                top: 0.65rem;
-                right: 0.75rem;
+                top: 1rem;
+                right: 1rem;
                 border: none;
                 background: transparent;
                 color: #9ca3af;
-                font-size: 1.1rem;
+                font-size: 1.75rem;
                 cursor: pointer;
+                transition: transform 0.2s ease, color 0.2s ease;
+            }
+
+            .welcome-close:hover {
+                transform: scale(1.3);
+                color: #fff;
             }
 
             .welcome-icon {
-                width: 40px;
-                height: 40px;
+                width: 80px;
+                height: 80px;
                 border-radius: 999px;
                 background: #111827;
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                margin: 0 auto 0.9rem;
-                font-size: 1.1rem;
+                margin: 0 auto 1.5rem;
+                font-size: 2.2rem;
             }
 
             .welcome-title {
@@ -325,10 +491,10 @@
                 width: 100%;
                 border-radius: 999px;
                 border: none;
-                padding: 0.65rem 1rem;
+                padding: 1rem 1.5rem;
                 background: #f97316;
                 color: #020617;
-                font-size: 1.05rem;
+                font-size: 1.35rem;
                 font-weight: 700;
                 cursor: pointer;
                 margin-bottom: 0.9rem;
@@ -338,9 +504,51 @@
                 background: #fdba74;
             }
 
+            .welcome-coupons {
+                display: flex;
+                flex-direction: column;
+                gap: 1.25rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .welcome-coupons .welcome-cta {
+                margin-bottom: 0;
+                background: #000;
+                color: #fff;
+                transition: background 0.2s ease, transform 0.2s ease, color 0.2s ease;
+                text-shadow:
+                    0 0 10px rgba(255, 255, 255, 0.9),
+                    0 0 20px rgba(255, 255, 255, 0.5),
+                    0 0 30px rgba(255, 255, 255, 0.3);
+            }
+
+            .welcome-coupons .welcome-cta:hover {
+                background: #1f2937;
+                transform: scale(1.03) translateY(-2px);
+                color: #22c55e;
+                text-shadow:
+                    0 0 10px rgba(34, 197, 94, 0.9),
+                    0 0 20px rgba(34, 197, 94, 0.5),
+                    0 0 30px rgba(34, 197, 94, 0.3);
+            }
+
+            .welcome-subtitle {
+                font-size: 1.5rem;
+                font-weight: 800;
+                margin-bottom: 1.5rem;
+                color: #e5e7eb;
+                text-shadow:
+                    0 0 10px rgba(255, 255, 255, 0.9),
+                    0 0 20px rgba(255, 255, 255, 0.5),
+                    0 0 30px rgba(255, 255, 255, 0.3);
+            }
+
             .welcome-footnote {
-                font-size: 0.75rem;
+                font-size: 1rem;
                 opacity: 0.7;
+                text-shadow:
+                    0 0 8px rgba(255, 255, 255, 0.6),
+                    0 0 16px rgba(255, 255, 255, 0.3);
             }
         </style>
     </head>
@@ -369,19 +577,49 @@
                 </a>
             </header>
 
+            <nav class="category-strip" aria-label="Product categories">
+                <a href="{{ route('products.index') }}#shoes">Shoes</a>
+                <a href="{{ route('products.index') }}#tees">Tops</a>
+                <a href="{{ route('products.index') }}#jeans">Bottoms</a>
+                <a href="{{ route('products.index') }}#sweats">Winter</a>
+                <a href="{{ route('products.index') }}#jewelry">Jewelry</a>
+            </nav>
+
+            <div class="discord-cta-wrap">
+                <div class="discord-cta">
+                    <a href="https://discord.gg/zjHfxED6" target="_blank" rel="noopener noreferrer">
+                        Join my Discord server
+                        <span class="discord-cta-arrow" aria-hidden="true">→</span>
+                    </a>
+                    <span class="discord-cta-sub">Free entry — exclusive finds inside</span>
+                </div>
+                <div class="tiktok-cta">
+                    <a href="https://www.tiktok.com/@mxtsufindss?is_from_webapp=1&sender_device=pc" target="_blank" rel="noopener noreferrer">
+                        Follow my TikTok
+                        <span class="tiktok-cta-arrow" aria-hidden="true">→</span>
+                    </a>
+                    <span class="tiktok-cta-sub">Latest finds & drops</span>
+                </div>
+            </div>
+
             @if (! $products->isEmpty())
                 @php
                     $sections = [
                         'hoodies' => 'Hoodies',
                         'tees' => 'Tees',
-                        'jeans_sweats' => 'Jeans / Sweats',
+                        'jeans' => 'Jeans',
+                        'sweats' => 'Sweats',
+                        'boots' => 'boots',
+                        'shoes' => 'shoes',
                         'jewelry' => 'Jewelry',
                     ];
                 @endphp
 
                 @foreach ($sections as $key => $label)
                     @php
-                        $sectionProducts = $products->where('category', $key);
+                        $sectionProducts = $key === 'jeans'
+                            ? $products->whereIn('category', ['jeans', 'jeans_sweats'])
+                            : $products->where('category', $key);
                     @endphp
 
                     @if ($sectionProducts->isNotEmpty())
@@ -431,24 +669,23 @@
             <div class="welcome-modal">
                 <button type="button" class="welcome-close" data-dismiss="welcome-modal">&times;</button>
                 <div class="welcome-icon">🎁</div>
-                <div class="welcome-title">Sign Up to Acbuy for $550 worth of shipping coupons !</div>
-                <div class="welcome-divider"></div>
-                <p class="welcome-text">
-                    Sign up to ACBuy here to get
-                    <strong>$550 worth of free shipping coupons</strong>.
-                </p>
-                <a
-                    href="https://www.acbuy.com/login?loginStatus=register&code=ZSTSLZ"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="welcome-cta"
-                    data-dismiss="welcome-modal"
-                    style="text-decoration:none;"
-                >
-                    Claim my coupons
-                </a>
+                <p class="welcome-subtitle">Choose An ACBuy coupon</p>
+                <div class="welcome-coupons">
+                    @foreach($coupons ?? [] as $coupon)
+                        <a
+                            href="https://www.acbuy.com/login?loginStatus=register&code=ZSTSLZ"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="welcome-cta"
+                            data-dismiss="welcome-modal"
+                            style="text-decoration:none;"
+                        >
+                            {{ $coupon }}
+                        </a>
+                    @endforeach
+                </div>
                 <div class="welcome-footnote">
-                    * Limited time offer for new members
+                    only available for new users
                 </div>
             </div>
         </div>

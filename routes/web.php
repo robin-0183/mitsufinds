@@ -6,6 +6,7 @@ use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/coming-soon', [DevAccessController::class, 'showComingSoon'])->name('coming-soon');
+Route::get('/dev-login', [DevAccessController::class, 'showDevLoginForm'])->name('dev-login');
 Route::post('/dev-auth', [DevAccessController::class, 'authenticate'])->name('dev-auth');
 
 Route::get('/', [ProductController::class, 'home'])->name('home');
@@ -19,8 +20,9 @@ Route::get('/register', [AuthController::class, 'showRegistrationForm'])->name('
 Route::post('/register', [AuthController::class, 'register'])->middleware('guest');
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
+Route::get('/dev-exit', [DevAccessController::class, 'exit'])->name('dev-exit');
 
-Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
+Route::prefix('admin')->middleware(['admin'])->group(function () {
     Route::get('/products', [ProductController::class, 'index'])->name('admin.products.index');
     Route::get('/products/create', [ProductController::class, 'create'])->name('admin.products.create');
     Route::post('/products', [ProductController::class, 'store'])->name('admin.products.store');
