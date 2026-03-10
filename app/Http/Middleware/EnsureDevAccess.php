@@ -27,6 +27,10 @@ class EnsureDevAccess
             return $next($request);
         }
 
+        if ($request->path() === 'dev-login') {
+            return $next($request);
+        }
+
         return redirect()->route('coming-soon');
     }
 }

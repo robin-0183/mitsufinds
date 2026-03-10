@@ -16,8 +16,19 @@ class ProductController extends Controller
             ->latest()
             ->get();
 
+        $allCoupons = [
+            '10% off <0€',
+            '5% off <0€',
+            '16,11€ off <161,41€',
+            '3€ off <0€',
+            '35,15€ off <300€',
+            '100€ off <550€',
+        ];
+        $coupons = collect($allCoupons)->random(3)->values()->all();
+
         return view('home', [
             'products' => $products,
+            'coupons' => $coupons,
         ]);
     }
 
@@ -61,6 +72,7 @@ class ProductController extends Controller
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'category' => ['required', 'string', 'max:50'],
+            'brand' => ['nullable', 'string', 'max:50'],
             'image_url' => ['nullable', 'url', 'max:2048'],
             'price' => ['nullable', 'numeric', 'min:0'],
             'affiliate_url' => ['required', 'url', 'max:2048'],
@@ -80,6 +92,7 @@ class ProductController extends Controller
         Product::query()->create([
             'name' => $validated['name'],
             'category' => $validated['category'],
+            'brand' => $validated['brand'] ?? null,
             'slug' => $slug,
             'image_url' => $validated['image_url'] ?? null,
             'price' => $validated['price'] ?? null,
