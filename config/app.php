@@ -123,18 +123,4 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
-    /*
-    |--------------------------------------------------------------------------
-    | Coming Soon Countdown End
-    |--------------------------------------------------------------------------
-    |
-    | Fixed date/time when the coming-soon countdown ends. Same for all
-    | visitors; the countdown does not reset on refresh. Use a fixed date
-    | only (e.g. "2025-03-13 00:00:00"). Do not use relative values like
-    | "+3 days" or the timer will reset on every page load.
-    |
-    */
-
-    'coming_soon_ends_at' => env('COMING_SOON_ENDS_AT', '2025-03-13 00:00:00'),
-
 ];

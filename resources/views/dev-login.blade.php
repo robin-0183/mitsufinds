@@ -75,7 +75,7 @@
             <input type="password" name="dev_password" placeholder="Developer password" required autofocus>
             <button type="submit">Enter</button>
         </form>
-        <a href="{{ route('coming-soon') }}" class="back">← Back to coming soon</a>
+        <a href="{{ route('home') }}" class="back">← Back to site</a>
     </div>
 </body>
 </html>

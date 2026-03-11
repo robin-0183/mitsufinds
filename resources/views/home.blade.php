@@ -89,19 +89,29 @@
                 outline: none;
             }
 
+            .hero-center {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                min-height: 60vh;
+                width: 100%;
+                padding: 16rem 0 2rem;
+            }
+
             .discord-cta-wrap {
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                min-height: 75vh;
-                padding: 2rem;
+                padding: 2rem 2rem 0.5rem;
                 gap: 3rem;
+                width: 100%;
                 margin-left: -4rem;
+                margin-top: 3rem;
             }
 
             .discord-cta {
                 max-width: 420px;
-                margin-top: -10rem;
                 padding: 2rem 2.5rem;
                 background: #0a0a0a;
                 border-radius: 1rem;
@@ -164,7 +174,6 @@
 
             .tiktok-cta {
                 max-width: 420px;
-                margin-top: -10rem;
                 padding: 2rem 2.5rem;
                 background: #0a0a0a;
                 border-radius: 1rem;
@@ -222,31 +231,58 @@
 
             .category-strip {
                 display: flex;
-                flex-wrap: wrap;
+                flex-wrap: nowrap;
                 justify-content: center;
-                gap: 1rem;
+                align-items: stretch;
+                gap: 4rem;
+                margin-top: 22vh;
                 margin-bottom: 2rem;
+                width: 100%;
             }
 
-            .category-strip a {
+            .category-card {
+                display: flex;
+                flex-direction: column;
+                flex: 1;
+                min-width: 0;
+                max-width: 400px;
+                background: #1a1a1a;
+                border: 1px solid #2a2a2a;
+                border-radius: 1rem;
+                overflow: hidden;
+                text-decoration: none;
+                color: #f9fafb;
+                transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+            }
+
+            .category-card:hover {
+                border-color: #404040;
+                transform: scale(1.03);
+                box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+            }
+
+            .category-card-image {
+                aspect-ratio: 1;
+                background: #0f0f0f;
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                min-width: 120px;
-                padding: 1.25rem 1.5rem;
-                background: #0a0a0a;
-                border: 1px solid #333;
-                border-radius: 1rem;
-                color: #f9fafb;
-                font-size: 1rem;
-                font-weight: 700;
-                text-decoration: none;
-                transition: transform 0.2s ease, border-color 0.2s ease;
+                padding: 1rem;
             }
 
-            .category-strip a:hover {
-                border-color: #555;
-                transform: scale(1.03);
+            .category-card-image img {
+                width: 100%;
+                height: 100%;
+                object-fit: contain;
+            }
+
+            .category-card-label {
+                padding: 1rem 1.25rem;
+                font-size: 1.1rem;
+                font-weight: 700;
+                text-align: center;
+                background: #1a1a1a;
+                letter-spacing: 0.3em;
             }
 
             .top-nav-item + .top-nav-item {
@@ -577,29 +613,48 @@
                 </a>
             </header>
 
-            <nav class="category-strip" aria-label="Product categories">
-                <a href="{{ route('products.index') }}#shoes">Shoes</a>
-                <a href="{{ route('products.index') }}#tees">Tops</a>
-                <a href="{{ route('products.index') }}#jeans">Bottoms</a>
-                <a href="{{ route('products.index') }}#sweats">Winter</a>
-                <a href="{{ route('products.index') }}#jewelry">Jewelry</a>
-            </nav>
+            <div class="hero-center">
+                <div class="discord-cta-wrap">
+                    <div class="discord-cta">
+                        <a href="https://discord.gg/zjHfxED6" target="_blank" rel="noopener noreferrer">
+                            Join my Discord server
+                            <span class="discord-cta-arrow" aria-hidden="true">→</span>
+                        </a>
+                        <span class="discord-cta-sub">Free entry — exclusive finds inside</span>
+                    </div>
+                    <div class="tiktok-cta">
+                        <a href="https://www.tiktok.com/@mxtsufindss?is_from_webapp=1&sender_device=pc" target="_blank" rel="noopener noreferrer">
+                            Follow my TikTok
+                            <span class="tiktok-cta-arrow" aria-hidden="true">→</span>
+                        </a>
+                        <span class="tiktok-cta-sub">Latest finds & drops</span>
+                    </div>
+                </div>
 
-            <div class="discord-cta-wrap">
-                <div class="discord-cta">
-                    <a href="https://discord.gg/zjHfxED6" target="_blank" rel="noopener noreferrer">
-                        Join my Discord server
-                        <span class="discord-cta-arrow" aria-hidden="true">→</span>
+                <nav class="category-strip" aria-label="Product categories">
+                    <a href="{{ route('products.index') }}#shoes" class="category-card">
+                        <div class="category-card-image">
+                            <img src="{{ asset('images/shoes-icon.png') }}" alt="">
+                        </div>
+                        <span class="category-card-label">Shoes</span>
                     </a>
-                    <span class="discord-cta-sub">Free entry — exclusive finds inside</span>
-                </div>
-                <div class="tiktok-cta">
-                    <a href="https://www.tiktok.com/@mxtsufindss?is_from_webapp=1&sender_device=pc" target="_blank" rel="noopener noreferrer">
-                        Follow my TikTok
-                        <span class="tiktok-cta-arrow" aria-hidden="true">→</span>
+                    <a href="{{ route('products.index') }}#tees" class="category-card">
+                        <div class="category-card-image"></div>
+                        <span class="category-card-label">Tops</span>
                     </a>
-                    <span class="tiktok-cta-sub">Latest finds & drops</span>
-                </div>
+                    <a href="{{ route('products.index') }}#jeans" class="category-card">
+                        <div class="category-card-image"></div>
+                        <span class="category-card-label">Bottoms</span>
+                    </a>
+                    <a href="{{ route('products.index') }}#sweats" class="category-card">
+                        <div class="category-card-image"></div>
+                        <span class="category-card-label">Winter</span>
+                    </a>
+                    <a href="{{ route('products.index') }}#jewelry" class="category-card">
+                        <div class="category-card-image"></div>
+                        <span class="category-card-label">Jewelry</span>
+                    </a>
+                </nav>
             </div>
 
             @if (! $products->isEmpty())
