@@ -6,8 +6,12 @@
         <title>{{ config('app.name', 'mxtsu') }}</title>
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Bebas+Neue&display=swap" rel="stylesheet">
         <style>
+            html {
+                font-size: 90%;
+                scroll-behavior: smooth;
+            }
             * {
                 box-sizing: border-box;
             }
@@ -17,12 +21,15 @@
                 font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
                 background: #000000;
                 color: #f9fafb;
+                position: relative;
             }
 
             .shell {
+                position: relative;
+                z-index: 1;
                 max-width: 1200px;
                 margin: 0 auto;
-                padding: 1.25rem 1.5rem 3rem;
+                padding: 1.25rem 1.5rem 65rem;
             }
 
             header {
@@ -45,30 +52,59 @@
             }
 
             .top-bar-left {
-                min-width: 140px;
+                display: flex;
+                align-items: center;
+                gap: 0.75rem;
+                min-width: 120px;
             }
 
             .top-bar-center {
                 flex: 1;
                 display: flex;
-                justify-content: center;
-                padding-right: 14rem;
+                justify-content: flex-start;
+                padding-left: 5rem;
             }
 
             .top-nav {
                 display: inline-flex;
                 align-items: center;
-                gap: 2.4rem;
-                padding: 0.9rem 2.6rem;
+                justify-content: flex-start;
+                gap: 2.8rem;
+                padding: 1rem 2rem 1rem 1.5rem;
+                min-width: 640px;
+                max-width: 72%;
                 border-radius: 999px;
-                background: #1a1a1a;
-                border: 1px solid #404040;
+                background: #000000;
+                border: 1px solid rgba(255, 255, 255, 0.35);
+                box-shadow:
+                    0 0 0 1px rgba(0, 0, 0, 0.7),
+                    0 18px 40px rgba(0, 0, 0, 0.9);
+                position: relative;
+            }
+
+            .top-nav-inner {
+                display: inline-flex;
+                align-items: center;
+                gap: 2.8rem;
+            }
+            .top-nav-icons {
+                display: inline-flex;
+                align-items: center;
+                gap: 0.5rem;
+            }
+
+            .top-nav-brand-img {
+                width: 32px;
+                height: 32px;
+                object-fit: cover;
+                border-radius: 50%;
+                flex-shrink: 0;
             }
 
             .top-nav-item {
                 font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-                font-size: 1rem;
-                font-weight: 700;
+                font-size: 0.9rem;
+                font-weight: 600;
                 opacity: 0.96;
                 cursor: pointer;
                 display: inline-block;
@@ -76,7 +112,32 @@
             }
 
             .top-nav-item:hover {
-                transform: scale(1.12);
+                transform: scale(1.08);
+            }
+
+            .header-icon {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                width: 1.75rem;
+                height: 1.75rem;
+                border-radius: 999px;
+                background: #000000;
+                border: 1px solid #ffffff;
+                cursor: pointer;
+                transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+            }
+
+            .header-icon svg {
+                width: 1.05rem;
+                height: 1.05rem;
+                color: #ffffff;
+            }
+
+            .header-icon:hover {
+                transform: scale(1.08) translateY(-1px);
+                background: #111827;
+                border-color: #ffffff;
             }
 
             .top-nav:focus,
@@ -110,16 +171,98 @@
                 margin-top: 3rem;
             }
 
+            .search-bar-wrap {
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                margin: 1.5rem 0 1.25rem;
+            }
+
+            .its-out-heading {
+                margin-top: -4rem;
+                font-family: 'Oswald', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+                font-size: min(3rem, 6vw);
+                font-weight: 700;
+                letter-spacing: 0.6em;
+                text-transform: uppercase;
+                text-align: center;
+            }
+
+            .search-bar {
+                width: 80%;
+                max-width: 1000px;
+            }
+
+            .search-bar-inner {
+                position: relative;
+                width: 100%;
+            }
+
+            .search-bar-input {
+                width: 100%;
+                padding: 0.9rem 1rem 0.9rem 2.75rem;
+                border-radius: 999px;
+                border: none;
+                background: #000000;
+                color: #f9fafb;
+                font-size: 1.1rem;
+                font-family: inherit;
+                outline: none;
+                box-shadow:
+                    0 18px 40px rgba(0, 0, 0, 0.8);
+                transition: box-shadow 0.2s ease, background 0.2s ease, color 0.2s ease, transform 0.1s ease;
+            }
+
+            .search-bar-input::placeholder {
+                color: #9ca3af;
+            }
+
+            .search-bar-input:focus {
+                box-shadow:
+                    0 22px 50px rgba(0, 0, 0, 0.95);
+                background: #000000;
+                color: #ffffff;
+                text-shadow:
+                    0 0 12px rgba(255, 255, 255, 0.9),
+                    0 0 24px rgba(255, 255, 255, 0.5),
+                    0 0 36px rgba(255, 255, 255, 0.3);
+                transform: translateY(-1px);
+            }
+
+            .search-bar-input:hover {
+                background: #000000;
+                color: #ffffff;
+                transform: scale(1.02);
+                box-shadow:
+                    0 0 0 1px rgba(255, 255, 255, 0.25),
+                    0 0 20px rgba(255, 255, 255, 0.35),
+                    0 18px 40px rgba(0, 0, 0, 0.9);
+                text-shadow:
+                    0 0 12px rgba(255, 255, 255, 0.9),
+                    0 0 24px rgba(255, 255, 255, 0.5),
+                    0 0 36px rgba(255, 255, 255, 0.3);
+            }
+
+            .search-bar-icon {
+                position: absolute;
+                left: 1rem;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 0.95rem;
+                height: 0.95rem;
+                pointer-events: none;
+                color: #9ca3af;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
             .discord-cta {
                 max-width: 420px;
                 padding: 2rem 2.5rem;
-                background: #0a0a0a;
+                background: #000000;
                 border-radius: 1rem;
-                border: 1px solid rgba(255, 255, 255, 0.35);
-                box-shadow:
-                    0 0 20px rgba(255, 255, 255, 0.2),
-                    0 0 40px rgba(255, 255, 255, 0.12),
-                    inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+                border: none;
                 text-align: center;
                 transition: transform 0.25s ease;
             }
@@ -129,18 +272,15 @@
             }
 
             .discord-cta a {
-                display: inline-flex;
+                display: flex;
+                flex-direction: column;
                 align-items: center;
                 justify-content: center;
                 gap: 0.5rem;
                 color: #f9fafb;
                 text-decoration: none;
-                font-size: 1.1rem;
+                font-size: 1.05rem;
                 font-weight: 700;
-                text-shadow:
-                    0 0 12px rgba(255, 255, 255, 0.9),
-                    0 0 24px rgba(255, 255, 255, 0.5),
-                    0 0 36px rgba(255, 255, 255, 0.3);
             }
 
             @keyframes arrow-bounce {
@@ -199,10 +339,6 @@
                 text-decoration: none;
                 font-size: 1.1rem;
                 font-weight: 700;
-                text-shadow:
-                    0 0 12px rgba(255, 255, 255, 0.9),
-                    0 0 24px rgba(255, 255, 255, 0.5),
-                    0 0 36px rgba(255, 255, 255, 0.3);
             }
 
             .tiktok-cta-arrow {
@@ -235,20 +371,22 @@
                 justify-content: center;
                 align-items: stretch;
                 gap: 4rem;
-                margin-top: 22vh;
+                margin-top: 15vh;
                 margin-bottom: 2rem;
                 width: 100%;
+                padding-left: 0;
+                margin-left: 0;
             }
 
             .category-card {
                 display: flex;
                 flex-direction: column;
-                flex: 1;
-                min-width: 0;
-                max-width: 400px;
-                background: #1a1a1a;
+                flex: 1 1 260px;
+                min-width: 260px;
+                max-width: 460px;
+                background: #000000;
                 border: 1px solid #2a2a2a;
-                border-radius: 1rem;
+                border-radius: 1.25rem;
                 overflow: hidden;
                 text-decoration: none;
                 color: #f9fafb;
@@ -263,11 +401,11 @@
 
             .category-card-image {
                 aspect-ratio: 1;
-                background: #0f0f0f;
                 display: flex;
                 align-items: center;
                 justify-content: center;
                 padding: 1rem;
+                background: #000000;
             }
 
             .category-card-image img {
@@ -276,14 +414,150 @@
                 object-fit: contain;
             }
 
-            .category-card-label {
-                padding: 1rem 1.25rem;
-                font-size: 1.1rem;
-                font-weight: 700;
-                text-align: center;
-                background: #1a1a1a;
-                letter-spacing: 0.3em;
+            .category-card-image-img--hoodies {
+                width: 30%;
+                height: 30%;
+                margin: 0 auto;
             }
+
+            .category-card-label {
+                padding: 0.75rem 1.25rem;
+                font-size: 1.35rem;
+                font-weight: 400;
+                text-align: center;
+                background: #000000;
+                color: #ffffff;
+                letter-spacing: 0;
+                margin-top: auto;
+                font-family: 'Bebas Neue', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            }
+
+            .category-card-label--left {
+                text-align: center;
+            }
+
+            .category-strip-subtitle {
+                margin: 15rem 0 0;
+                text-align: center;
+                font-size: clamp(1.5rem, 4vw, 2.5rem);
+                font-weight: 700;
+                letter-spacing: 0.15em;
+                text-transform: uppercase;
+                color: #ffffff;
+                text-shadow:
+                    0 0 10px rgba(255, 255, 255, 0.9),
+                    0 0 20px rgba(255, 255, 255, 0.7),
+                    0 0 30px rgba(255, 255, 255, 0.5),
+                    0 0 40px rgba(255, 255, 255, 0.3);
+            }
+
+            .trusted-sellers-cards {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 2rem;
+                margin-top: 2.5rem;
+                padding: 0 1rem;
+            }
+            .trusted-seller-card {
+                flex: 1;
+                min-width: 280px;
+                max-width: 360px;
+                background: #000000;
+                border: 1px solid rgba(255, 255, 255, 0.35);
+                border-radius: 1rem;
+                padding: 2rem 1.5rem;
+                box-shadow:
+                    0 0 15px rgba(255, 255, 255, 0.15),
+                    0 0 30px rgba(255, 255, 255, 0.08);
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                transition: transform 0.25s ease, box-shadow 0.25s ease;
+            }
+            .trusted-seller-card:hover {
+                transform: scale(1.05);
+                box-shadow:
+                    0 0 20px rgba(255, 255, 255, 0.25),
+                    0 0 40px rgba(255, 255, 255, 0.12);
+            }
+            .trusted-seller-card-logo {
+                width: 80px;
+                height: 80px;
+                border-radius: 50%;
+                background: #000000;
+                border: 1px solid rgba(255, 255, 255, 0.35);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 0.65rem;
+                font-weight: 700;
+                color: #fff;
+                letter-spacing: 0.05em;
+                margin-bottom: 1rem;
+                overflow: hidden;
+            }
+            .trusted-seller-card-logo img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+            .trusted-seller-card-name {
+                font-size: 1.25rem;
+                font-weight: 700;
+                color: #ffffff;
+                margin-bottom: 0.75rem;
+            }
+            .trusted-seller-card-desc {
+                font-size: 0.85rem;
+                color: rgba(255, 255, 255, 0.85);
+                line-height: 1.4;
+                margin-bottom: 1.5rem;
+                max-width: 100%;
+            }
+            .trusted-seller-card-buttons {
+                display: flex;
+                flex-direction: column;
+                gap: 0.6rem;
+                width: 100%;
+                align-items: center;
+            }
+            .trusted-seller-btn {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                gap: 0.5rem;
+                padding: 0.6rem 1.25rem;
+                background: #000000;
+                color: #ffffff;
+                font-size: 0.8rem;
+                font-weight: 600;
+                letter-spacing: 0.05em;
+                text-decoration: none;
+                border-radius: 999px;
+                border: 1px solid rgba(255, 255, 255, 0.4);
+                cursor: pointer;
+                width: 100%;
+                max-width: 220px;
+                transition: box-shadow 0.2s, transform 0.2s, border-color 0.2s;
+                box-shadow:
+                    0 0 10px rgba(255, 255, 255, 0.2),
+                    0 0 20px rgba(255, 255, 255, 0.1);
+            }
+            .trusted-seller-btn:hover {
+                border-color: rgba(255, 255, 255, 0.7);
+                box-shadow:
+                    0 0 15px rgba(255, 255, 255, 0.4),
+                    0 0 30px rgba(255, 255, 255, 0.2);
+                transform: scale(1.02);
+            }
+            .trusted-seller-btn svg {
+                flex-shrink: 0;
+                width: 14px;
+                height: 14px;
+            }
+
 
             .top-nav-item + .top-nav-item {
                 position: relative;
@@ -303,7 +577,7 @@
             .admin-link {
                 position: fixed;
                 left: 1.5rem;
-                bottom: 1.5rem;
+                top: 1.5rem;
                 padding: 0.55rem 1.1rem;
                 border-radius: 999px;
                 border: 1px solid #000000;
@@ -318,6 +592,40 @@
             .admin-link:hover {
                 background: #000000;
                 border-color: #000000;
+            }
+
+            .logout-form {
+                display: inline;
+                margin: 0;
+            }
+
+            .logout-form .admin-link,
+            .logout-form button[type="submit"] {
+                cursor: pointer;
+                font-family: inherit;
+            }
+
+            .admin-panel-btn {
+                position: fixed;
+                right: 1.5rem;
+                top: 1.5rem;
+                z-index: 9999;
+                padding: 0.55rem 1.1rem;
+                border-radius: 999px;
+                border: 1px solid rgba(255, 255, 255, 0.35);
+                font-size: 0.85rem;
+                font-weight: 600;
+                text-decoration: none;
+                color: #e5e7eb;
+                background: #000000;
+                box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5);
+                outline: none;
+                transition: transform 0.15s ease, border-color 0.15s ease;
+            }
+
+            .admin-panel-btn:hover {
+                border-color: #fff;
+                transform: scale(1.05);
             }
 
             .section {
@@ -493,6 +801,21 @@
                 justify-content: center;
                 margin: 0 auto 1.5rem;
                 font-size: 2.2rem;
+                animation: welcome-gift-pulse 1.2s ease-in-out infinite;
+                text-decoration: none;
+                color: inherit;
+                cursor: pointer;
+            }
+
+            @keyframes welcome-gift-pulse {
+                0%, 100% {
+                    transform: scale(1);
+                    box-shadow: 0 0 0 0 rgba(252, 211, 77, 0.0);
+                }
+                50% {
+                    transform: scale(1.08);
+                    box-shadow: 0 0 30px 0 rgba(252, 211, 77, 0.45);
+                }
             }
 
             .welcome-title {
@@ -551,7 +874,11 @@
                 margin-bottom: 0;
                 background: #000;
                 color: #fff;
-                transition: background 0.2s ease, transform 0.2s ease, color 0.2s ease;
+                border: 1px solid rgba(249, 250, 251, 0.4);
+                box-shadow:
+                    0 0 0 1px rgba(15, 23, 42, 0.6),
+                    0 12px 30px rgba(0, 0, 0, 0.85);
+                transition: background 0.2s ease, transform 0.2s ease, color 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
                 text-shadow:
                     0 0 10px rgba(255, 255, 255, 0.9),
                     0 0 20px rgba(255, 255, 255, 0.5),
@@ -562,6 +889,10 @@
                 background: #1f2937;
                 transform: scale(1.03) translateY(-2px);
                 color: #22c55e;
+                border-color: rgba(249, 250, 251, 0.9);
+                box-shadow:
+                    0 0 0 1px rgba(249, 250, 251, 0.7),
+                    0 16px 40px rgba(0, 0, 0, 0.95);
                 text-shadow:
                     0 0 10px rgba(34, 197, 94, 0.9),
                     0 0 20px rgba(34, 197, 94, 0.5),
@@ -589,35 +920,78 @@
         </style>
     </head>
     <body>
+        @include('partials.stars-bg')
         <div class="shell">
             <header>
                 <div class="top-bar-left" aria-hidden="true"></div>
-                <a href="{{ route('home') }}" class="brand" style="text-decoration:none; color:inherit;">MxtsuFinds</a>
+                <div class="brand" aria-hidden="true"></div>
 
                 <div class="top-bar-center">
                     <nav class="top-nav">
-                        <a href="{{ route('products.index') }}" class="top-nav-item" style="text-decoration:none; color:inherit;">
-                            Products
-                        </a>
-                        <a href="{{ route('trusted-sellers') }}" class="top-nav-item" style="text-decoration:none; color:inherit;">
-                            Trusted sellers
-                        </a>
-                        <a href="{{ route('links') }}" class="top-nav-item" style="text-decoration:none; color:inherit;">
-                            Links
-                        </a>
+                        <div class="top-nav-inner">
+                            <span class="top-nav-icons">
+                                <a href="{{ route('tiktoks') }}" class="header-icon top-nav-icon" aria-label="TikTok videos">
+                                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <rect x="5" y="5" width="10" height="14" rx="2" stroke="currentColor" stroke-width="2"/>
+                                        <path d="M15 9L19 7V17L15 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </a>
+                                <a href="{{ route('favorites') }}" class="header-icon top-nav-icon" aria-label="Favorites">
+                                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M12.001 20.25C12.001 20.25 5 15.75 5 9.75C5 7.127 7.014 5.25 9.35 5.25C10.77 5.25 12.001 6.036 12.001 6.036C12.001 6.036 13.232 5.25 14.652 5.25C16.988 5.25 19.002 7.127 19.002 9.75C19.002 15.75 12.001 20.25 12.001 20.25Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </a>
+                            </span>
+                            <img src="{{ asset('images/nav-brand.png') }}" alt="" class="top-nav-brand-img" width="32" height="32">
+                            <a href="{{ route('products.index') }}" class="top-nav-item" style="text-decoration:none; color:inherit;">
+                                Products
+                            </a>
+                            <a href="{{ route('home') }}#trusted-sellers" class="top-nav-item" style="text-decoration:none; color:inherit;">
+                                Trusted sellers
+                            </a>
+                            <a href="{{ route('links') }}" class="top-nav-item" style="text-decoration:none; color:inherit;">
+                                Links
+                            </a>
+                            <a href="{{ route('faq') }}" class="top-nav-item" style="text-decoration:none; color:inherit;">
+                                FAQ
+                            </a>
+                        </div>
                     </nav>
                 </div>
 
-                <a href="{{ url('/login') }}" class="admin-link" id="login-link" data-login-url="{{ url('/login') }}">
-                    Login
-                </a>
+                <div style="display:flex; align-items:center; gap:0.75rem;">
+                    @php
+                        $isAdmin = auth()->check() && config('admin.email') && strtolower(trim(auth()->user()->email ?? '')) === strtolower(trim(config('admin.email')));
+                    @endphp
+                    @auth
+                        @if($isAdmin)
+                            <a href="{{ route('admin.products.index') }}" class="admin-link" id="login-link">Admin</a>
+                        @endif
+                        <form method="POST" action="{{ route('logout') }}" class="logout-form">
+                            @csrf
+                            <button type="submit" class="admin-link">Logout</button>
+                        </form>
+                    @else
+                        <a href="{{ url('/login') }}" class="admin-link" id="login-link" data-login-url="{{ url('/login') }}">
+                            Login
+                        </a>
+                    @endauth
+                </div>
             </header>
 
+            @if($isAdmin)
+                <a href="{{ route('admin.products.index') }}" class="admin-panel-btn">Admin panel</a>
+            @endif
+
             <div class="hero-center">
+                <div class="its-out-heading">
+                    ITS OUT !
+                </div>
+
                 <div class="discord-cta-wrap">
                     <div class="discord-cta">
                         <a href="https://discord.gg/zjHfxED6" target="_blank" rel="noopener noreferrer">
-                            Join my Discord server
+                            Join my discord for more coupons and finds !
                             <span class="discord-cta-arrow" aria-hidden="true">→</span>
                         </a>
                         <span class="discord-cta-sub">Free entry — exclusive finds inside</span>
@@ -631,30 +1005,111 @@
                     </div>
                 </div>
 
+                <div class="search-bar-wrap">
+                    <form action="{{ route('products.index') }}" method="GET" class="search-bar">
+                        <div class="search-bar-inner">
+                            <div class="search-bar-icon" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="11" cy="11" r="6" stroke="currentColor" stroke-width="2"/>
+                                    <line x1="15.5" y1="15.5" x2="20" y2="20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                </svg>
+                            </div>
+                            <input
+                                type="text"
+                                name="q"
+                                value="{{ request('q') }}"
+                                class="search-bar-input"
+                                placeholder="Search for products..."
+                                autocomplete="off"
+                            >
+                        </div>
+                    </form>
+                </div>
+
                 <nav class="category-strip" aria-label="Product categories">
                     <a href="{{ route('products.index') }}#shoes" class="category-card">
                         <div class="category-card-image">
-                            <img src="{{ asset('images/shoes-icon.png') }}" alt="">
+                            <img src="{{ asset('images/shoes-icon.png') }}" alt="Shoes">
                         </div>
                         <span class="category-card-label">Shoes</span>
                     </a>
                     <a href="{{ route('products.index') }}#tees" class="category-card">
-                        <div class="category-card-image"></div>
-                        <span class="category-card-label">Tops</span>
+                        <div class="category-card-image">
+                            <img src="{{ asset('images/hoodies-icon.png') }}" alt="Hoodies" class="category-card-image-img--hoodies">
+                        </div>
+                        <span class="category-card-label">Hoodies</span>
                     </a>
                     <a href="{{ route('products.index') }}#jeans" class="category-card">
-                        <div class="category-card-image"></div>
-                        <span class="category-card-label">Bottoms</span>
+                        <div class="category-card-image">
+                            <img src="{{ asset('images/jeans-icon.png') }}" alt="Jeans">
+                        </div>
+                        <span class="category-card-label">Jeans</span>
                     </a>
                     <a href="{{ route('products.index') }}#sweats" class="category-card">
-                        <div class="category-card-image"></div>
-                        <span class="category-card-label">Winter</span>
+                        <div class="category-card-image">
+                            <img src="{{ asset('images/sweats-icon.png') }}" alt="Sweats">
+                        </div>
+                        <span class="category-card-label">Sweats</span>
                     </a>
                     <a href="{{ route('products.index') }}#jewelry" class="category-card">
-                        <div class="category-card-image"></div>
+                        <div class="category-card-image">
+                            <img src="{{ asset('images/jewelry-icon.png') }}" alt="Jewelry">
+                        </div>
                         <span class="category-card-label">Jewelry</span>
                     </a>
                 </nav>
+                <p class="category-strip-subtitle" id="trusted-sellers">Trusted Sellers</p>
+                <div class="trusted-sellers-cards">
+                    <div class="trusted-seller-card">
+                        <div class="trusted-seller-card-logo"><img src="{{ asset('images/gtal-logo.png') }}" alt="GTAL" width="80" height="80"></div>
+                        <h3 class="trusted-seller-card-name">Gtal</h3>
+                        <p class="trusted-seller-card-desc">Best shoe seller for most shoes that he has. Pick a good batch and you will receive good quality.</p>
+                        <div class="trusted-seller-card-buttons">
+                            <a href="https://weidian.com/?userid=1731179625&spider_token=7d01&tabType=all" class="trusted-seller-btn" target="_blank" rel="noopener noreferrer">
+                                Weidian Shop
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                            </a>
+                            <a href="https://www.acbuy.com/shop-detail?source=WD&sellerId=1731179625&shopName=GTAL" class="trusted-seller-btn" target="_blank" rel="noopener noreferrer">
+                                ACBuy Shop
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                            </a>
+                            <a href="https://lulux.x.yupoo.com/categories" class="trusted-seller-btn" target="_blank" rel="noopener noreferrer">
+                                Yupoo
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="trusted-seller-card">
+                        <div class="trusted-seller-card-logo"><img src="{{ asset('images/mvt-logo.png') }}" alt="MVT" width="80" height="80"></div>
+                        <h3 class="trusted-seller-card-name">MVT</h3>
+                        <p class="trusted-seller-card-desc">Truly amazing quality and accuracy on everything he releases, Not budget friendly but its 100% worth to buy from him</p>
+                        <div class="trusted-seller-card-buttons">
+                            <a href="https://mvt-shop01.x.yupoo.com/albums" class="trusted-seller-btn" target="_blank" rel="noopener noreferrer">
+                                Yupoo
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                            </a>
+                            <a href="https://www.acbuy.com/shop-detail?source=TB&sellerId=274581866&shopName=Mmmmvvvt" class="trusted-seller-btn" target="_blank" rel="noopener noreferrer">
+                                ACBuy Shop
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="trusted-seller-card">
+                        <div class="trusted-seller-card-logo"><img src="{{ asset('images/jerseybrothers-logo.png') }}" alt="JerseyBrothers" width="80" height="80"></div>
+                        <h3 class="trusted-seller-card-name">JerseyBrothers</h3>
+                        <p class="trusted-seller-card-desc">Toptier quality jerseys with low price, Really budget friendly and has almost 1000 jerseys !</p>
+                        <div class="trusted-seller-card-buttons">
+                            <a href="https://weidian.com/?userid=1679255613&spider_token=5b4b" class="trusted-seller-btn" target="_blank" rel="noopener noreferrer">
+                                Weidian Shop
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                            </a>
+                            <a href="https://www.acbuy.com/shop-detail?source=WD&sellerId=1679255613&shopName=Jersey+Brothers" class="trusted-seller-btn" target="_blank" rel="noopener noreferrer">
+                                ACBuy Shop
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             @if (! $products->isEmpty())
@@ -720,10 +1175,20 @@
             @endif
         </div>
 
+        @include('partials.footer')
+
         <div id="welcome-overlay" class="welcome-overlay welcome-overlay--hidden">
             <div class="welcome-modal">
                 <button type="button" class="welcome-close" data-dismiss="welcome-modal">&times;</button>
-                <div class="welcome-icon">🎁</div>
+                <a
+                    href="https://www.acbuy.com/login?loginStatus=register&code=ZSTSLZ"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="welcome-icon"
+                    data-dismiss="welcome-modal"
+                >
+                    🎁
+                </a>
                 <p class="welcome-subtitle">Choose An ACBuy coupon</p>
                 <div class="welcome-coupons">
                     @foreach($coupons ?? [] as $coupon)
@@ -747,6 +1212,20 @@
 
         <script>
             document.addEventListener('DOMContentLoaded', function () {
+                var nav = performance.getEntriesByType && performance.getEntriesByType('navigation')[0];
+                var isReload = nav && nav.type === 'reload';
+                if (window.location.hash === '#trusted-sellers') {
+                    if (isReload) {
+                        window.scrollTo(0, 0);
+                        history.replaceState(null, '', window.location.pathname);
+                    } else {
+                        var el = document.getElementById('trusted-sellers');
+                        if (el) {
+                            el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }
+                    }
+                }
+
                 var overlay = document.getElementById('welcome-overlay');
                 if (!overlay) {
                     return;

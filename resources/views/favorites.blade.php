@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Trusted sellers · {{ config('app.name', 'mxtsu') }}</title>
+        <title>Favorites · {{ config('app.name', 'mxtsu') }}</title>
         <style>
             html { font-size: 90%; }
             * { box-sizing: border-box; }
@@ -71,8 +71,8 @@
         </div>
         <div class="shell">
             <a href="{{ route('home') }}" class="back-link">← Back to home</a>
-            <h1 class="title">Trusted sellers</h1>
-            <p style="margin-top: 1rem; opacity: 0.8;">Trusted seller information will go here.</p>
+            <h1 class="title">Favorites</h1>
+            <p style="margin-top: 1rem; opacity: 0.8;">Here you will be able to see items you favorite. (Functionality coming soon.)</p>
         </div>
         @include('partials.footer')
         <script>
@@ -88,3 +88,4 @@
         </script>
     </body>
 </html>
+

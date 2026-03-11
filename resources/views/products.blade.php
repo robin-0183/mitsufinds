@@ -8,6 +8,7 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
         <style>
+            html { font-size: 90%; }
             * {
                 box-sizing: border-box;
             }
@@ -17,9 +18,43 @@
                 font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
                 background: #000000;
                 color: #ffffff;
+                position: relative;
+            }
+
+            .page-load-overlay {
+                position: fixed;
+                inset: 0;
+                z-index: 9999;
+                background: rgba(0, 0, 0, 0.85);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                opacity: 1;
+                visibility: visible;
+                transition: opacity 0.25s ease, visibility 0.25s ease;
+            }
+
+            .page-load-overlay.is-hidden {
+                opacity: 0;
+                visibility: hidden;
+            }
+
+            .page-load-spinner {
+                width: 48px;
+                height: 48px;
+                border: 3px solid rgba(255, 255, 255, 0.2);
+                border-top-color: #fff;
+                border-radius: 50%;
+                animation: page-load-spin 0.8s linear infinite;
+            }
+
+            @keyframes page-load-spin {
+                to { transform: rotate(360deg); }
             }
 
             .shell {
+                position: relative;
+                z-index: 1;
                 max-width: 1200px;
                 margin: 0 auto;
                 padding: 5.5rem 1.5rem 3rem 3rem;
@@ -28,35 +63,51 @@
             header {
                 display: flex;
                 align-items: center;
+                justify-content: space-between;
                 gap: 1.5rem;
-                margin-bottom: 2rem;
+                margin-bottom: 1.5rem;
             }
 
             .search-wrap {
                 flex: 1;
                 display: flex;
-                justify-content: center;
+                justify-content: flex-end;
+                min-width: 0;
             }
 
             .search-bar {
                 width: 100%;
-                max-width: 85%;
-                padding: 0.75rem 1.25rem;
-                font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-                font-size: 1rem;
-                background: #0a0a0a;
-                border: 1px solid #333;
+                max-width: 420px;
+                padding: 0.85rem 1.35rem;
+                font-family: 'Oswald', system-ui, sans-serif;
+                font-size: 1.1rem;
+                font-weight: 500;
+                letter-spacing: 0.02em;
+                background: #000000;
+                border: none;
                 border-radius: 999px;
                 color: #ffffff;
+                box-shadow: 0 0 0 0 transparent;
+                transition: transform 0.2s ease, font-size 0.2s ease, padding 0.2s ease, box-shadow 0.25s ease;
             }
 
-            .search-bar::placeholder {
-                color: rgba(255, 255, 255, 0.6);
+            .search-bar:hover {
+                transform: scale(1.03);
+                font-size: 1.15rem;
+                padding: 0.9rem 1.4rem;
+                box-shadow: 0 0 12px 2px rgba(255, 255, 255, 0.4);
             }
 
             .search-bar:focus {
                 outline: none;
-                border-color: #555;
+                transform: scale(1.03);
+                font-size: 1.15rem;
+                padding: 0.9rem 1.4rem;
+                box-shadow: 0 0 14px 3px rgba(255, 255, 255, 0.5);
+            }
+
+            .search-bar::placeholder {
+                color: rgba(255, 255, 255, 0.6);
             }
 
             .back-link {
@@ -78,12 +129,8 @@
             }
 
             .title {
-                position: fixed;
-                top: 2.75rem;
-                left: 1.5rem;
-                z-index: 10;
                 font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-                font-size: 1.6rem;
+                font-size: 1.4rem;
                 font-weight: 700;
                 letter-spacing: 0.12em;
                 text-transform: uppercase;
@@ -92,7 +139,7 @@
 
             .products-layout {
                 display: flex;
-                gap: 2rem;
+                gap: 2.25rem;
                 align-items: flex-start;
             }
 
@@ -150,16 +197,16 @@
             }
 
             .filter-categories li {
-                margin-bottom: 0.4rem;
+                margin-bottom: 0.6rem;
             }
 
             .filter-categories a,
             .filter-categories button {
                 display: block;
                 width: 100%;
-                padding: 0.6rem 0.9rem;
+                padding: 0.9rem 1.1rem;
                 font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-                font-size: 0.95rem;
+                font-size: 1.02rem;
                 font-weight: 700;
                 letter-spacing: 0.08em;
                 color: #ffffff;
@@ -169,7 +216,8 @@
                 text-align: left;
                 cursor: pointer;
                 text-decoration: none;
-                transition: transform 0.2s ease, background 0.2s ease;
+                box-shadow: 0 0 0 transparent;
+                transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.25s ease;
             }
 
             .filter-categories a:hover,
@@ -177,6 +225,7 @@
                 color: #ffffff;
                 background: #111111;
                 transform: scale(1.05);
+                box-shadow: 0 0 12px 2px rgba(255, 255, 255, 0.35);
             }
 
             .filter-categories .active {
@@ -232,6 +281,7 @@
             .filter-hoodies-brands .filter-cat:hover {
                 color: #9ca3af;
                 background: #111111;
+                box-shadow: 0 0 12px 2px rgba(255, 255, 255, 0.35);
             }
 
             .filter-hoodies-brands .filter-cat.active {
@@ -360,31 +410,149 @@
                 background: #262626;
             }
 
+            .sort-wrap {
+                margin-top: 1rem;
+            }
+
             .products-main {
                 flex: 1;
                 min-width: 0;
             }
 
+            .products-topbar {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                margin-bottom: 1.5rem;
+                font-size: 0.85rem;
+            }
+
+            .products-count {
+                font-family: 'Oswald', system-ui, sans-serif;
+                font-weight: 500;
+                color: #ffffff;
+                letter-spacing: 0.08em;
+                text-transform: uppercase;
+            }
+
+            .products-sort {
+                display: flex;
+                flex-direction: column;
+                gap: 0.4rem;
+            }
+
+            .products-sort label {
+                font-size: 0.8rem;
+                font-family: 'Oswald', system-ui, sans-serif;
+                text-transform: uppercase;
+                letter-spacing: 0.08em;
+                color: #ffffff;
+            }
+
+            .products-sort select {
+                padding: 0.4rem 1.5rem 0.4rem 0.75rem;
+                font-size: 0.9rem;
+                font-family: 'Oswald', system-ui, sans-serif;
+                font-weight: 500;
+                letter-spacing: 0.03em;
+                border-radius: 0.375rem;
+                border: none;
+                background: #000000;
+                color: #ffffff;
+                cursor: pointer;
+            }
+
+            .products-sort select:focus {
+                outline: none;
+            }
+
             .grid {
                 display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-                gap: 1.5rem;
+                grid-template-columns: repeat(4, minmax(0, 1fr));
+                gap: 1.4rem;
+                margin-top: 80px;
+            }
+
+            @media (max-width: 1024px) {
+                .grid {
+                    grid-template-columns: repeat(3, minmax(0, 1fr));
+                }
+            }
+
+            @media (max-width: 768px) {
+                .products-layout {
+                    flex-direction: column;
+                }
+                .filter-panel {
+                    position: static;
+                    width: 100%;
+                    margin-left: 0;
+                }
+                .grid {
+                    grid-template-columns: repeat(2, minmax(0, 1fr));
+                }
+            }
+
+            @keyframes product-card-in {
+                from {
+                    opacity: 0;
+                    transform: translateY(24px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            @keyframes product-card-out {
+                from {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+                to {
+                    opacity: 0;
+                    transform: translateY(24px);
+                }
+            }
+
+            .grid .product-card {
+                opacity: 0;
+            }
+
+            .grid.is-visible .product-card {
+                animation: product-card-in 0.55s ease forwards;
+            }
+
+            .grid.is-visible .product-card.card--exiting {
+                animation: product-card-out 0.55s ease forwards;
             }
 
             .card {
-                border-radius: 1rem;
+                position: relative;
+                border-radius: 0.9rem;
                 overflow: hidden;
-                background: radial-gradient(circle at top, #111827, #020617);
-                border: 1px solid #1f2933;
+                background: #000000;
+                border: 1px solid #000000;
                 display: flex;
                 flex-direction: column;
                 min-height: 260px;
+                box-shadow: 0 10px 24px rgba(0, 0, 0, 0.9);
+                transition: transform 0.2s ease-out, box-shadow 0.2s ease-out, border-color 0.2s ease-out;
+            }
+
+            .card:hover {
+                transform: scale(1.04) translateY(-3px);
+                border-color: #ffffff;
+                box-shadow:
+                    0 0 10px rgba(255, 255, 255, 0.7),
+                    0 0 22px rgba(255, 255, 255, 0.4),
+                    0 16px 40px rgba(0, 0, 0, 0.95);
             }
 
             .card-image {
                 position: relative;
-                padding-top: 60%;
-                background: #020617;
+                padding-top: 80%;
+                background: #000000;
                 overflow: hidden;
             }
 
@@ -393,61 +561,89 @@
                 inset: 0;
                 width: 100%;
                 height: 100%;
-                object-fit: cover;
+                object-fit: contain;
+                background: #000000;
             }
 
             .card-body {
-                padding: 1rem 1.1rem 1.1rem;
+                padding: 0.75rem 0.85rem 0.6rem;
                 display: flex;
                 flex-direction: column;
-                gap: 0.5rem;
+                gap: 0.3rem;
                 flex: 1;
             }
 
             .card-title {
-                font-size: 1rem;
-                font-weight: 500;
+                font-size: 0.9rem;
+                font-weight: 600;
+                color: #ffffff;
             }
 
             .card-description {
-                font-size: 0.9rem;
-                opacity: 0.8;
-                line-height: 1.4;
+                display: none;
             }
 
             .card-footer {
                 margin-top: auto;
+                padding: 0 0.6rem 0.55rem;
                 display: flex;
-                justify-content: space-between;
+                justify-content: center;
                 align-items: center;
-                gap: 0.75rem;
             }
 
-            .price {
+            .card-price-pill {
+                position: absolute;
+                top: 0.4rem;
+                right: 0.4rem;
+                min-width: 28px;
+                padding: 0.12rem 0.4rem;
+                border-radius: 999px;
+                background: #000000;
+                border: 1px solid #ffffff;
+                font-size: 0.65rem;
                 font-weight: 600;
-                font-size: 0.95rem;
+                text-align: center;
+            }
+
+            .card-price-pill .currency-symbol {
+                margin-right: 0.1rem;
             }
 
             .btn {
                 display: inline-flex;
                 align-items: center;
                 justify-content: center;
-                padding: 0.45rem 0.9rem;
+                padding: 0.35rem 0.7rem;
                 border-radius: 999px;
                 border: none;
-                font-size: 0.85rem;
-                font-weight: 500;
+                font-size: 0.7rem;
+                font-weight: 700;
                 cursor: pointer;
                 text-decoration: none;
+                text-transform: uppercase;
+                letter-spacing: 0.08em;
             }
 
-            .btn-primary {
-                background: #f97316;
-                color: #020617;
+            .product-card .btn-primary {
+                width: 100%;
+                justify-content: center;
+                gap: 0.3rem;
+                background: #ffffff;
+                color: #000000;
+                border-radius: 999px;
+                border: 1px solid #ffffff;
+                box-shadow: 0 6px 14px rgba(0, 0, 0, 0.6);
+                transition: transform 0.16s ease-out, box-shadow 0.16s ease-out, border-color 0.16s ease-out, background 0.16s ease-out, color 0.16s ease-out;
             }
 
-            .btn-primary:hover {
-                background: #fdba74;
+            .product-card .btn-primary:hover {
+                background: #f9fafb;
+                color: #000000;
+                border-color: #22c55e;
+                box-shadow:
+                    0 0 8px rgba(255, 255, 255, 0.85),
+                    0 0 14px rgba(34, 197, 94, 0.45);
+                transform: scale(1.03) translateY(-1px);
             }
 
             .empty {
@@ -459,6 +655,10 @@
         </style>
     </head>
     <body>
+        @include('partials.stars-bg')
+        <div class="page-load-overlay" id="products-page-load-overlay" aria-hidden="false">
+            <div class="page-load-spinner" aria-hidden="true"></div>
+        </div>
         <div class="shell">
             <a href="{{ route('home') }}" class="back-link">
                 &larr; Back to home
@@ -551,10 +751,25 @@
                             <div class="currency-toggle-wrap">
                                 <button type="button" class="currency-toggle" id="currency-toggle" aria-label="Switch currency">€ / $</button>
                             </div>
+                            <div class="sort-wrap">
+                                <form method="GET" action="{{ route('products.index') }}" class="products-sort">
+                                    <label for="sort">Sort</label>
+                                    <select id="sort" name="sort">
+                                        <option value="">Default</option>
+                                        <option value="price_asc" @selected(request('sort') === 'price_asc')>Price ↑</option>
+                                        <option value="price_desc" @selected(request('sort') === 'price_desc')>Price ↓</option>
+                                    </select>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </aside>
                 <div class="products-main">
+                    <div class="products-topbar">
+                        <div class="products-count">
+                            Showing {{ $products->count() }} results
+                        </div>
+                    </div>
                     @if ($products->isEmpty())
                         <div class="empty">
                             No products yet. Visit the admin dashboard to add your first ACBuy item.
@@ -563,6 +778,12 @@
                         <div class="grid" id="products-grid">
                             @foreach ($products as $product)
                                 <article class="card product-card" data-category="{{ $product->category ?? '' }}" data-brand="{{ $product->brand ?? '' }}" data-price="{{ $product->price ?? '' }}">
+                                    @if ($product->price)
+                                        <div class="card-price-pill">
+                                            <span class="currency-symbol">€</span>{{ number_format($product->price, 0, ',', '') }}
+                                        </div>
+                                    @endif
+
                                     @if ($product->image_url)
                                         <div class="card-image">
                                             <img src="{{ $product->image_url }}" alt="{{ $product->name }}">
@@ -577,18 +798,15 @@
                                                 {{ Str::limit($product->description, 120) }}
                                             </p>
                                         @endif
+                                    </div>
 
-                                        <div class="card-footer">
-                                            @if ($product->price)
-                                                <span class="price"><span class="currency-symbol">€ </span>{{ number_format($product->price, 2, ',', '') }}</span>
-                                            @else
-                                                <span class="price">ACBuy deal</span>
-                                            @endif
-
-                                            <a href="{{ $product->affiliate_url }}" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
-                                                View on ACBuy
-                                            </a>
-                                        </div>
+                                    <div class="card-footer">
+                                        <a href="{{ $product->affiliate_url }}" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+                                            <span aria-hidden="true">
+                                                🛒
+                                            </span>
+                                            <span>Buy now</span>
+                                        </a>
                                     </div>
                                 </article>
                             @endforeach
@@ -648,7 +866,20 @@
                         } else if (minP > 0 || maxP < maxVal) {
                             matchPrice = false;
                         }
-                        card.style.display = (matchCat && matchBrand && matchPrice) ? '' : 'none';
+                        var isVisible = card.style.display !== 'none' && !card.classList.contains('card--exiting');
+                        if (matchCat && matchBrand && matchPrice) {
+                            card.style.display = '';
+                            card.classList.remove('card--exiting');
+                        } else if (isVisible) {
+                            card.classList.add('card--exiting');
+                            card.addEventListener('animationend', function onOutEnd() {
+                                card.removeEventListener('animationend', onOutEnd);
+                                card.style.display = 'none';
+                                card.classList.remove('card--exiting');
+                            }, { once: true });
+                        } else {
+                            card.style.display = 'none';
+                        }
                     });
                 }
 
@@ -748,6 +979,25 @@
                 }
                 if (toggleBtn) toggleBtn.addEventListener('click', updateCurrency);
             })();
+
+            (function () {
+                var overlay = document.getElementById('products-page-load-overlay');
+                var grid = document.getElementById('products-grid');
+                if (overlay) {
+                    window.setTimeout(function () {
+                        overlay.classList.add('is-hidden');
+                        overlay.setAttribute('aria-hidden', 'true');
+                        if (grid) {
+                            grid.classList.add('is-visible');
+                            var cards = grid.querySelectorAll('.product-card');
+                            cards.forEach(function (card, i) {
+                                card.style.animationDelay = (i * 0.06) + 's';
+                            });
+                        }
+                    }, 1200);
+                }
+            })();
         </script>
+        @include('partials.footer')
     </body>
 </html>

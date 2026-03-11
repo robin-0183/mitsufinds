@@ -16,8 +16,11 @@
             align-items: center;
             justify-content: center;
             padding: 1.5rem;
+            position: relative;
         }
         .dev-login-box {
+            position: relative;
+            z-index: 1;
             width: 100%;
             max-width: 340px;
             background: #111;
@@ -65,6 +68,7 @@
     </style>
 </head>
 <body>
+    @include('partials.stars-bg')
     <div class="dev-login-box">
         <h1>Developer access</h1>
         <form method="post" action="{{ route('dev-auth') }}">

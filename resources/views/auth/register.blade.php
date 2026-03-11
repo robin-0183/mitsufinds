@@ -16,8 +16,11 @@
                 align-items: center;
                 justify-content: center;
                 padding: 1.5rem;
+                position: relative;
             }
             .card {
+                position: relative;
+                z-index: 1;
                 width: 100%;
                 max-width: 360px;
                 background: #111827;
@@ -87,6 +90,7 @@
         </style>
     </head>
     <body>
+        @include('partials.stars-bg')
         <div class="card">
             <h1 class="title">Create account</h1>
 
