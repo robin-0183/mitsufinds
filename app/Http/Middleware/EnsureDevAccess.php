@@ -27,6 +27,11 @@ class EnsureDevAccess
             return $next($request);
         }
 
+        $publicPaths = ['', 'products', 'links', 'trusted-sellers', 'login', 'register'];
+        if (in_array($request->path(), $publicPaths, true)) {
+            return $next($request);
+        }
+
         return redirect()->route('home');
     }
 }
