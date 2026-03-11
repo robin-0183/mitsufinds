@@ -10,11 +10,7 @@ class ProductController extends Controller
 {
     public function home()
     {
-        $products = Product::query()
-            ->where('is_active', true)
-            ->orderBy('category')
-            ->latest()
-            ->get();
+        $products = collect();
 
         $allCoupons = [
             '10% off <0€',
@@ -73,6 +69,7 @@ class ProductController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'category' => ['required', 'string', 'max:50'],
             'brand' => ['nullable', 'string', 'max:50'],
+            'image' => ['nullable', 'image', 'max:2048'],
             'image_url' => ['nullable', 'url', 'max:2048'],
             'price' => ['nullable', 'numeric', 'min:0'],
             'affiliate_url' => ['required', 'url', 'max:2048'],
@@ -89,12 +86,22 @@ class ProductController extends Controller
             $counter++;
         }
 
+        $imagePath = null;
+        $imageUrl = null;
+
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('products', 'public');
+        } elseif (! empty($validated['image_url'] ?? null)) {
+            $imageUrl = $validated['image_url'];
+        }
+
         Product::query()->create([
             'name' => $validated['name'],
             'category' => $validated['category'],
             'brand' => $validated['brand'] ?? null,
             'slug' => $slug,
-            'image_url' => $validated['image_url'] ?? null,
+            'image_url' => $imageUrl,
+            'image_path' => $imagePath,
             'price' => $validated['price'] ?? null,
             'affiliate_url' => $validated['affiliate_url'],
             'description' => $validated['description'] ?? null,

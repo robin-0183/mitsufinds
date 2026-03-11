@@ -12,6 +12,10 @@ Route::get('/', [ProductController::class, 'home'])->name('home');
 Route::get('/products', [ProductController::class, 'publicIndex'])->name('products.index');
 Route::get('/links', fn () => view('links'))->name('links');
 Route::get('/trusted-sellers', fn () => view('trusted-sellers'))->name('trusted-sellers');
+Route::get('/faq', fn () => view('faq'))->name('faq');
+Route::get('/dmca-privacy', fn () => view('dmca-privacy'))->name('dmca-privacy');
+Route::get('/tiktoks', fn () => view('tiktoks'))->name('tiktoks');
+Route::get('/favorites', fn () => view('favorites'))->name('favorites');
 
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login')->middleware('guest');
 Route::post('/login', [AuthController::class, 'login'])->middleware('guest');

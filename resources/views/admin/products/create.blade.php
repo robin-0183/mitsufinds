@@ -62,6 +62,7 @@
 
             input[type="text"],
             input[type="number"],
+            input[type="file"],
             textarea,
             select {
                 width: 100%;
@@ -72,14 +73,48 @@
                 color: #e5e7eb;
                 font-size: 1.05rem;
                 font-weight: 600;
+                transition: transform 0.2s ease, font-size 0.2s ease, padding 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+            }
+
+            input[type="text"]:hover,
+            input[type="number"]:hover,
+            textarea:hover,
+            select:hover {
+                transform: scale(1.01);
+                font-size: 1.08rem;
             }
 
             input[type="text"]:focus,
             input[type="number"]:focus,
-            textarea:focus {
+            textarea:focus,
+            select:focus {
                 outline: none;
                 border-color: #f97316;
                 box-shadow: 0 0 0 1px #f97316;
+                transform: scale(1.01);
+                font-size: 1.08rem;
+            }
+
+            input[type="file"] {
+                background: #000000;
+                cursor: pointer;
+            }
+
+            input[type="file"]::file-selector-button {
+                background: #000000;
+                border: 1px solid #333;
+                color: #e5e7eb;
+                padding: 0.5rem 0.75rem;
+                margin-right: 0.75rem;
+                border-radius: 0.375rem;
+                font-weight: 600;
+                cursor: pointer;
+            }
+
+            input[type="file"]:hover,
+            input[type="file"]:focus {
+                transform: scale(1.01);
+                font-size: 1.08rem;
             }
 
             textarea {
@@ -174,7 +209,7 @@
                 <div class="subtitle">Create an ACBuy affiliate item that appears on the mxtsu home page.</div>
             </header>
 
-            <form method="post" action="{{ route('admin.products.store') }}">
+            <form method="post" action="{{ route('admin.products.store') }}" enctype="multipart/form-data">
                 @csrf
 
                 <div class="field">
@@ -253,6 +288,20 @@
                 </div>
 
                 <div class="field">
+                    <label for="image">Product image (optional)</label>
+                    <input
+                        id="image"
+                        type="file"
+                        name="image"
+                        accept="image/*"
+                    >
+                    <div class="hint">Choose a picture from your device. Max 2 MB. JPG, PNG, GIF or WebP.</div>
+                    @error('image')
+                        <div class="error">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                <div class="field">
                     <label for="image_url">Image URL (optional)</label>
                     <input
                         id="image_url"
@@ -260,7 +309,7 @@
                         name="image_url"
                         value="{{ old('image_url') }}"
                     >
-                    <div class="hint">Direct link to a product image hosted on ACBuy or elsewhere.</div>
+                    <div class="hint">Or paste a direct link to a product image hosted on ACBuy or elsewhere. Ignored if you upload a file above.</div>
                     @error('image_url')
                         <div class="error">{{ $message }}</div>
                     @enderror
@@ -287,19 +336,6 @@
                     @error('description')
                         <div class="error">{{ $message }}</div>
                     @enderror
-                </div>
-
-                <div class="field">
-                    <div class="checkbox-row">
-                        <input
-                            id="is_active"
-                            type="checkbox"
-                            name="is_active"
-                            value="1"
-                            {{ old('is_active', '1') ? 'checked' : '' }}
-                        >
-                        <label for="is_active" style="margin:0; text-transform:none; letter-spacing:0;">Show on home page</label>
-                    </div>
                 </div>
 
                 <div class="actions">

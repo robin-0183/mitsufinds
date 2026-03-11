@@ -16,8 +16,11 @@
                 align-items: center;
                 justify-content: center;
                 padding: 1.5rem;
+                position: relative;
             }
             .page {
+                position: relative;
+                z-index: 1;
                 width: 100%;
                 max-width: 320px;
             }
@@ -99,6 +102,7 @@
         </style>
     </head>
     <body>
+        @include('partials.stars-bg')
         <div class="page">
             <h1 class="title">Login</h1>
             <p class="create-account note" style="margin-top:0;margin-bottom:1.25rem;">Use your admin credentials to access the admin panel.</p>

@@ -118,14 +118,14 @@
                 border-collapse: collapse;
                 margin-top: 0.5rem;
                 font-size: 0.9rem;
-                background: #020617;
+                background: #000000;
                 border-radius: 0.75rem;
                 overflow: hidden;
-                border: 1px solid #1f2937;
+                border: 1px solid #111827;
             }
 
             thead {
-                background: #020617;
+                background: #000000;
             }
 
             th,
@@ -144,15 +144,15 @@
             }
 
             tbody tr:nth-child(odd) {
-                background: #020617;
+                background: #000000;
             }
 
             tbody tr:nth-child(even) {
-                background: #020617;
+                background: #000000;
             }
 
             tbody tr + tr td {
-                border-top: 1px solid #111827;
+                border-top: 1px solid #020617;
             }
 
             .status-pill {
