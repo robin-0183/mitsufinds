@@ -5,7 +5,6 @@ use App\Http\Controllers\DevAccessController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/coming-soon', [DevAccessController::class, 'showComingSoon'])->name('coming-soon');
 Route::get('/dev-login', [DevAccessController::class, 'showDevLoginForm'])->name('dev-login');
 Route::post('/dev-auth', [DevAccessController::class, 'authenticate'])->name('dev-auth');
 
