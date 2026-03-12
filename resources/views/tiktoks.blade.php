@@ -49,30 +49,104 @@
                 padding: 2rem 1.5rem 3rem;
             }
             .back-link {
+                position: fixed;
+                top: 1.25rem;
+                left: 1.5rem;
+                z-index: 11;
                 display: inline-flex;
-                font-size: 0.85rem;
-                color: #9ca3af;
+                align-items: center;
+                gap: 0.3rem;
+                font-size: 0.9rem;
+                font-weight: 700;
+                color: #ffffff;
                 text-decoration: none;
-                margin-bottom: 1rem;
+                outline: none;
             }
             .back-link:hover { color: #e5e7eb; }
+            .back-link:focus { outline: none; }
             .title {
                 font-size: 1.5rem;
                 font-weight: 600;
                 letter-spacing: 0.08em;
                 text-transform: uppercase;
             }
+
+            .videos-grid {
+                margin-top: 2.5rem;
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                align-items: flex-start;
+                gap: 2rem;
+            }
+
+            .video-card {
+                width: 320px;
+                max-width: 100%;
+                background: radial-gradient(circle at top, #111827, #020617);
+                border-radius: 1.5rem;
+                padding: 0.75rem 0.75rem 1.1rem;
+                border: 1px solid #111827;
+                box-shadow:
+                    0 18px 40px rgba(0, 0, 0, 0.95),
+                    0 0 30px rgba(15, 23, 42, 0.9);
+                overflow: hidden;
+                display: flex;
+                flex-direction: column;
+                gap: 0.5rem;
+                transition: transform 0.25s ease, box-shadow 0.25s ease;
+            }
+
+            .video-card:hover {
+                transform: translateY(-6px) scale(1.03);
+                box-shadow:
+                    0 24px 56px rgba(0, 0, 0, 1),
+                    0 0 40px rgba(15, 23, 42, 1);
+            }
+
+            .video-title {
+                font-size: 1rem;
+                font-weight: 600;
+                margin: 0 0 0.35rem;
+            }
+
+            .video-embed {
+                border-radius: 1.25rem;
+                overflow: hidden;
+            }
+
+            .video-embed iframe {
+                width: 100% !important;
+                max-width: 100% !important;
+                border-radius: 1.25rem;
+            }
         </style>
     </head>
-    <body>
+    <body class="has-footer">
+        <div class="page-main">
         @include('partials.stars-bg')
         <div class="page-load-overlay" id="page-load-overlay" aria-hidden="false">
             <div class="page-load-spinner" aria-hidden="true"></div>
         </div>
         <div class="shell">
-            <a href="{{ route('home') }}" class="back-link">← Back to home</a>
+            <a href="{{ route('home') }}" class="back-link">&larr; Back to home</a>
             <h1 class="title">TikTok videos</h1>
-            <p style="margin-top: 1rem; opacity: 0.8;">Add your embedded TikTok videos here.</p>
+
+            @if($videos->isEmpty())
+                <p style="margin-top: 1rem; opacity: 0.8;">No TikTok videos yet. Add some from the admin panel.</p>
+            @else
+                <div class="videos-grid">
+                    @foreach ($videos as $video)
+                        <article class="video-card">
+                            <div class="video-title">{{ $video->title }}</div>
+                            <div class="video-embed">
+                                {!! $video->embed_html !!}
+                            </div>
+                        </article>
+                    @endforeach
+                </div>
+            @endif
+        </div>
         </div>
         @include('partials.footer')
         <script>

@@ -24,7 +24,7 @@
     cursor: pointer;
     transition: transform 0.1s ease-out, opacity 0.1s ease-out, background 0.1s ease-out;
     will-change: opacity;
-    animation: stars-bg-twinkle var(--twinkle-duration, 3s) ease-in-out infinite;
+    animation: stars-bg-twinkle var(--twinkle-duration, 2s) ease-in-out infinite;
 }
 .stars-bg .star-dot:hover {
     transform: scale(1.5);
@@ -58,8 +58,19 @@
     var container = document.getElementById('stars-clickable');
     if (!container) return;
 
+    var starColors = [
+        'rgba(255, 255, 255, 0.9)',  // white
+        'rgba(250, 250, 210, 0.95)', // soft yellow
+        'rgba(191, 219, 254, 0.95)', // soft blue
+        'rgba(252, 165, 165, 0.95)'  // soft red
+    ];
+
     function randomBetween(min, max) {
         return min + Math.random() * (max - min);
+    }
+
+    function randomFrom(list) {
+        return list[Math.floor(Math.random() * list.length)];
     }
 
     function createStar() {
@@ -70,8 +81,9 @@
         star.style.left = randomBetween(1, 99) + '%';
         star.style.top = randomBetween(1, 99) + '%';
         star.style.opacity = randomBetween(0.5, 1).toFixed(2);
-        star.style.setProperty('--twinkle-duration', randomBetween(2.4, 4.2).toFixed(1) + 's');
-        star.style.animationDelay = randomBetween(0, 4).toFixed(2) + 's';
+        star.style.setProperty('--twinkle-duration', randomBetween(1.2, 2.4).toFixed(1) + 's');
+        star.style.animationDelay = randomBetween(0, 2.2).toFixed(2) + 's';
+        star.style.background = randomFrom(starColors);
 
         star.addEventListener('click', function (e) {
             e.stopPropagation();
@@ -87,7 +99,7 @@
         return star;
     }
 
-    for (var i = 0; i < 220; i++) {
+    for (var i = 0; i < 360; i++) {
         container.appendChild(createStar());
     }
 })();

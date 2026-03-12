@@ -12,9 +12,6 @@
             * { box-sizing: border-box; }
             body {
                 margin: 0;
-                min-height: 100vh;
-                display: flex;
-                flex-direction: column;
                 font-family: 'Oswald', system-ui, sans-serif;
                 background: #000000;
                 color: #f9fafb;
@@ -58,13 +55,17 @@
                 padding: 2rem 1.5rem 3rem;
             }
             .back-link {
+                position: fixed;
+                top: 1.25rem;
+                left: 1.5rem;
+                z-index: 11;
                 display: inline-flex;
-                font-size: 0.95rem;
-                font-weight: 500;
-                letter-spacing: 0.04em;
-                color: #9ca3af;
+                align-items: center;
+                gap: 0.3rem;
+                font-size: 0.9rem;
+                font-weight: 700;
+                color: #ffffff;
                 text-decoration: none;
-                margin-bottom: 1rem;
                 outline: none;
             }
             .back-link:hover { color: #e5e7eb; }
@@ -109,14 +110,15 @@
             }
         </style>
     </head>
-    <body>
+    <body class="has-footer">
+        <div class="page-main">
         @include('partials.stars-bg')
         <div class="page-load-overlay" id="page-load-overlay" aria-hidden="false">
             <div class="page-load-spinner" aria-hidden="true"></div>
         </div>
         <div class="links-above-footer">
             <div class="shell">
-                <a href="{{ route('home') }}" class="back-link">← Back to home</a>
+                <a href="{{ route('home') }}" class="back-link">&larr; Back to home</a>
                 <h1 class="title">Links</h1>
                 <p class="links-intro">Useful links will go here.</p>
 
@@ -126,6 +128,7 @@
                     </a>
                 </div>
             </div>
+        </div>
         </div>
         @include('partials.footer')
         <script>

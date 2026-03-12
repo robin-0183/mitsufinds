@@ -3,11 +3,9 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Products · Admin · {{ config('app.name', 'mxtsu') }}</title>
+        <title>TikTok videos · Admin · {{ config('app.name', 'mxtsu') }}</title>
         <style>
-            * {
-                box-sizing: border-box;
-            }
+            * { box-sizing: border-box; }
 
             body {
                 margin: 0;
@@ -43,24 +41,6 @@
                 z-index: 10;
             }
 
-            .actions form {
-                margin: 0;
-            }
-
-            .header-actions .btn,
-            .empty-actions .btn {
-                display: inline-flex;
-                align-items: center;
-                justify-content: center;
-                padding: 0.65rem 1.15rem;
-                border-radius: 999px;
-                border: 1px solid transparent;
-                font-size: 1rem;
-                font-weight: 700;
-                cursor: pointer;
-                text-decoration: none;
-            }
-
             a.btn,
             button.btn {
                 display: inline-flex;
@@ -84,22 +64,6 @@
             .btn-primary:hover {
                 background: #fdba74;
                 border-color: #fb923c;
-            }
-
-            .btn-add {
-                background: #000000;
-                border: none;
-                color: #e5e7eb;
-            }
-
-            .btn-add:hover {
-                background: #1a1a1a;
-                border: none;
-                color: #f9fafb;
-            }
-
-            .btn-add:focus {
-                outline: none;
             }
 
             .btn-ghost {
@@ -143,16 +107,16 @@
                 color: #9ca3af;
             }
 
+            tbody tr + tr td {
+                border-top: 1px solid #020617;
+            }
+
             tbody tr:nth-child(odd) {
                 background: #000000;
             }
 
             tbody tr:nth-child(even) {
                 background: #000000;
-            }
-
-            tbody tr + tr td {
-                border-top: 1px solid #020617;
             }
 
             .status-pill {
@@ -173,37 +137,6 @@
                 color: #cbd5f5;
             }
 
-            .empty {
-                margin-top: 3rem;
-                text-align: center;
-                opacity: 0.75;
-                font-size: 0.95rem;
-            }
-
-            .empty-actions {
-                margin-top: 1.5rem;
-            }
-
-            .empty-actions .btn {
-                padding: 0.65rem 1.25rem;
-                font-size: 1rem;
-            }
-
-            .btn-add {
-                font-weight: 700;
-            }
-
-            .price-cell {
-                white-space: nowrap;
-            }
-
-            .url-cell {
-                max-width: 260px;
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
-            }
-
             .actions-cell {
                 white-space: nowrap;
                 text-align: right;
@@ -220,26 +153,22 @@
                 border-color: #b91c1c;
                 color: #fee2e2;
             }
+
+            .empty {
+                margin-top: 3rem;
+                text-align: center;
+                opacity: 0.75;
+                font-size: 0.95rem;
+            }
         </style>
     </head>
     <body>
         <div class="shell">
-            <h1 class="title">Admin dashboard</h1>
+            <h1 class="title">TikTok videos</h1>
 
             <div class="header-actions">
                 <a href="{{ route('home') }}" class="btn btn-ghost">View site</a>
-                <a href="{{ route('admin.tiktoks.index') }}" class="btn btn-ghost">TikTok videos</a>
-                <a href="{{ route('admin.products.create') }}" class="btn btn-add">Add product</a>
-                @auth
-                    <form method="POST" action="{{ route('logout') }}" class="actions-form" style="margin:0;">
-                        @csrf
-                        <button type="submit" class="btn btn-ghost">Logout</button>
-                    </form>
-                @else
-                    @if (session('dev_authenticated'))
-                        <a href="{{ route('dev-exit') }}" class="btn btn-ghost">Exit</a>
-                    @endif
-                @endauth
+                <a href="{{ route('admin.tiktoks.create') }}" class="btn btn-primary">Add TikTok</a>
             </div>
 
             @if (session('status'))
@@ -248,62 +177,35 @@
                 </div>
             @endif
 
-            @if ($products->isEmpty())
+            @if ($videos->isEmpty())
                 <div class="empty">
-                    <p>No products yet. Add products to show them on the home page and the Products page.</p>
-                    <div class="empty-actions">
-                        <a href="{{ route('admin.products.create') }}" class="btn btn-primary btn-add">Add product</a>
-                    </div>
+                    <p>No TikTok videos yet. Add some to show them on the TikTok videos page.</p>
                 </div>
             @else
-                <div class="actions" style="margin-bottom: 1rem;">
-                    <a href="{{ route('admin.products.create') }}" class="btn btn-primary btn-add">Add product</a>
-                </div>
                 <table>
                     <thead>
                         <tr>
-                            <th>Name</th>
-                            <th>Price</th>
+                            <th>Title</th>
                             <th>Status</th>
-                            <th>Affiliate URL</th>
-                            <th>Created</th>
-                            <th></th>
+                            <th class="actions-cell">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($products as $product)
+                        @foreach ($videos as $video)
                             <tr>
-                                <td>{{ $product->name }}</td>
-                                <td class="price-cell">
-                                    @if ($product->price)
-                                        ${{ number_format($product->price, 2) }}
-                                    @else
-                                        —
-                                    @endif
-                                </td>
+                                <td>{{ $video->title }}</td>
                                 <td>
-                                    @if ($product->is_active)
+                                    @if ($video->is_active)
                                         <span class="status-pill status-pill--active">Active</span>
                                     @else
                                         <span class="status-pill status-pill--inactive">Hidden</span>
                                     @endif
                                 </td>
-                                <td class="url-cell">
-                                    <a href="{{ $product->affiliate_url }}" target="_blank" rel="noopener noreferrer" style="color:#93c5fd;text-decoration:none;">
-                                        {{ $product->affiliate_url }}
-                                    </a>
-                                </td>
-                                <td>{{ $product->created_at?->format('Y-m-d') }}</td>
                                 <td class="actions-cell">
-                                    <form
-                                        method="post"
-                                        action="{{ route('admin.products.destroy', $product) }}"
-                                        style="display:inline"
-                                        onsubmit="return confirm('Delete this product?');"
-                                    >
+                                    <form method="POST" action="{{ route('admin.tiktoks.destroy', $video) }}" style="display:inline;">
                                         @csrf
-                                        @method('delete')
-                                        <button type="submit" class="btn btn-danger">
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger" onclick="return confirm('Delete this TikTok video?')">
                                             Delete
                                         </button>
                                     </form>
@@ -316,3 +218,4 @@
         </div>
     </body>
 </html>
+

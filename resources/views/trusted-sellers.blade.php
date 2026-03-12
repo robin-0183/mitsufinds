@@ -49,13 +49,21 @@
                 padding: 2rem 1.5rem 3rem;
             }
             .back-link {
+                position: fixed;
+                top: 1.25rem;
+                left: 1.5rem;
+                z-index: 11;
                 display: inline-flex;
-                font-size: 0.85rem;
-                color: #9ca3af;
+                align-items: center;
+                gap: 0.3rem;
+                font-size: 0.9rem;
+                font-weight: 700;
+                color: #ffffff;
                 text-decoration: none;
-                margin-bottom: 1rem;
+                outline: none;
             }
             .back-link:hover { color: #e5e7eb; }
+            .back-link:focus { outline: none; }
             .title {
                 font-size: 1.5rem;
                 font-weight: 600;
@@ -64,15 +72,17 @@
             }
         </style>
     </head>
-    <body>
+    <body class="has-footer">
+        <div class="page-main">
         @include('partials.stars-bg')
         <div class="page-load-overlay" id="page-load-overlay" aria-hidden="false">
             <div class="page-load-spinner" aria-hidden="true"></div>
         </div>
         <div class="shell">
-            <a href="{{ route('home') }}" class="back-link">← Back to home</a>
+            <a href="{{ route('home') }}" class="back-link">&larr; Back to home</a>
             <h1 class="title">Trusted sellers</h1>
             <p style="margin-top: 1rem; opacity: 0.8;">Trusted seller information will go here.</p>
+        </div>
         </div>
         @include('partials.footer')
         <script>
