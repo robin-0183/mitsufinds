@@ -4,12 +4,15 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>DMCA &amp; Privacy · {{ config('app.name', 'mxtsu') }}</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
         <style>
-            html { font-size: 90%; }
+            html { font-size: 96%; }
             * { box-sizing: border-box; }
             body {
                 margin: 0;
-                font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+                font-family: 'Oswald', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
                 background: #000000;
                 color: #f9fafb;
                 position: relative;
@@ -49,32 +52,41 @@
                 padding: 2rem 1.5rem 3rem;
             }
             .back-link {
+                position: fixed;
+                top: 1.25rem;
+                left: 1.5rem;
+                z-index: 11;
                 display: inline-flex;
-                font-size: 0.85rem;
-                color: #9ca3af;
+                align-items: center;
+                gap: 0.3rem;
+                font-size: 0.9rem;
+                font-weight: 700;
+                color: #ffffff;
                 text-decoration: none;
-                margin-bottom: 1rem;
+                outline: none;
             }
             .back-link:hover { color: #e5e7eb; }
+            .back-link:focus { outline: none; }
             .title {
-                font-size: 1.5rem;
+                font-size: 1.9rem;
                 font-weight: 600;
                 letter-spacing: 0.08em;
                 text-transform: uppercase;
             }
             .dmca-updated {
-                font-size: 0.9rem;
+                font-size: 1rem;
                 color: #9ca3af;
                 margin-top: 0.5rem;
                 margin-bottom: 1.5rem;
             }
             .dmca-intro {
+                font-size: 1.05rem;
                 margin-bottom: 1rem;
-                line-height: 1.5;
+                line-height: 1.7;
                 opacity: 0.95;
             }
             .dmca-section-title {
-                font-size: 1.1rem;
+                font-size: 1.3rem;
                 font-weight: 700;
                 margin-top: 1.75rem;
                 margin-bottom: 0.75rem;
@@ -103,13 +115,13 @@
             .dmca-list {
                 margin: 0.75rem 0 0 1.25rem;
                 padding: 0;
-                line-height: 1.6;
+                line-height: 1.8;
             }
             .dmca-list li {
                 margin-bottom: 0.5rem;
             }
             .dmca-column {
-                max-width: 720px;
+                max-width: 900px;
                 margin: 0 auto;
             }
             .dmca-affiliate-note {
@@ -130,7 +142,7 @@
         </div>
         <div class="shell">
             <div class="dmca-column">
-                <a href="{{ route('home') }}" class="back-link">← Back to home</a>
+                <a href="{{ route('home') }}" class="back-link">&larr; Back to home</a>
                 <h1 class="title">DMCA and Content Removal Policy</h1>
                 <p class="dmca-updated">Last Updated: November 2025</p>
 
@@ -150,10 +162,6 @@
                     <li>A statement of good faith belief</li>
                     <li>Electronic or physical signature</li>
                 </ul>
-
-                <p class="dmca-affiliate-note">
-                    Please be aware that this website contains affiliate links. This means that if you make a purchase through these links, we may earn a small commission. This commission helps us maintain and improve our website at no extra cost to you.
-                </p>
             </div>
         </div>
         <script>

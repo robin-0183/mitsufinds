@@ -9,7 +9,7 @@
         <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Bebas+Neue&display=swap" rel="stylesheet">
         <style>
             html {
-                font-size: 90%;
+                font-size: 85%;
                 scroll-behavior: smooth;
             }
             * {
@@ -23,13 +23,12 @@
                 color: #f9fafb;
                 position: relative;
             }
-
             .shell {
                 position: relative;
                 z-index: 1;
                 max-width: 1200px;
                 margin: 0 auto;
-                padding: 1.25rem 1.5rem 65rem;
+                padding: 1.25rem 1.5rem 40rem;
             }
 
             header {
@@ -62,17 +61,17 @@
                 flex: 1;
                 display: flex;
                 justify-content: flex-start;
-                padding-left: 5rem;
+                padding-left: 8.5rem;
             }
 
             .top-nav {
                 display: inline-flex;
                 align-items: center;
                 justify-content: flex-start;
-                gap: 2.8rem;
-                padding: 1rem 2rem 1rem 1.5rem;
-                min-width: 640px;
-                max-width: 72%;
+                gap: 2rem;
+                padding: 0.9rem 1.5rem 0.9rem 1.25rem;
+                min-width: 460px;
+                max-width: 52%;
                 border-radius: 999px;
                 background: #000000;
                 border: 1px solid rgba(255, 255, 255, 0.35);
@@ -80,12 +79,21 @@
                     0 0 0 1px rgba(0, 0, 0, 0.7),
                     0 18px 40px rgba(0, 0, 0, 0.9);
                 position: relative;
+                transition: transform 0.3s ease, padding 0.3s ease, box-shadow 0.3s ease;
+            }
+
+            .top-nav:hover {
+                transform: scale(1.04);
+                box-shadow:
+                    0 0 0 1px rgba(0, 0, 0, 0.7),
+                    0 0 16px rgba(255, 255, 255, 0.12),
+                    0 20px 44px rgba(0, 0, 0, 0.9);
             }
 
             .top-nav-inner {
                 display: inline-flex;
                 align-items: center;
-                gap: 2.8rem;
+                gap: 2rem;
             }
             .top-nav-icons {
                 display: inline-flex;
@@ -155,9 +163,9 @@
                 flex-direction: column;
                 align-items: center;
                 justify-content: center;
-                min-height: 60vh;
+                min-height: 28vh;
                 width: 100%;
-                padding: 16rem 0 2rem;
+                padding: 5rem 0 1.25rem;
             }
 
             .discord-cta-wrap {
@@ -175,22 +183,38 @@
                 width: 100%;
                 display: flex;
                 justify-content: center;
-                margin: 1.5rem 0 1.25rem;
+                margin: 2.25rem 0 0.75rem;
             }
 
             .its-out-heading {
-                margin-top: -4rem;
+                margin-top: -0.5rem;
+                margin-right: 2.5rem;
                 font-family: 'Oswald', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-                font-size: min(3rem, 6vw);
+                font-size: min(1.7rem, 3.2vw);
                 font-weight: 700;
-                letter-spacing: 0.6em;
+                letter-spacing: 0.28em;
                 text-transform: uppercase;
                 text-align: center;
+                background: none;
+                border: none;
+                color: inherit;
+                padding: 0;
+                cursor: pointer;
+                transition: transform 0.2s ease, opacity 0.2s ease;
+            }
+
+            .its-out-heading:hover {
+                transform: scale(1.1);
+                opacity: 1;
+            }
+
+            .its-out-heading:active {
+                transform: scale(0.98);
             }
 
             .search-bar {
-                width: 80%;
-                max-width: 1000px;
+                width: 92%;
+                max-width: 1200px;
             }
 
             .search-bar-inner {
@@ -210,29 +234,19 @@
                 outline: none;
                 box-shadow:
                     0 18px 40px rgba(0, 0, 0, 0.8);
-                transition: box-shadow 0.2s ease, background 0.2s ease, color 0.2s ease, transform 0.1s ease;
+                transition: box-shadow 0.25s ease, background 0.25s ease, color 0.25s ease, transform 0.3s ease, padding 0.3s ease;
             }
 
             .search-bar-input::placeholder {
                 color: #9ca3af;
             }
 
+            .search-bar-input:hover,
             .search-bar-input:focus {
-                box-shadow:
-                    0 22px 50px rgba(0, 0, 0, 0.95);
                 background: #000000;
                 color: #ffffff;
-                text-shadow:
-                    0 0 12px rgba(255, 255, 255, 0.9),
-                    0 0 24px rgba(255, 255, 255, 0.5),
-                    0 0 36px rgba(255, 255, 255, 0.3);
-                transform: translateY(-1px);
-            }
-
-            .search-bar-input:hover {
-                background: #000000;
-                color: #ffffff;
-                transform: scale(1.02);
+                transform: scale(1.04);
+                padding: 1rem 1.15rem 1rem 2.85rem;
                 box-shadow:
                     0 0 0 1px rgba(255, 255, 255, 0.25),
                     0 0 20px rgba(255, 255, 255, 0.35),
@@ -257,12 +271,23 @@
                 justify-content: center;
             }
 
+            .discord-cta,
+            .tiktok-cta {
+                width: 380px;
+                min-width: 380px;
+                min-height: 140px;
+                box-sizing: border-box;
+            }
+
             .discord-cta {
-                max-width: 420px;
                 padding: 2rem 2.5rem;
-                background: #000000;
+                background: #0a0a0a;
                 border-radius: 1rem;
-                border: none;
+                border: 1px solid rgba(255, 255, 255, 0.35);
+                box-shadow:
+                    0 0 20px rgba(255, 255, 255, 0.2),
+                    0 0 40px rgba(255, 255, 255, 0.12),
+                    inset 0 0 0 1px rgba(255, 255, 255, 0.08);
                 text-align: center;
                 transition: transform 0.25s ease;
             }
@@ -272,14 +297,13 @@
             }
 
             .discord-cta a {
-                display: flex;
-                flex-direction: column;
+                display: inline-flex;
                 align-items: center;
                 justify-content: center;
                 gap: 0.5rem;
                 color: #f9fafb;
                 text-decoration: none;
-                font-size: 1.05rem;
+                font-size: 1.1rem;
                 font-weight: 700;
             }
 
@@ -313,7 +337,6 @@
             }
 
             .tiktok-cta {
-                max-width: 420px;
                 padding: 2rem 2.5rem;
                 background: #0a0a0a;
                 border-radius: 1rem;
@@ -324,6 +347,171 @@
                     inset 0 0 0 1px rgba(255, 255, 255, 0.08);
                 text-align: center;
                 transition: transform 0.25s ease;
+            }
+
+            .discord-floating {
+                position: fixed;
+                right: 1.75rem;
+                bottom: 4.5rem;
+                z-index: 30;
+                display: flex;
+                align-items: center;
+                gap: 0.85rem;
+                padding: 0.65rem 0.95rem;
+                background: rgba(0, 0, 0, 0.84);
+                border-radius: 999px;
+                box-shadow:
+                    0 12px 30px rgba(0, 0, 0, 0.7),
+                    0 0 0 1px rgba(255, 255, 255, 0.14);
+                backdrop-filter: blur(10px);
+                transform: translateY(120%);
+                opacity: 0;
+                pointer-events: none;
+                transition: transform 0.3s ease-out, opacity 0.3s ease-out, box-shadow 0.3s ease-out;
+            }
+
+            .discord-floating.is-visible {
+                transform: translateY(0);
+                opacity: 1;
+                pointer-events: auto;
+            }
+
+            .discord-floating-logo {
+                width: 36px;
+                height: 36px;
+                border-radius: 50%;
+                background: #ffffff;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                box-shadow: 0 0 14px rgba(255, 255, 255, 0.6);
+            }
+
+            .discord-floating-logo svg {
+                width: 22px;
+                height: 22px;
+                fill: #000000;
+            }
+
+            .discord-floating-text {
+                font-size: 0.78rem;
+                font-weight: 600;
+                letter-spacing: 0.05em;
+                text-transform: uppercase;
+                color: #e5e7eb;
+                white-space: nowrap;
+                max-width: 220px;
+                overflow: hidden;
+                opacity: 1;
+                transform-origin: left center;
+                text-decoration: none;
+                transition: opacity 0.35s ease, max-width 0.4s ease, margin-right 0.35s ease, transform 0.35s ease;
+            }
+
+            .discord-floating--compact .discord-floating-text {
+                opacity: 0;
+                max-width: 0;
+                margin-right: 0;
+                transform: scaleX(0.8);
+            }
+
+            .discord-floating:hover {
+                transform: translateY(0) scale(1.12);
+                box-shadow:
+                    0 18px 40px rgba(0, 0, 0, 0.8),
+                    0 0 0 1px rgba(255, 255, 255, 0.2);
+            }
+
+            .discord-floating-close {
+                border: none;
+                background: none;
+                color: #9ca3af;
+                cursor: pointer;
+                font-size: 0.95rem;
+                padding: 0;
+                line-height: 1;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                transition: color 0.2s ease, transform 0.2s ease;
+            }
+
+            .discord-floating-close:hover {
+                color: #ffffff;
+                transform: scale(1.1);
+            }
+
+            .tiktok-floating {
+                position: fixed;
+                right: 1.75rem;
+                bottom: 9.5rem; /* slightly higher above Discord */
+                z-index: 30;
+                display: flex;
+                align-items: center;
+                gap: 0.85rem;
+                padding: 0.65rem 0.95rem;
+                background: rgba(0, 0, 0, 0.84);
+                border-radius: 999px;
+                box-shadow:
+                    0 12px 30px rgba(0, 0, 0, 0.7),
+                    0 0 0 1px rgba(255, 255, 255, 0.14);
+                backdrop-filter: blur(10px);
+                transform: translateY(120%);
+                opacity: 0;
+                pointer-events: none;
+                transition: transform 0.3s ease-out, opacity 0.3s ease-out, box-shadow 0.3s ease-out;
+            }
+
+            .tiktok-floating.is-visible {
+                transform: translateY(0);
+                opacity: 1;
+                pointer-events: auto;
+            }
+
+            .tiktok-floating-logo {
+                width: 36px;
+                height: 36px;
+                border-radius: 50%;
+                background: #ffffff;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                box-shadow: 0 0 14px rgba(255, 255, 255, 0.6);
+            }
+
+            .tiktok-floating-logo svg {
+                width: 22px;
+                height: 22px;
+                fill: #000000;
+            }
+
+            .tiktok-floating-text {
+                font-size: 0.78rem;
+                font-weight: 600;
+                letter-spacing: 0.05em;
+                text-transform: uppercase;
+                color: #e5e7eb;
+                white-space: nowrap;
+                max-width: 220px;
+                overflow: hidden;
+                opacity: 1;
+                transform-origin: left center;
+                text-decoration: none;
+                transition: opacity 0.35s ease, max-width 0.4s ease, margin-right 0.35s ease, transform 0.35s ease;
+            }
+
+            .tiktok-floating:hover {
+                transform: translateY(0) scale(1.12);
+                box-shadow:
+                    0 18px 40px rgba(0, 0, 0, 0.8),
+                    0 0 0 1px rgba(255, 255, 255, 0.2);
+            }
+
+            .tiktok-floating--compact .tiktok-floating-text {
+                opacity: 0;
+                max-width: 0;
+                margin-right: 0;
+                transform: scaleX(0.8);
             }
 
             .tiktok-cta:hover {
@@ -371,7 +559,7 @@
                 justify-content: center;
                 align-items: stretch;
                 gap: 4rem;
-                margin-top: 15vh;
+                margin-top: 7vh;
                 margin-bottom: 2rem;
                 width: 100%;
                 padding-left: 0;
@@ -437,7 +625,7 @@
             }
 
             .category-strip-subtitle {
-                margin: 15rem 0 0;
+                margin: 14rem 0 2.25rem;
                 text-align: center;
                 font-size: clamp(1.5rem, 4vw, 2.5rem);
                 font-weight: 700;
@@ -456,7 +644,7 @@
                 flex-wrap: wrap;
                 justify-content: center;
                 gap: 2rem;
-                margin-top: 2.5rem;
+                margin-top: 3.5rem;
                 padding: 0 1rem;
             }
             .trusted-seller-card {
@@ -516,6 +704,16 @@
                 margin-bottom: 1.5rem;
                 max-width: 100%;
             }
+            .trusted-seller-card-promo {
+                margin-top: 1rem;
+                font-size: 0.8rem;
+                color: rgba(255, 255, 255, 0.9);
+                line-height: 1.4;
+                text-align: center;
+                font-weight: 600;
+                letter-spacing: 0.02em;
+            }
+
             .trusted-seller-card-buttons {
                 display: flex;
                 flex-direction: column;
@@ -919,7 +1117,8 @@
             }
         </style>
     </head>
-    <body>
+    <body class="has-footer">
+        <div class="page-main">
         @include('partials.stars-bg')
         <div class="shell">
             <header>
@@ -930,12 +1129,6 @@
                     <nav class="top-nav">
                         <div class="top-nav-inner">
                             <span class="top-nav-icons">
-                                <a href="{{ route('tiktoks') }}" class="header-icon top-nav-icon" aria-label="TikTok videos">
-                                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <rect x="5" y="5" width="10" height="14" rx="2" stroke="currentColor" stroke-width="2"/>
-                                        <path d="M15 9L19 7V17L15 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                    </svg>
-                                </a>
                                 <a href="{{ route('favorites') }}" class="header-icon top-nav-icon" aria-label="Favorites">
                                     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M12.001 20.25C12.001 20.25 5 15.75 5 9.75C5 7.127 7.014 5.25 9.35 5.25C10.77 5.25 12.001 6.036 12.001 6.036C12.001 6.036 13.232 5.25 14.652 5.25C16.988 5.25 19.002 7.127 19.002 9.75C19.002 15.75 12.001 20.25 12.001 20.25Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -948,9 +1141,6 @@
                             </a>
                             <a href="{{ route('home') }}#trusted-sellers" class="top-nav-item" style="text-decoration:none; color:inherit;">
                                 Trusted sellers
-                            </a>
-                            <a href="{{ route('links') }}" class="top-nav-item" style="text-decoration:none; color:inherit;">
-                                Links
                             </a>
                             <a href="{{ route('faq') }}" class="top-nav-item" style="text-decoration:none; color:inherit;">
                                 FAQ
@@ -984,26 +1174,9 @@
             @endif
 
             <div class="hero-center">
-                <div class="its-out-heading">
+                <button type="button" class="its-out-heading" id="its-out-btn" aria-label="Celebrate">
                     ITS OUT !
-                </div>
-
-                <div class="discord-cta-wrap">
-                    <div class="discord-cta">
-                        <a href="https://discord.gg/zjHfxED6" target="_blank" rel="noopener noreferrer">
-                            Join my discord for more coupons and finds !
-                            <span class="discord-cta-arrow" aria-hidden="true">→</span>
-                        </a>
-                        <span class="discord-cta-sub">Free entry — exclusive finds inside</span>
-                    </div>
-                    <div class="tiktok-cta">
-                        <a href="https://www.tiktok.com/@mxtsufindss?is_from_webapp=1&sender_device=pc" target="_blank" rel="noopener noreferrer">
-                            Follow my TikTok
-                            <span class="tiktok-cta-arrow" aria-hidden="true">→</span>
-                        </a>
-                        <span class="tiktok-cta-sub">Latest finds & drops</span>
-                    </div>
-                </div>
+                </button>
 
                 <div class="search-bar-wrap">
                     <form action="{{ route('products.index') }}" method="GET" class="search-bar">
@@ -1097,7 +1270,7 @@
                     <div class="trusted-seller-card">
                         <div class="trusted-seller-card-logo"><img src="{{ asset('images/jerseybrothers-logo.png') }}" alt="JerseyBrothers" width="80" height="80"></div>
                         <h3 class="trusted-seller-card-name">JerseyBrothers</h3>
-                        <p class="trusted-seller-card-desc">Toptier quality jerseys with low price, Really budget friendly and has almost 1000 jerseys !</p>
+                        <p class="trusted-seller-card-desc">Toptier quality jerseys with low price, Really budget friendly and has almost 1000 jerseys ! ALSO CUSTOM NAME AND NUMBER</p>
                         <div class="trusted-seller-card-buttons">
                             <a href="https://weidian.com/?userid=1679255613&spider_token=5b4b" class="trusted-seller-btn" target="_blank" rel="noopener noreferrer">
                                 Weidian Shop
@@ -1108,9 +1281,38 @@
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
                             </a>
                         </div>
+                        <p class="trusted-seller-card-promo">BUY JERSEY, WRITE IN REMARK mitsu, CREATE A TIKTOK, GET 200 LIKES AND CHOOSE YOUR JERSEY FOR FREE !</p>
                     </div>
                 </div>
             </div>
+
+                <div class="discord-floating" id="discord-floating">
+                    <div class="discord-floating-logo" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M20.317 4.369A19.91 19.91 0 0 0 16.558 3c-.197.351-.42.825-.576 1.196a18.27 18.27 0 0 0-3.964 0A12.64 12.64 0 0 0 11.442 3 19.9 19.9 0 0 0 7.68 4.371C4.943 8.285 4.26 12.091 4.57 15.853A19.9 19.9 0 0 0 9.07 17.5c.328-.45.62-.928.873-1.434a11.8 11.8 0 0 1-1.377-.66c.116-.083.23-.17.34-.26 2.652 1.243 5.53 1.243 8.16 0 .113.09.227.178.34.26-.44.264-.9.486-1.378.66.253.506.545.984.873 1.434a19.86 19.86 0 0 0 4.5-1.647c.37-4.274-.63-8.044-2.954-11.484ZM10.02 13.91c-.8 0-1.45-.73-1.45-1.625 0-.896.64-1.63 1.45-1.63.819 0 1.46.742 1.45 1.63 0 .895-.64 1.625-1.45 1.625Zm3.98 0c-.8 0-1.45-.73-1.45-1.625 0-.896.64-1.63 1.45-1.63.819 0 1.47.742 1.46 1.63 0 .895-.64 1.625-1.46 1.625Z"/>
+                        </svg>
+                    </div>
+                    <a href="https://discord.gg/P9XtWcmsau" target="_blank" rel="noopener noreferrer" class="discord-floating-text">
+                        join my discord for more finds
+                    </a>
+                    <button type="button" class="discord-floating-close" id="discord-floating-close" aria-label="Close Discord popup">
+                        ×
+                    </button>
+                </div>
+
+                <div class="tiktok-floating" id="tiktok-floating">
+                    <div class="tiktok-floating-logo" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M16.5 5.5c.6.8 1.4 1.4 2.3 1.8V9c-1.1-.1-2.2-.5-3.2-1.2v5.7c0 2.9-2.2 4.9-4.9 4.9-1 0-1.9-.3-2.7-.7-.3-.2-.4-.5-.2-.9l.6-1.2c.2-.4.5-.5.9-.3.4.2.9.4 1.4.4 1.3 0 2.2-.9 2.2-2.2v-6h.2c.8 0 1.6-.1 2.4-.5zM10.2 9.7v2.1c-.2-.1-.4-.1-.6-.1-1.1 0-2 1-2 2.1 0 .7.3 1.3.8 1.7l-.7 1.4C7 16.3 6.5 15.3 6.5 14.2 6.5 11.7 8.2 9.7 10.2 9.7z"/>
+                        </svg>
+                    </div>
+                    <a href="https://www.tiktok.com/@mxtsufindss?is_from_webapp=1&sender_device=pc" target="_blank" rel="noopener noreferrer" class="tiktok-floating-text">
+                        Follow for better content
+                    </a>
+                    <button type="button" class="discord-floating-close" id="tiktok-floating-close" aria-label="Close TikTok popup">
+                        ×
+                    </button>
+                </div>
 
             @if (! $products->isEmpty())
                 @php
@@ -1173,6 +1375,7 @@
                     @endif
                 @endforeach
             @endif
+        </div>
         </div>
 
         @include('partials.footer')
@@ -1262,6 +1465,57 @@
                     button.addEventListener('click', hideOverlay);
                 });
             });
+
+            (function () {
+                var btn = document.getElementById('its-out-btn');
+                if (!btn) return;
+                btn.addEventListener('click', function () {
+                    if (typeof confetti !== 'function') return;
+                    var opts = { particleCount: 80, spread: 60, startVelocity: 40, ticks: 120, gravity: 0.8, scalar: 1.1, colors: ['#ffffff', '#f97316', '#eab308', '#22c55e', '#3b82f6', '#a855f7'] };
+                    confetti(Object.assign({ origin: { x: 0.2, y: 0.55 }, angle: 120 }, opts));
+                    confetti(Object.assign({ origin: { x: 0.8, y: 0.55 }, angle: 60 }, opts));
+                });
+            })();
+
+            (function () {
+                var popup = document.getElementById('discord-floating');
+                if (!popup) return;
+                var closeBtn = document.getElementById('discord-floating-close');
+
+                // Show almost immediately so CSS handles the smooth pop-in
+                window.setTimeout(function () {
+                    popup.classList.add('is-visible');
+                    window.setTimeout(function () {
+                        popup.classList.add('discord-floating--compact');
+                    }, 2000);
+                }, 100);
+
+                if (closeBtn) {
+                    closeBtn.addEventListener('click', function () {
+                        popup.classList.remove('is-visible');
+                    });
+                }
+            })();
+
+            (function () {
+                var popup = document.getElementById('tiktok-floating');
+                if (!popup) return;
+                var closeBtn = document.getElementById('tiktok-floating-close');
+
+                window.setTimeout(function () {
+                    popup.classList.add('is-visible');
+                    window.setTimeout(function () {
+                        popup.classList.add('tiktok-floating--compact');
+                    }, 2000);
+                }, 150);
+
+                if (closeBtn) {
+                    closeBtn.addEventListener('click', function () {
+                        popup.classList.remove('is-visible');
+                    });
+                }
+            })();
         </script>
+        <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
     </body>
 </html>

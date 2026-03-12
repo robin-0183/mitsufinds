@@ -20,7 +20,6 @@
                 color: #ffffff;
                 position: relative;
             }
-
             .page-load-overlay {
                 position: fixed;
                 inset: 0;
@@ -529,19 +528,19 @@
 
             .card {
                 position: relative;
-                border-radius: 0.9rem;
+                border-radius: 1.1rem;
                 overflow: hidden;
                 background: #000000;
                 border: 1px solid #000000;
                 display: flex;
                 flex-direction: column;
-                min-height: 260px;
-                box-shadow: 0 10px 24px rgba(0, 0, 0, 0.9);
+                min-height: 300px;
+                box-shadow: 0 14px 32px rgba(0, 0, 0, 0.95);
                 transition: transform 0.2s ease-out, box-shadow 0.2s ease-out, border-color 0.2s ease-out;
             }
 
             .card:hover {
-                transform: scale(1.04) translateY(-3px);
+                transform: scale(1.08) translateY(-4px);
                 border-color: #ffffff;
                 box-shadow:
                     0 0 10px rgba(255, 255, 255, 0.7),
@@ -551,7 +550,7 @@
 
             .card-image {
                 position: relative;
-                padding-top: 80%;
+                padding-top: 90%;
                 background: #000000;
                 overflow: hidden;
             }
@@ -563,6 +562,11 @@
                 height: 100%;
                 object-fit: contain;
                 background: #000000;
+                transition: transform 0.26s ease-out;
+            }
+
+            .card:hover .card-image img {
+                transform: scale(1.12);
             }
 
             .card-body {
@@ -574,8 +578,8 @@
             }
 
             .card-title {
-                font-size: 0.9rem;
-                font-weight: 600;
+                font-size: 1.05rem;
+                font-weight: 700;
                 color: #ffffff;
             }
 
@@ -593,8 +597,8 @@
 
             .card-price-pill {
                 position: absolute;
-                top: 0.4rem;
-                right: 0.4rem;
+                top: 2.1rem;
+                right: 0.55rem;
                 min-width: 28px;
                 padding: 0.12rem 0.4rem;
                 border-radius: 999px;
@@ -607,6 +611,115 @@
 
             .card-price-pill .currency-symbol {
                 margin-right: 0.1rem;
+            }
+
+            .card-fav-btn {
+                position: absolute;
+                top: 0.55rem;
+                right: 0.55rem;
+                width: 32px;
+                height: 32px;
+                border-radius: 999px;
+                background: rgba(0, 0, 0, 0.9);
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                color: #ffffff;
+                box-shadow: 0 0 12px rgba(255, 255, 255, 0.95);
+                border: none;
+                padding: 0;
+                cursor: pointer;
+                z-index: 2;
+                transition: transform 0.2s ease-out, box-shadow 0.2s ease-out, background 0.2s ease-out;
+            }
+
+            .card-fav-btn:hover {
+                transform: scale(1.22);
+                box-shadow:
+                    0 0 16px rgba(255, 255, 255, 1),
+                    0 0 26px rgba(255, 255, 255, 0.8);
+                background: #000000;
+            }
+
+            .card-fav-btn svg {
+                width: 20px;
+                height: 20px;
+            }
+
+            .card-fav-btn.is-active {
+                background: #ffffff;
+                color: #000000;
+                box-shadow:
+                    0 0 14px rgba(255, 255, 255, 1),
+                    0 0 24px rgba(255, 255, 255, 0.7);
+            }
+
+            .card-fav-btn.is-active svg path {
+                fill: currentColor;
+            }
+
+            .filter-favorites {
+                display: inline-flex;
+                align-items: center;
+                gap: 0.4rem;
+                margin-left: 0.5rem;
+            }
+
+            .filter-favorites-count {
+                min-width: 16px;
+                padding: 0 0.25rem;
+                border-radius: 999px;
+                background: #ffffff;
+                color: #000000;
+                font-size: 0.72rem;
+                font-weight: 700;
+                text-align: center;
+            }
+
+            .filter-favorites-icon {
+                width: 32px;
+                height: 32px;
+                border-radius: 999px;
+                background: rgba(0, 0, 0, 0.9);
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                color: #ffffff;
+                box-shadow: 0 0 12px rgba(255, 255, 255, 0.95);
+            }
+
+            .filter-favorites-icon svg {
+                width: 20px;
+                height: 20px;
+            }
+
+            .filter-favorites-link {
+                display: inline-flex;
+                align-items: center;
+                gap: 0.4rem;
+                text-decoration: none;
+                color: inherit;
+            }
+
+            @keyframes filter-fav-pulse {
+                0% {
+                    transform: scale(1);
+                    box-shadow: 0 0 12px rgba(255, 255, 255, 0.95);
+                }
+                50% {
+                    transform: scale(1.18);
+                    box-shadow:
+                        0 0 18px rgba(255, 255, 255, 1),
+                        0 0 26px rgba(255, 255, 255, 0.85);
+                }
+                100% {
+                    transform: scale(1);
+                    box-shadow: 0 0 12px rgba(255, 255, 255, 0.95);
+                }
+            }
+
+            .filter-favorites-icon.is-animating {
+                animation: filter-fav-pulse 0.55s ease-out;
             }
 
             .btn {
@@ -654,7 +767,8 @@
             }
         </style>
     </head>
-    <body>
+    <body class="has-footer">
+        <div class="page-main">
         @include('partials.stars-bg')
         <div class="page-load-overlay" id="products-page-load-overlay" aria-hidden="false">
             <div class="page-load-spinner" aria-hidden="true"></div>
@@ -685,7 +799,19 @@
             @endphp
             <div class="products-layout">
                 <aside class="filter-panel" role="navigation" aria-label="Product filters">
-                    <h2 class="filter-sidebar-title">Filters</h2>
+                    <h2 class="filter-sidebar-title">
+                        Filters
+                        <span class="filter-favorites" id="filter-favorites" aria-hidden="true" style="display:none;">
+                            <a href="{{ route('favorites') }}" class="filter-favorites-link">
+                                <span class="filter-favorites-icon" id="filter-favorites-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M12.001 20.25C12.001 20.25 5 15.75 5 9.75C5 7.127 7.014 5.25 9.35 5.25C10.77 5.25 12.001 6.036 12.001 6.036C12.001 6.036 13.232 5.25 14.652 5.25C16.988 5.25 19.002 7.127 19.002 9.75C19.002 15.75 12.001 20.25 12.001 20.25Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </span>
+                                <span class="filter-favorites-count" id="filter-favorites-count">0</span>
+                            </a>
+                        </span>
+                    </h2>
 
                         <div class="filter-section">
                             <div class="filter-heading">Category</div>
@@ -777,7 +903,13 @@
                     @else
                         <div class="grid" id="products-grid">
                             @foreach ($products as $product)
-                                <article class="card product-card" data-category="{{ $product->category ?? '' }}" data-brand="{{ $product->brand ?? '' }}" data-price="{{ $product->price ?? '' }}">
+                                <article class="card product-card" data-category="{{ $product->category ?? '' }}" data-brand="{{ $product->brand ?? '' }}" data-price="{{ $product->price ?? '' }}" data-product-id="{{ $product->id }}">
+                                    <button type="button" class="card-fav-btn" data-product-id="{{ $product->id }}" aria-label="Favorite product">
+                                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M12.001 20.25C12.001 20.25 5 15.75 5 9.75C5 7.127 7.014 5.25 9.35 5.25C10.77 5.25 12.001 6.036 12.001 6.036C12.001 6.036 13.232 5.25 14.652 5.25C16.988 5.25 19.002 7.127 19.002 9.75C19.002 15.75 12.001 20.25 12.001 20.25Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                    </button>
+
                                     @if ($product->price)
                                         <div class="card-price-pill">
                                             <span class="currency-symbol">€</span>{{ number_format($product->price, 0, ',', '') }}
@@ -814,6 +946,7 @@
                     @endif
                 </div>
             </div>
+        </div>
         </div>
         <script>
             (function () {
@@ -978,6 +1111,85 @@
                     document.querySelectorAll('.currency-symbol').forEach(function (el) { el.textContent = currentCurrency + ' '; });
                 }
                 if (toggleBtn) toggleBtn.addEventListener('click', updateCurrency);
+
+                (function () {
+                    var gridEl = document.getElementById('products-grid');
+                    if (!gridEl) return;
+
+                    var favKey = 'mitsufinds:favorites';
+
+                    function loadFavs() {
+                        try {
+                            var raw = window.localStorage.getItem(favKey);
+                            if (!raw) return [];
+                            var parsed = JSON.parse(raw);
+                            return Array.isArray(parsed) ? parsed : [];
+                        } catch (e) {
+                            return [];
+                        }
+                    }
+
+                    function saveFavs(list) {
+                        try {
+                            window.localStorage.setItem(favKey, JSON.stringify(list));
+                        } catch (e) {}
+                    }
+
+                    function updateFavUI() {
+                        var favIds = loadFavs();
+                        var countEl = document.getElementById('filter-favorites-count');
+                        var wrapEl = document.getElementById('filter-favorites');
+                        var iconEl = document.getElementById('filter-favorites-icon');
+                        var prevCount = parseInt(countEl ? countEl.textContent : '0', 10) || 0;
+                        if (wrapEl && countEl) {
+                            if (favIds.length > 0) {
+                                countEl.textContent = String(favIds.length);
+                                wrapEl.style.display = 'inline-flex';
+                            } else {
+                                wrapEl.style.display = 'none';
+                            }
+                        }
+
+                        if (iconEl && favIds.length > prevCount) {
+                            iconEl.classList.remove('is-animating');
+                            // force reflow to restart animation
+                            void iconEl.offsetWidth;
+                            iconEl.classList.add('is-animating');
+                        }
+
+                        var buttons = gridEl.querySelectorAll('.card-fav-btn');
+                        buttons.forEach(function (btn) {
+                            var id = btn.getAttribute('data-product-id');
+                            if (!id) return;
+                            if (favIds.indexOf(id) !== -1) {
+                                btn.classList.add('is-active');
+                            } else {
+                                btn.classList.remove('is-active');
+                            }
+                        });
+                    }
+
+                    gridEl.addEventListener('click', function (event) {
+                        var target = event.target;
+                        var btn = target.closest('.card-fav-btn');
+                        if (!btn) {
+                            return;
+                        }
+                        var id = btn.getAttribute('data-product-id');
+                        if (!id) return;
+                        var favIds = loadFavs();
+                        var idx = favIds.indexOf(id);
+                        if (idx === -1) {
+                            favIds.push(id);
+                        } else {
+                            favIds.splice(idx, 1);
+                        }
+                        saveFavs(favIds);
+                        updateFavUI();
+                    });
+
+                    updateFavUI();
+                })();
             })();
 
             (function () {

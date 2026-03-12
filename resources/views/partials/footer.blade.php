@@ -1,4 +1,12 @@
 <style>
+body.has-footer {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+body.has-footer .page-main {
+    flex: 1;
+}
 .site-footer {
     margin-top: auto;
     padding: 1.75rem 1.5rem 2.25rem;
@@ -9,6 +17,7 @@
     align-items: center;
     justify-content: center;
     gap: 0.75rem;
+    text-align: center;
 }
 .site-footer-left {
     display: flex;
@@ -21,6 +30,7 @@
     letter-spacing: 0.16em;
     text-transform: uppercase;
     color: #ffffff;
+    text-align: center;
 }
 .site-footer-links {
     display: inline-flex;
