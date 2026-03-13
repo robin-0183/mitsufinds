@@ -44,7 +44,10 @@ body.has-footer .page-main {
     text-transform: uppercase;
     color: #ffffff;
     text-decoration: none;
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0.25rem 0.5rem;
     transition: color 0.2s ease, transform 0.2s ease;
     outline: none;
 }
@@ -74,6 +77,7 @@ body.has-footer .page-main {
     align-items: center;
     gap: 0.5rem;
     padding: 0.5rem 1rem;
+    min-height: 44px;
     background: #0a0a0a;
     color: #ffffff;
     font-size: 0.85rem;
@@ -91,6 +95,18 @@ body.has-footer .page-main {
     width: 18px;
     height: 18px;
     flex-shrink: 0;
+}
+@media (max-width: 768px) {
+    .site-footer { padding: 1.25rem 1rem 1.75rem; gap: 0.5rem; }
+    .site-footer-disclaimer { font-size: 0.75rem; padding: 0 0.5rem; }
+    .site-footer-links { flex-wrap: wrap; justify-content: center; gap: 0.75rem; }
+    .site-footer-links a { font-size: 0.7rem; }
+    .site-footer-copyright { font-size: 0.65rem; margin-top: 0.25rem; }
+    .site-footer-btn { padding: 0.4rem 0.75rem; font-size: 0.8rem; }
+}
+@media (max-width: 480px) {
+    .site-footer { padding: 1rem 0.75rem 1.5rem; }
+    .site-footer-ctas { flex-direction: column; }
 }
 </style>
 <footer class="site-footer" role="contentinfo">

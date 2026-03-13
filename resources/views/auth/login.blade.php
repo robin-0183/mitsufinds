@@ -2,10 +2,11 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
         <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
         <title>Login · {{ config('app.name', 'mxtsu') }}</title>
         <style>
             * { box-sizing: border-box; }
+            html { overflow-x: hidden; -webkit-text-size-adjust: 100%; }
             body {
                 margin: 0;
                 font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
@@ -15,8 +16,9 @@
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                padding: 1.5rem;
+                padding: 1rem;
                 position: relative;
+                overflow-x: hidden;
             }
             .page {
                 position: relative;
@@ -41,7 +43,8 @@
             }
             .form-group input {
                 width: 100%;
-                padding: 0.65rem 0.75rem;
+                padding: 0.75rem 0.85rem;
+                min-height: 48px;
                 font-size: 1rem;
                 background: #0a0a0a;
                 border: 1px solid #333;
@@ -62,7 +65,8 @@
             }
             .btn {
                 width: 100%;
-                padding: 0.65rem 1rem;
+                padding: 0.75rem 1rem;
+                min-height: 48px;
                 font-size: 1rem;
                 font-weight: 500;
                 background: #1a1a1a;

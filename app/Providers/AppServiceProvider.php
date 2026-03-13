@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\AdminCredential;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -19,6 +21,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        if (Schema::hasTable('admin_credentials')) {
+            $admin = AdminCredential::get();
+            if ($admin) {
+                config(['admin.email' => $admin->email]);
+            }
+        }
     }
 }

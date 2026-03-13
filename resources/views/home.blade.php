@@ -2,7 +2,7 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
         <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
         <title>{{ config('app.name', 'mxtsu') }}</title>
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,40 +11,67 @@
             html {
                 font-size: 85%;
                 scroll-behavior: smooth;
+                overflow-x: hidden;
+                -webkit-text-size-adjust: 100%;
             }
             * {
                 box-sizing: border-box;
             }
 
+            .shell img:not(.top-nav-brand-img):not(.category-card-image img) {
+                max-width: 100%;
+                height: auto;
+                object-fit: contain;
+            }
+
             body {
                 margin: 0;
+                padding: 0;
                 font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
                 background: #000000;
                 color: #f9fafb;
                 position: relative;
+                overflow-x: hidden;
+                min-height: 100vh;
+            }
+            .page-main {
+                display: block;
+                min-height: 100vh;
+                position: relative;
             }
             .shell {
                 position: relative;
-                z-index: 1;
+                z-index: 10;
                 max-width: 1200px;
                 margin: 0 auto;
-                padding: 1.25rem 1.5rem 40rem;
+                padding: 0.75rem 1rem 3rem;
+                width: 100%;
+                min-height: 80vh;
+                background-color: #000000;
+                color: #f9fafb;
+            }
+            .shell header,
+            .shell .hero-center,
+            .shell .category-strip,
+            .shell .category-strip-subtitle {
+                color: #f9fafb;
             }
 
             header {
                 display: flex;
+                flex-wrap: wrap;
                 align-items: center;
                 justify-content: space-between;
-                margin-bottom: 1.5rem;
-                gap: 1.5rem;
+                margin-bottom: 1rem;
+                gap: 1rem;
             }
 
             .brand {
                 position: fixed;
-                top: 1.25rem;
-                left: 1.5rem;
+                top: 0.75rem;
+                left: 0.75rem;
                 z-index: 30;
-                font-size: 1.1rem;
+                font-size: 0.95rem;
                 font-weight: 400;
                 letter-spacing: 0.08em;
                 text-transform: uppercase;
@@ -54,24 +81,28 @@
                 display: flex;
                 align-items: center;
                 gap: 0.75rem;
-                min-width: 120px;
+                min-width: 0;
             }
 
             .top-bar-center {
-                flex: 1;
+                flex: 1 1 100%;
+                order: 3;
                 display: flex;
                 justify-content: flex-start;
-                padding-left: 8.5rem;
+                padding-left: 0;
+                margin-left: 0;
+                margin-top: 0.25rem;
             }
 
             .top-nav {
                 display: inline-flex;
                 align-items: center;
-                justify-content: flex-start;
-                gap: 2rem;
-                padding: 0.9rem 1.5rem 0.9rem 1.25rem;
-                min-width: 460px;
-                max-width: 52%;
+                justify-content: center;
+                gap: 0.85rem;
+                padding: 0.75rem 0.85rem 0.75rem 0.45rem;
+                min-width: 0;
+                width: 100%;
+                max-width: 100%;
                 border-radius: 999px;
                 background: #000000;
                 border: 1px solid rgba(255, 255, 255, 0.35);
@@ -83,18 +114,24 @@
             }
 
             .top-nav:hover {
-                transform: scale(1.04);
-                box-shadow:
-                    0 0 0 1px rgba(0, 0, 0, 0.7),
-                    0 0 16px rgba(255, 255, 255, 0.12),
-                    0 20px 44px rgba(0, 0, 0, 0.9);
+                transform: none;
             }
 
             .top-nav-inner {
-                display: inline-flex;
+                display: flex;
                 align-items: center;
-                gap: 2rem;
+                width: 100%;
             }
+
+            .top-nav-center-group {
+                flex: 1;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 0.85rem;
+                flex-wrap: wrap;
+            }
+
             .top-nav-icons {
                 display: inline-flex;
                 align-items: center;
@@ -102,16 +139,17 @@
             }
 
             .top-nav-brand-img {
-                width: 32px;
-                height: 32px;
+                width: 28px;
+                height: 28px;
                 object-fit: cover;
                 border-radius: 50%;
                 flex-shrink: 0;
+                margin-right: auto;
             }
 
             .top-nav-item {
                 font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-                font-size: 0.9rem;
+                font-size: 0.85rem;
                 font-weight: 600;
                 opacity: 0.96;
                 cursor: pointer;
@@ -127,8 +165,8 @@
                 display: inline-flex;
                 align-items: center;
                 justify-content: center;
-                width: 1.75rem;
-                height: 1.75rem;
+                width: 1.5rem;
+                height: 1.5rem;
                 border-radius: 999px;
                 background: #000000;
                 border: 1px solid #ffffff;
@@ -137,8 +175,8 @@
             }
 
             .header-icon svg {
-                width: 1.05rem;
-                height: 1.05rem;
+                width: 0.9rem;
+                height: 0.9rem;
                 color: #ffffff;
             }
 
@@ -158,41 +196,129 @@
                 outline: none;
             }
 
+            /* Hamburger: visible only on small screens */
+            .hamburger-btn {
+                display: none;
+                align-items: center;
+                justify-content: center;
+                width: 2.75rem;
+                height: 2.75rem;
+                min-width: 44px;
+                min-height: 44px;
+                padding: 0;
+                border: 1px solid rgba(255, 255, 255, 0.35);
+                border-radius: 0.5rem;
+                background: #000;
+                color: #f9fafb;
+                cursor: pointer;
+                z-index: 100;
+                transition: background 0.2s, border-color 0.2s;
+            }
+            .hamburger-btn:hover { background: #111; border-color: rgba(255,255,255,0.5); }
+            .hamburger-btn[aria-expanded="true"] .hamburger-icon span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+            .hamburger-btn[aria-expanded="true"] .hamburger-icon span:nth-child(2) { opacity: 0; }
+            .hamburger-btn[aria-expanded="true"] .hamburger-icon span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+            .hamburger-icon {
+                display: flex;
+                flex-direction: column;
+                gap: 5px;
+                width: 1.25rem;
+            }
+            .hamburger-icon span {
+                display: block;
+                height: 2px;
+                background: currentColor;
+                border-radius: 1px;
+                transition: transform 0.2s, opacity 0.2s;
+            }
+            .mobile-nav-backdrop {
+                display: none;
+                position: fixed;
+                inset: 0;
+                background: rgba(0, 0, 0, 0.7);
+                z-index: 998;
+                opacity: 0;
+                transition: opacity 0.25s ease;
+            }
+            body.nav-open .mobile-nav-backdrop { display: block; opacity: 1; }
+            .mobile-nav-panel {
+                position: fixed;
+                top: 0;
+                right: 0;
+                width: min(320px, 100vw - 2rem);
+                max-width: 100%;
+                height: 100vh;
+                background: #0a0a0a;
+                border-left: 1px solid rgba(255,255,255,0.1);
+                z-index: 999;
+                padding: 4rem 1.25rem 1.5rem;
+                transform: translateX(100%);
+                transition: transform 0.3s ease;
+                overflow-y: auto;
+                display: flex;
+                flex-direction: column;
+                gap: 0.25rem;
+            }
+            body.nav-open .mobile-nav-panel { transform: translateX(0); }
+            .mobile-nav-panel a {
+                display: flex;
+                align-items: center;
+                gap: 0.75rem;
+                padding: 0.875rem 1rem;
+                min-height: 48px;
+                font-size: 1.05rem;
+                font-weight: 600;
+                color: #f9fafb;
+                text-decoration: none;
+                border-radius: 0.5rem;
+                transition: background 0.2s;
+            }
+            .mobile-nav-panel a:hover { background: rgba(255,255,255,0.08); }
+            .mobile-nav-panel .header-icon { width: 2rem; height: 2rem; flex-shrink: 0; }
+            .mobile-nav-panel .header-icon svg { width: 1.1rem; height: 1.1rem; }
+            @media (max-width: 767px) {
+                .hamburger-btn { display: flex; }
+                .top-bar-center { display: none !important; }
+            }
+            @media (min-width: 768px) {
+                .mobile-nav-backdrop, .mobile-nav-panel { display: none !important; }
+            }
+
             .hero-center {
                 display: flex;
                 flex-direction: column;
                 align-items: center;
                 justify-content: center;
-                min-height: 28vh;
+                min-height: 24vh;
                 width: 100%;
-                padding: 5rem 0 1.25rem;
+                padding: 3rem 0 1rem;
             }
 
             .discord-cta-wrap {
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                padding: 2rem 2rem 0.5rem;
-                gap: 3rem;
+                padding: 1.5rem 1rem 0.5rem;
+                gap: 2rem;
                 width: 100%;
-                margin-left: -4rem;
-                margin-top: 3rem;
+                margin-left: 0;
+                margin-top: 2rem;
             }
 
             .search-bar-wrap {
                 width: 100%;
                 display: flex;
                 justify-content: center;
-                margin: 2.25rem 0 0.75rem;
+                margin: 1.5rem 0 0.5rem;
             }
 
             .its-out-heading {
-                margin-top: -0.5rem;
-                margin-right: 2.5rem;
+                margin-top: -0.25rem;
+                margin-right: 0;
                 font-family: 'Oswald', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-                font-size: min(1.7rem, 3.2vw);
+                font-size: 1.5rem;
                 font-weight: 700;
-                letter-spacing: 0.28em;
+                letter-spacing: 0.22em;
                 text-transform: uppercase;
                 text-align: center;
                 background: none;
@@ -214,7 +340,7 @@
 
             .search-bar {
                 width: 92%;
-                max-width: 1200px;
+                max-width: 100%;
             }
 
             .search-bar-inner {
@@ -556,22 +682,30 @@
             .category-strip {
                 display: flex;
                 flex-wrap: nowrap;
-                justify-content: center;
+                justify-content: flex-start;
                 align-items: stretch;
-                gap: 4rem;
-                margin-top: 7vh;
-                margin-bottom: 2rem;
+                gap: 1.25rem;
+                margin-top: 5vh;
+                margin-bottom: 1.5rem;
                 width: 100%;
-                padding-left: 0;
-                margin-left: 0;
+                padding: 0.5rem 0.75rem 0.75rem;
+                overflow-x: auto;
+                overflow-y: hidden;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: thin;
+            }
+
+            .category-strip::after {
+                content: '';
+                flex: 0 0 0.5rem;
             }
 
             .category-card {
                 display: flex;
                 flex-direction: column;
-                flex: 1 1 260px;
-                min-width: 260px;
-                max-width: 460px;
+                flex: 0 0 160px;
+                min-width: 160px;
+                max-width: 160px;
                 background: #000000;
                 border: 1px solid #2a2a2a;
                 border-radius: 1.25rem;
@@ -609,8 +743,8 @@
             }
 
             .category-card-label {
-                padding: 0.75rem 1.25rem;
-                font-size: 1.35rem;
+                padding: 0.6rem 0.85rem;
+                font-size: 1.15rem;
                 font-weight: 400;
                 text-align: center;
                 background: #000000;
@@ -625,11 +759,11 @@
             }
 
             .category-strip-subtitle {
-                margin: 14rem 0 2.25rem;
+                margin: 6rem 0 1.75rem;
                 text-align: center;
-                font-size: clamp(1.5rem, 4vw, 2.5rem);
+                font-size: 1.35rem;
                 font-weight: 700;
-                letter-spacing: 0.15em;
+                letter-spacing: 0.12em;
                 text-transform: uppercase;
                 color: #ffffff;
                 text-shadow:
@@ -643,18 +777,18 @@
                 display: flex;
                 flex-wrap: wrap;
                 justify-content: center;
-                gap: 2rem;
-                margin-top: 3.5rem;
-                padding: 0 1rem;
+                gap: 1.25rem;
+                margin-top: 2.5rem;
+                padding: 0 0.5rem;
             }
             .trusted-seller-card {
-                flex: 1;
-                min-width: 280px;
-                max-width: 360px;
+                flex: 1 1 100%;
+                min-width: 100%;
+                max-width: 100%;
                 background: #000000;
                 border: 1px solid rgba(255, 255, 255, 0.35);
                 border-radius: 1rem;
-                padding: 2rem 1.5rem;
+                padding: 1.5rem 1rem;
                 box-shadow:
                     0 0 15px rgba(255, 255, 255, 0.15),
                     0 0 30px rgba(255, 255, 255, 0.08);
@@ -1115,9 +1249,89 @@
                     0 0 8px rgba(255, 255, 255, 0.6),
                     0 0 16px rgba(255, 255, 255, 0.3);
             }
+
+            .page-main { overflow-x: hidden; }
+
+            @media (max-width: 480px) {
+                .shell { padding: 0.5rem 0.75rem 2.5rem; }
+                .top-nav-center-group { gap: 0.6rem; }
+                .top-nav-item { font-size: 0.8rem; }
+                .top-nav-item + .top-nav-item::before { display: none; }
+                .its-out-heading { font-size: 1.35rem; letter-spacing: 0.2em; min-height: 48px; padding: 0.5rem 0.75rem; display: inline-flex; align-items: center; justify-content: center; }
+                .category-card { flex: 0 0 140px; min-width: 140px; max-width: 140px; }
+                .category-card-label { font-size: 1rem; padding: 0.5rem 0.65rem; }
+                .trusted-seller-card-name { font-size: 1.1rem; }
+                .admin-link, .logout-form .admin-link { min-height: 44px; display: inline-flex; align-items: center; padding: 0.5rem 0.85rem; }
+                .search-bar-input { min-height: 48px; padding: 0.875rem 1rem 0.875rem 2.75rem; }
+            }
+
+            @media (min-width: 769px) {
+                .shell { padding: 1.25rem 1.5rem 40rem; }
+                header { flex-wrap: nowrap; margin-bottom: 1.5rem; gap: 1.5rem; }
+                .brand { top: 1.25rem; left: 1.5rem; font-size: 1.1rem; }
+                .top-bar-left { min-width: 120px; }
+                .top-bar-center {
+                    flex: 1 1 auto;
+                    order: unset;
+                    padding-left: 8.5rem;
+                    margin-left: 2rem;
+                    margin-top: 0;
+                }
+                .top-nav {
+                    min-width: 540px;
+                    width: auto;
+                    max-width: 55%;
+                    padding: 1.15rem 1.75rem 1.15rem 0.65rem;
+                    gap: 2.25rem;
+                }
+                .top-nav:hover {
+                    transform: scale(1.04);
+                    box-shadow:
+                        0 0 0 1px rgba(0, 0, 0, 0.7),
+                        0 0 16px rgba(255, 255, 255, 0.12),
+                        0 20px 44px rgba(0, 0, 0, 0.9);
+                }
+                .top-nav-center-group { gap: 2.25rem; flex-wrap: nowrap; }
+                .top-nav-brand-img { width: 38px; height: 38px; }
+                .top-nav-item { font-size: 1.1rem; }
+                .header-icon { width: 2rem; height: 2rem; }
+                .header-icon svg { width: 1.2rem; height: 1.2rem; }
+                .hero-center { min-height: 28vh; padding: 5rem 0 1.25rem; }
+                .discord-cta-wrap { margin-left: -4rem; padding: 2rem 2rem 0.5rem; gap: 3rem; margin-top: 3rem; }
+                .search-bar-wrap { margin: 2.25rem 0 0.75rem; }
+                .its-out-heading { font-size: min(1.7rem, 3.2vw); margin-right: 2.5rem; letter-spacing: 0.28em; }
+                .search-bar { max-width: 1200px; }
+                .category-strip {
+                    gap: 4rem;
+                    margin-top: 7vh;
+                    margin-bottom: 2rem;
+                    padding: 0;
+                    overflow-x: visible;
+                    overflow-y: visible;
+                    justify-content: center;
+                }
+                .category-strip::after { content: none; flex: none; }
+                .category-card {
+                    flex: 1 1 260px;
+                    min-width: 260px;
+                    max-width: 460px;
+                }
+                .category-card-label { padding: 0.75rem 1.25rem; font-size: 1.35rem; }
+                .category-strip-subtitle {
+                    margin: 14rem 0 2.25rem;
+                    font-size: clamp(1.5rem, 4vw, 2.5rem);
+                    letter-spacing: 0.15em;
+                }
+                .trusted-seller-card { min-width: 280px; max-width: 360px; padding: 2rem 1.5rem; }
+                .trusted-seller-card-desc { font-size: 1rem; }
+                .trusted-seller-btn { padding: 0.6rem 1rem; font-size: 0.85rem; }
+                .admin-link, .logout-form .admin-link { left: 1.5rem; top: 1.5rem; padding: 0.55rem 1.1rem; font-size: 0.85rem; }
+                .admin-panel-btn { right: 1.5rem; top: 1.5rem; padding: 0.55rem 1.1rem; font-size: 0.85rem; }
+            }
         </style>
     </head>
     <body class="has-footer">
+        <script>window.scrollTo(0,0);document.documentElement.scrollTop=0;document.body.scrollTop=0;</script>
         <div class="page-main">
         @include('partials.stars-bg')
         <div class="shell">
@@ -1125,33 +1339,42 @@
                 <div class="top-bar-left" aria-hidden="true"></div>
                 <div class="brand" aria-hidden="true"></div>
 
+                <button type="button" class="hamburger-btn" id="hamburger-btn" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav-panel">
+                    <span class="hamburger-icon">
+                        <span></span><span></span><span></span>
+                    </span>
+                </button>
+
                 <div class="top-bar-center">
                     <nav class="top-nav">
                         <div class="top-nav-inner">
-                            <span class="top-nav-icons">
-                                <a href="{{ route('favorites') }}" class="header-icon top-nav-icon" aria-label="Favorites">
-                                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M12.001 20.25C12.001 20.25 5 15.75 5 9.75C5 7.127 7.014 5.25 9.35 5.25C10.77 5.25 12.001 6.036 12.001 6.036C12.001 6.036 13.232 5.25 14.652 5.25C16.988 5.25 19.002 7.127 19.002 9.75C19.002 15.75 12.001 20.25 12.001 20.25Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                    </svg>
-                                </a>
-                            </span>
                             <img src="{{ asset('images/nav-brand.png') }}" alt="" class="top-nav-brand-img" width="32" height="32">
-                            <a href="{{ route('products.index') }}" class="top-nav-item" style="text-decoration:none; color:inherit;">
-                                Products
-                            </a>
-                            <a href="{{ route('home') }}#trusted-sellers" class="top-nav-item" style="text-decoration:none; color:inherit;">
-                                Trusted sellers
-                            </a>
-                            <a href="{{ route('faq') }}" class="top-nav-item" style="text-decoration:none; color:inherit;">
-                                FAQ
-                            </a>
+                            <div class="top-nav-center-group">
+                                <span class="top-nav-icons">
+                                    <a href="{{ route('favorites') }}" class="header-icon top-nav-icon" aria-label="Favorites">
+                                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M12.001 20.25C12.001 20.25 5 15.75 5 9.75C5 7.127 7.014 5.25 9.35 5.25C10.77 5.25 12.001 6.036 12.001 6.036C12.001 6.036 13.232 5.25 14.652 5.25C16.988 5.25 19.002 7.127 19.002 9.75C19.002 15.75 12.001 20.25 12.001 20.25Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                    </a>
+                                </span>
+                                <a href="{{ route('products.index') }}" class="top-nav-item" style="text-decoration:none; color:inherit;">
+                                    Products
+                                </a>
+                                <a href="{{ route('home') }}#trusted-sellers" class="top-nav-item" style="text-decoration:none; color:inherit;">
+                                    Trusted sellers
+                                </a>
+                                <a href="{{ route('faq') }}" class="top-nav-item" style="text-decoration:none; color:inherit;">
+                                    FAQ
+                                </a>
+                            </div>
                         </div>
                     </nav>
                 </div>
 
                 <div style="display:flex; align-items:center; gap:0.75rem;">
                     @php
-                        $isAdmin = auth()->check() && config('admin.email') && strtolower(trim(auth()->user()->email ?? '')) === strtolower(trim(config('admin.email')));
+                        $adminEmail = \App\Models\AdminCredential::get()?->email;
+                        $isAdmin = auth()->check() && $adminEmail && strtolower(trim(auth()->user()->email ?? '')) === strtolower(trim($adminEmail));
                     @endphp
                     @auth
                         @if($isAdmin)
@@ -1168,6 +1391,21 @@
                     @endauth
                 </div>
             </header>
+
+            <div class="mobile-nav-backdrop" id="mobile-nav-backdrop" aria-hidden="true"></div>
+            <nav class="mobile-nav-panel" id="mobile-nav-panel" aria-label="Mobile menu" aria-hidden="true">
+                <a href="{{ route('favorites') }}" class="mobile-nav-link">
+                    <span class="header-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="24" height="24">
+                            <path d="M12.001 20.25C12.001 20.25 5 15.75 5 9.75C5 7.127 7.014 5.25 9.35 5.25C10.77 5.25 12.001 6.036 12.001 6.036C12.001 6.036 13.232 5.25 14.652 5.25C16.988 5.25 19.002 7.127 19.002 9.75C19.002 15.75 12.001 20.25 12.001 20.25Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </span>
+                    Favorites
+                </a>
+                <a href="{{ route('products.index') }}" class="mobile-nav-link">Products</a>
+                <a href="{{ route('home') }}#trusted-sellers" class="mobile-nav-link">Trusted sellers</a>
+                <a href="{{ route('faq') }}" class="mobile-nav-link">FAQ</a>
+            </nav>
 
             @if($isAdmin)
                 <a href="{{ route('admin.products.index') }}" class="admin-panel-btn">Admin panel</a>
@@ -1206,7 +1444,7 @@
                         </div>
                         <span class="category-card-label">Shoes</span>
                     </a>
-                    <a href="{{ route('products.index') }}#tees" class="category-card">
+                    <a href="{{ route('products.index') }}#hoodies" class="category-card">
                         <div class="category-card-image">
                             <img src="{{ asset('images/hoodies-icon.png') }}" alt="Hoodies" class="category-card-image-img--hoodies">
                         </div>
@@ -1223,6 +1461,12 @@
                             <img src="{{ asset('images/sweats-icon.png') }}" alt="Sweats">
                         </div>
                         <span class="category-card-label">Sweats</span>
+                    </a>
+                    <a href="{{ route('products.index') }}#jerseys" class="category-card">
+                        <div class="category-card-image">
+                            <img src="{{ asset('images/hoodies-icon.png') }}" alt="Jerseys">
+                        </div>
+                        <span class="category-card-label">Jerseys</span>
                     </a>
                     <a href="{{ route('products.index') }}#jewelry" class="category-card">
                         <div class="category-card-image">
@@ -1415,6 +1659,34 @@
 
         <script>
             document.addEventListener('DOMContentLoaded', function () {
+                (function () {
+                    var hamburger = document.getElementById('hamburger-btn');
+                    var backdrop = document.getElementById('mobile-nav-backdrop');
+                    var panel = document.getElementById('mobile-nav-panel');
+                    if (!hamburger || !backdrop || !panel) return;
+                    function openNav() {
+                        document.body.classList.add('nav-open');
+                        document.body.style.overflow = 'hidden';
+                        hamburger.setAttribute('aria-expanded', 'true');
+                        hamburger.setAttribute('aria-label', 'Close menu');
+                        panel.setAttribute('aria-hidden', 'false');
+                        backdrop.setAttribute('aria-hidden', 'false');
+                    }
+                    function closeNav() {
+                        document.body.classList.remove('nav-open');
+                        document.body.style.overflow = '';
+                        hamburger.setAttribute('aria-expanded', 'false');
+                        hamburger.setAttribute('aria-label', 'Open menu');
+                        panel.setAttribute('aria-hidden', 'true');
+                        backdrop.setAttribute('aria-hidden', 'true');
+                    }
+                    hamburger.addEventListener('click', function () {
+                        if (document.body.classList.contains('nav-open')) closeNav(); else openNav();
+                    });
+                    backdrop.addEventListener('click', closeNav);
+                    panel.querySelectorAll('a').forEach(function (a) { a.addEventListener('click', closeNav); });
+                })();
+
                 var nav = performance.getEntriesByType && performance.getEntriesByType('navigation')[0];
                 var isReload = nav && nav.type === 'reload';
                 if (window.location.hash === '#trusted-sellers') {

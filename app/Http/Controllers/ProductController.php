@@ -109,7 +109,7 @@ class ProductController extends Controller
         ]);
 
         return redirect()
-            ->route('admin.products.index')
+            ->route('admin.products.create')
             ->with('status', 'Product created.');
     }
 

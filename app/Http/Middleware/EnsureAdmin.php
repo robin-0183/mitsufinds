@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\AdminCredential;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -20,7 +21,8 @@ class EnsureAdmin
             return $next($request);
         }
 
-        $adminEmail = config('admin.email');
+        $adminCredential = AdminCredential::get();
+        $adminEmail = $adminCredential?->email;
         if (! Auth::check() || ! $adminEmail || strtolower(trim(Auth::user()->email ?? '')) !== strtolower(trim($adminEmail))) {
             return redirect()->route('home');
         }

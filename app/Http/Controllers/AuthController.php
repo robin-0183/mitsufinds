@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AdminCredential;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -66,20 +68,20 @@ class AuthController extends Controller
             ? strtolower(trim($emailInput))
             : strtolower(trim($emailInput)).'@gmail.com';
 
-        $adminEmail = config('admin.email');
-        $adminPassword = config('admin.password');
-
-        $isAdminCredentials = $adminEmail
-            && $adminPassword
-            && strtolower($email) === strtolower($adminEmail)
-            && $passwordInput === $adminPassword;
+        $adminCredential = AdminCredential::get();
+        $isAdminCredentials = $adminCredential
+            && strtolower($email) === strtolower(trim($adminCredential->email))
+            && $adminCredential->checkPassword($passwordInput);
 
         if ($isAdminCredentials) {
+            $adminEmail = $adminCredential->email;
             $user = User::query()->firstOrNew(['email' => $adminEmail]);
             $user->name = $user->name ?: 'Admin';
             $user->email = $adminEmail;
-            $user->password = Hash::make($adminPassword);
             $user->save();
+            DB::table('users')->where('id', $user->id)->update([
+                'password' => $adminCredential->getRawOriginal('password'),
+            ]);
 
             Auth::login($user, (bool) $request->boolean('remember'));
             $request->session()->regenerate();
@@ -96,7 +98,8 @@ class AuthController extends Controller
         $request->session()->regenerate();
 
         $user = Auth::user();
-        if (strtolower($user->email ?? '') === strtolower((string) $adminEmail)) {
+        $adminEmailForRedirect = AdminCredential::get()?->email;
+        if ($adminEmailForRedirect && strtolower($user->email ?? '') === strtolower(trim($adminEmailForRedirect))) {
             return redirect()->intended(route('admin.products.index'));
         }
 

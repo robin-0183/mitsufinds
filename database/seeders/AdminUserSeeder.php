@@ -2,31 +2,36 @@
 
 namespace Database\Seeders;
 
+use App\Models\AdminCredential;
 use App\Models\User;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 
 class AdminUserSeeder extends Seeder
 {
     /**
      * Run the database seeds.
-     * Set ADMIN_EMAIL and ADMIN_PASSWORD in your .env to create your admin account.
+     * Creates or updates the User record for the admin email stored in admin_credentials.
      */
     public function run(): void
     {
-        $email = config('admin.email');
-        $password = config('admin.password');
+        $adminCredential = AdminCredential::get();
 
-        if (empty($email) || empty($password)) {
-            $this->command->warn('Set ADMIN_EMAIL and ADMIN_PASSWORD in .env to create your admin user, then run: php artisan db:seed --class=AdminUserSeeder');
+        if (! $adminCredential?->email) {
+            $this->command->warn('No admin credentials in database. Run the migration and set credentials with: php artisan admin:set-credentials');
+
             return;
         }
 
+        $email = $adminCredential->email;
         $user = User::query()->firstOrNew(['email' => $email]);
         $user->name = $user->name ?: 'Admin';
         $user->email = $email;
-        $user->password = Hash::make($password);
         $user->save();
+
+        DB::table('users')->where('id', $user->id)->update([
+            'password' => $adminCredential->getRawOriginal('password'),
+        ]);
 
         $this->command->info('Admin user created/updated for: '.$email);
     }
