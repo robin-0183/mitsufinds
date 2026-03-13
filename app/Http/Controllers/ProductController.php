@@ -32,7 +32,7 @@ class ProductController extends Controller
     {
         $products = Product::query()
             ->where('is_active', true)
-            ->latest()
+            ->inRandomOrder()
             ->get();
 
         return view('products', [
