@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 
 class ProductController extends Controller
@@ -30,10 +31,12 @@ class ProductController extends Controller
 
     public function publicIndex()
     {
-        $products = Product::query()
-            ->where('is_active', true)
-            ->inRandomOrder()
-            ->get();
+        $products = Cache::remember('products.public', now()->addMinutes(5), function () {
+            return Product::query()
+                ->where('is_active', true)
+                ->latest()
+                ->get();
+        });
 
         return view('products', [
             'products' => $products,
@@ -108,8 +111,10 @@ class ProductController extends Controller
             'is_active' => $request->boolean('is_active', true),
         ]);
 
+        Cache::forget('products.public');
+
         return redirect()
-            ->route('admin.products.create')
+            ->route('admin.products.index')
             ->with('status', 'Product created.');
     }
 
@@ -143,6 +148,7 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         $product->delete();
+        Cache::forget('products.public');
 
         return redirect()
             ->route('admin.products.index')

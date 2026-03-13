@@ -2,7 +2,7 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
         <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>{{ config('app.name', 'mxtsu') }}</title>
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,17 +11,9 @@
             html {
                 font-size: 85%;
                 scroll-behavior: smooth;
-                overflow-x: hidden;
-                -webkit-text-size-adjust: 100%;
             }
             * {
                 box-sizing: border-box;
-            }
-
-            .shell img:not(.top-nav-brand-img):not(.category-card-image img) {
-                max-width: 100%;
-                height: auto;
-                object-fit: contain;
             }
 
             body {
@@ -31,7 +23,6 @@
                 background: #000000;
                 color: #f9fafb;
                 position: relative;
-                overflow-x: hidden;
                 min-height: 100vh;
             }
             .page-main {
@@ -194,94 +185,6 @@
             .brand:focus,
             .welcome-cta:focus {
                 outline: none;
-            }
-
-            /* Hamburger: visible only on small screens */
-            .hamburger-btn {
-                display: none;
-                align-items: center;
-                justify-content: center;
-                width: 2.75rem;
-                height: 2.75rem;
-                min-width: 44px;
-                min-height: 44px;
-                padding: 0;
-                border: 1px solid rgba(255, 255, 255, 0.35);
-                border-radius: 0.5rem;
-                background: #000;
-                color: #f9fafb;
-                cursor: pointer;
-                z-index: 100;
-                transition: background 0.2s, border-color 0.2s;
-            }
-            .hamburger-btn:hover { background: #111; border-color: rgba(255,255,255,0.5); }
-            .hamburger-btn[aria-expanded="true"] .hamburger-icon span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
-            .hamburger-btn[aria-expanded="true"] .hamburger-icon span:nth-child(2) { opacity: 0; }
-            .hamburger-btn[aria-expanded="true"] .hamburger-icon span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
-            .hamburger-icon {
-                display: flex;
-                flex-direction: column;
-                gap: 5px;
-                width: 1.25rem;
-            }
-            .hamburger-icon span {
-                display: block;
-                height: 2px;
-                background: currentColor;
-                border-radius: 1px;
-                transition: transform 0.2s, opacity 0.2s;
-            }
-            .mobile-nav-backdrop {
-                display: none;
-                position: fixed;
-                inset: 0;
-                background: rgba(0, 0, 0, 0.7);
-                z-index: 998;
-                opacity: 0;
-                transition: opacity 0.25s ease;
-            }
-            body.nav-open .mobile-nav-backdrop { display: block; opacity: 1; }
-            .mobile-nav-panel {
-                position: fixed;
-                top: 0;
-                right: 0;
-                width: min(320px, 100vw - 2rem);
-                max-width: 100%;
-                height: 100vh;
-                background: #0a0a0a;
-                border-left: 1px solid rgba(255,255,255,0.1);
-                z-index: 999;
-                padding: 4rem 1.25rem 1.5rem;
-                transform: translateX(100%);
-                transition: transform 0.3s ease;
-                overflow-y: auto;
-                display: flex;
-                flex-direction: column;
-                gap: 0.25rem;
-            }
-            body.nav-open .mobile-nav-panel { transform: translateX(0); }
-            .mobile-nav-panel a {
-                display: flex;
-                align-items: center;
-                gap: 0.75rem;
-                padding: 0.875rem 1rem;
-                min-height: 48px;
-                font-size: 1.05rem;
-                font-weight: 600;
-                color: #f9fafb;
-                text-decoration: none;
-                border-radius: 0.5rem;
-                transition: background 0.2s;
-            }
-            .mobile-nav-panel a:hover { background: rgba(255,255,255,0.08); }
-            .mobile-nav-panel .header-icon { width: 2rem; height: 2rem; flex-shrink: 0; }
-            .mobile-nav-panel .header-icon svg { width: 1.1rem; height: 1.1rem; }
-            @media (max-width: 767px) {
-                .hamburger-btn { display: flex; }
-                .top-bar-center { display: none !important; }
-            }
-            @media (min-width: 768px) {
-                .mobile-nav-backdrop, .mobile-nav-panel { display: none !important; }
             }
 
             .hero-center {
@@ -1257,12 +1160,10 @@
                 .top-nav-center-group { gap: 0.6rem; }
                 .top-nav-item { font-size: 0.8rem; }
                 .top-nav-item + .top-nav-item::before { display: none; }
-                .its-out-heading { font-size: 1.35rem; letter-spacing: 0.2em; min-height: 48px; padding: 0.5rem 0.75rem; display: inline-flex; align-items: center; justify-content: center; }
+                .its-out-heading { font-size: 1.35rem; letter-spacing: 0.2em; }
                 .category-card { flex: 0 0 140px; min-width: 140px; max-width: 140px; }
                 .category-card-label { font-size: 1rem; padding: 0.5rem 0.65rem; }
                 .trusted-seller-card-name { font-size: 1.1rem; }
-                .admin-link, .logout-form .admin-link { min-height: 44px; display: inline-flex; align-items: center; padding: 0.5rem 0.85rem; }
-                .search-bar-input { min-height: 48px; padding: 0.875rem 1rem 0.875rem 2.75rem; }
             }
 
             @media (min-width: 769px) {
@@ -1339,12 +1240,6 @@
                 <div class="top-bar-left" aria-hidden="true"></div>
                 <div class="brand" aria-hidden="true"></div>
 
-                <button type="button" class="hamburger-btn" id="hamburger-btn" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav-panel">
-                    <span class="hamburger-icon">
-                        <span></span><span></span><span></span>
-                    </span>
-                </button>
-
                 <div class="top-bar-center">
                     <nav class="top-nav">
                         <div class="top-nav-inner">
@@ -1391,21 +1286,6 @@
                     @endauth
                 </div>
             </header>
-
-            <div class="mobile-nav-backdrop" id="mobile-nav-backdrop" aria-hidden="true"></div>
-            <nav class="mobile-nav-panel" id="mobile-nav-panel" aria-label="Mobile menu" aria-hidden="true">
-                <a href="{{ route('favorites') }}" class="mobile-nav-link">
-                    <span class="header-icon" aria-hidden="true">
-                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="24" height="24">
-                            <path d="M12.001 20.25C12.001 20.25 5 15.75 5 9.75C5 7.127 7.014 5.25 9.35 5.25C10.77 5.25 12.001 6.036 12.001 6.036C12.001 6.036 13.232 5.25 14.652 5.25C16.988 5.25 19.002 7.127 19.002 9.75C19.002 15.75 12.001 20.25 12.001 20.25Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </span>
-                    Favorites
-                </a>
-                <a href="{{ route('products.index') }}" class="mobile-nav-link">Products</a>
-                <a href="{{ route('home') }}#trusted-sellers" class="mobile-nav-link">Trusted sellers</a>
-                <a href="{{ route('faq') }}" class="mobile-nav-link">FAQ</a>
-            </nav>
 
             @if($isAdmin)
                 <a href="{{ route('admin.products.index') }}" class="admin-panel-btn">Admin panel</a>
@@ -1536,7 +1416,7 @@
                             <path d="M20.317 4.369A19.91 19.91 0 0 0 16.558 3c-.197.351-.42.825-.576 1.196a18.27 18.27 0 0 0-3.964 0A12.64 12.64 0 0 0 11.442 3 19.9 19.9 0 0 0 7.68 4.371C4.943 8.285 4.26 12.091 4.57 15.853A19.9 19.9 0 0 0 9.07 17.5c.328-.45.62-.928.873-1.434a11.8 11.8 0 0 1-1.377-.66c.116-.083.23-.17.34-.26 2.652 1.243 5.53 1.243 8.16 0 .113.09.227.178.34.26-.44.264-.9.486-1.378.66.253.506.545.984.873 1.434a19.86 19.86 0 0 0 4.5-1.647c.37-4.274-.63-8.044-2.954-11.484ZM10.02 13.91c-.8 0-1.45-.73-1.45-1.625 0-.896.64-1.63 1.45-1.63.819 0 1.46.742 1.45 1.63 0 .895-.64 1.625-1.45 1.625Zm3.98 0c-.8 0-1.45-.73-1.45-1.625 0-.896.64-1.63 1.45-1.63.819 0 1.47.742 1.46 1.63 0 .895-.64 1.625-1.46 1.625Z"/>
                         </svg>
                     </div>
-                    <a href="https://discord.gg/P9XtWcmsau" target="_blank" rel="noopener noreferrer" class="discord-floating-text">
+                    <a href="{{ route('links') }}" class="discord-floating-text">
                         join my discord for more finds
                     </a>
                     <button type="button" class="discord-floating-close" id="discord-floating-close" aria-label="Close Discord popup">
@@ -1659,34 +1539,6 @@
 
         <script>
             document.addEventListener('DOMContentLoaded', function () {
-                (function () {
-                    var hamburger = document.getElementById('hamburger-btn');
-                    var backdrop = document.getElementById('mobile-nav-backdrop');
-                    var panel = document.getElementById('mobile-nav-panel');
-                    if (!hamburger || !backdrop || !panel) return;
-                    function openNav() {
-                        document.body.classList.add('nav-open');
-                        document.body.style.overflow = 'hidden';
-                        hamburger.setAttribute('aria-expanded', 'true');
-                        hamburger.setAttribute('aria-label', 'Close menu');
-                        panel.setAttribute('aria-hidden', 'false');
-                        backdrop.setAttribute('aria-hidden', 'false');
-                    }
-                    function closeNav() {
-                        document.body.classList.remove('nav-open');
-                        document.body.style.overflow = '';
-                        hamburger.setAttribute('aria-expanded', 'false');
-                        hamburger.setAttribute('aria-label', 'Open menu');
-                        panel.setAttribute('aria-hidden', 'true');
-                        backdrop.setAttribute('aria-hidden', 'true');
-                    }
-                    hamburger.addEventListener('click', function () {
-                        if (document.body.classList.contains('nav-open')) closeNav(); else openNav();
-                    });
-                    backdrop.addEventListener('click', closeNav);
-                    panel.querySelectorAll('a').forEach(function (a) { a.addEventListener('click', closeNav); });
-                })();
-
                 var nav = performance.getEntriesByType && performance.getEntriesByType('navigation')[0];
                 var isReload = nav && nav.type === 'reload';
                 if (window.location.hash === '#trusted-sellers') {

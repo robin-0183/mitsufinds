@@ -2,15 +2,14 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
         <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Favorites · {{ config('app.name', 'mxtsu') }}</title>
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
         <style>
-            html { font-size: 90%; overflow-x: hidden; -webkit-text-size-adjust: 100%; }
+            html { font-size: 90%; }
             * { box-sizing: border-box; }
-            body { overflow-x: hidden; }
             body {
                 margin: 0;
                 font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
@@ -119,7 +118,6 @@
 
             @media (max-width: 480px) {
                 .shell { padding: 0.75rem 0.75rem 1.5rem; }
-                .back-link { min-height: 44px; padding: 0.5rem 0; }
                 .grid { grid-template-columns: 1fr; gap: 1rem; }
             }
 

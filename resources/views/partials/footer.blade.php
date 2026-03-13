@@ -44,10 +44,7 @@ body.has-footer .page-main {
     text-transform: uppercase;
     color: #ffffff;
     text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    min-height: 44px;
-    padding: 0.25rem 0.5rem;
+    display: inline-block;
     transition: color 0.2s ease, transform 0.2s ease;
     outline: none;
 }
@@ -77,7 +74,6 @@ body.has-footer .page-main {
     align-items: center;
     gap: 0.5rem;
     padding: 0.5rem 1rem;
-    min-height: 44px;
     background: #0a0a0a;
     color: #ffffff;
     font-size: 0.85rem;

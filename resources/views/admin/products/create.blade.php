@@ -200,17 +200,6 @@
                 font-weight: 600;
                 color: #fecaca;
             }
-
-            .status-success {
-                margin-bottom: 1rem;
-                padding: 0.75rem 1rem;
-                border-radius: 0.5rem;
-                background: rgba(34, 197, 94, 0.15);
-                border: 1px solid rgba(34, 197, 94, 0.4);
-                color: #86efac;
-                font-size: 0.95rem;
-                font-weight: 600;
-            }
         </style>
     </head>
     <body>
@@ -219,10 +208,6 @@
                 <div class="title">Add product</div>
                 <div class="subtitle">Create an ACBuy affiliate item that appears on the mxtsu home page.</div>
             </header>
-
-            @if(session('status'))
-                <div class="status-success" role="alert">{{ session('status') }}</div>
-            @endif
 
             <form method="post" action="{{ route('admin.products.store') }}" enctype="multipart/form-data">
                 @csrf

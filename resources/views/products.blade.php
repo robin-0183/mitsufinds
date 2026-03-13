@@ -2,17 +2,16 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
         <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Products · {{ config('app.name', 'mxtsu') }}</title>
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
         <style>
-            html { font-size: 90%; overflow-x: hidden; -webkit-text-size-adjust: 100%; }
+            html { font-size: 90%; }
             * {
                 box-sizing: border-box;
             }
-            body { overflow-x: hidden; }
 
             body {
                 margin: 0;
@@ -492,7 +491,6 @@
                 align-items: center;
                 gap: 0.5rem;
                 padding: 0.5rem 0.9rem;
-                min-height: 44px;
                 font-size: 0.9rem;
                 font-weight: 600;
                 color: #fff;
@@ -584,15 +582,10 @@
                     margin-top: 0.5rem;
                 }
                 .filter-heading { font-size: 0.75rem; margin-bottom: 0.75rem; }
-                .filter-categories .filter-cat { padding: 0.65rem 0.8rem; font-size: 0.9rem; min-height: 44px; display: flex; align-items: center; }
+                .filter-categories .filter-cat { padding: 0.65rem 0.8rem; font-size: 0.9rem; }
                 .filter-category-sublist .filter-cat { padding-left: 1rem; }
                 .product-card .card-body { padding: 0.75rem; }
                 .product-card .card-title { font-size: 0.85rem; }
-                .back-link { min-height: 44px; padding: 0.5rem 0; }
-                .mobile-filters-btn { padding: 0.65rem 1rem; }
-                .filter-panel-close { min-width: 44px; min-height: 44px; }
-                .product-card .btn-primary { min-height: 44px; padding: 0.6rem 0.85rem; }
-                .product-card .card-fav-btn { width: 40px; height: 40px; min-width: 44px; min-height: 44px; top: 0.5rem; right: 0.5rem; }
             }
 
             @keyframes product-card-in {
@@ -1102,7 +1095,7 @@
 
                                     @if ($product->image_url)
                                         <div class="card-image">
-                                            <img src="{{ $product->image_url }}" alt="{{ $product->name }}">
+                                            <img src="{{ $product->image_url }}" alt="{{ $product->name }}" loading="lazy" decoding="async">
                                         </div>
                                     @endif
 
@@ -1398,18 +1391,24 @@
             (function () {
                 var overlay = document.getElementById('products-page-load-overlay');
                 var grid = document.getElementById('products-grid');
-                if (overlay) {
-                    window.setTimeout(function () {
+                function hideOverlay() {
+                    if (overlay) {
                         overlay.classList.add('is-hidden');
                         overlay.setAttribute('aria-hidden', 'true');
-                        if (grid) {
-                            grid.classList.add('is-visible');
-                            var cards = grid.querySelectorAll('.product-card');
-                            cards.forEach(function (card, i) {
-                                card.style.animationDelay = (i * 0.06) + 's';
-                            });
-                        }
-                    }, 1200);
+                    }
+                    if (grid) {
+                        grid.classList.add('is-visible');
+                        var cards = grid.querySelectorAll('.product-card');
+                        cards.forEach(function (card, i) {
+                            card.style.animationDelay = (i * 0.04) + 's';
+                        });
+                    }
+                }
+                if (document.readyState === 'complete') {
+                    hideOverlay();
+                } else {
+                    window.addEventListener('load', hideOverlay);
+                    window.setTimeout(hideOverlay, 200);
                 }
             })();
         </script>
