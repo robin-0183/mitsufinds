@@ -11,7 +11,7 @@ class ImportProductsFromSheet extends Command
 {
     protected $signature = 'products:import-from-sheet
                             {--url= : CSV export URL (optional; uses default sheet if not set)}
-                            {--category= : Force category for all rows (hoodies, tees, jeans, sweats, boots, shoes, jewelry)}
+                            {--category= : Force category for all rows (hoodies, tees, jeans, sweats, boots, shoes, jerseys, jewelry)}
                             {--dry-run : Parse and show what would be imported without saving}';
 
     protected $description = 'Import products from a published Google Sheet CSV (Names, Photos, Links, Prices)';
@@ -54,6 +54,7 @@ class ImportProductsFromSheet extends Command
             'shirts/longsleeves' => 'tees',
             'longsleeves' => 'tees',
             'tees' => 'tees',
+            'jerseys' => 'jerseys',
             'shoes' => 'shoes',
             'shoes/boots' => 'shoes',
             'boots' => 'boots',
@@ -103,7 +104,7 @@ class ImportProductsFromSheet extends Command
             }
 
             $category = $forceCategory ?: $currentCategory;
-            if (! in_array($category, ['hoodies', 'tees', 'jeans', 'sweats', 'boots', 'shoes', 'jewelry'], true)) {
+            if (! in_array($category, ['hoodies', 'tees', 'jeans', 'sweats', 'boots', 'shoes', 'jerseys', 'jewelry'], true)) {
                 $category = 'hoodies';
             }
 
@@ -167,7 +168,7 @@ class ImportProductsFromSheet extends Command
                 return true;
             }
         }
-        if (in_array($lower, ['hoodies', 'jeans', 'tees', 'shirts', 'sweats', 'shoes', 'boots', 'jewelry', 'accessories', 'jewelery'], true)) {
+        if (in_array($lower, ['hoodies', 'jeans', 'tees', 'jerseys', 'shirts', 'sweats', 'shoes', 'boots', 'jewelry', 'accessories', 'jewelery'], true)) {
             return true;
         }
 

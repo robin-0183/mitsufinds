@@ -200,6 +200,17 @@
                 font-weight: 600;
                 color: #fecaca;
             }
+
+            .status-success {
+                margin-bottom: 1rem;
+                padding: 0.75rem 1rem;
+                border-radius: 0.5rem;
+                background: rgba(34, 197, 94, 0.15);
+                border: 1px solid rgba(34, 197, 94, 0.4);
+                color: #86efac;
+                font-size: 0.95rem;
+                font-weight: 600;
+            }
         </style>
     </head>
     <body>
@@ -208,6 +219,10 @@
                 <div class="title">Add product</div>
                 <div class="subtitle">Create an ACBuy affiliate item that appears on the mxtsu home page.</div>
             </header>
+
+            @if(session('status'))
+                <div class="status-success" role="alert">{{ session('status') }}</div>
+            @endif
 
             <form method="post" action="{{ route('admin.products.store') }}" enctype="multipart/form-data">
                 @csrf
@@ -242,6 +257,7 @@
                         <option value="sweats" {{ $currentCategory === 'sweats' ? 'selected' : '' }}>Sweats</option>
                         <option value="boots" {{ $currentCategory === 'boots' ? 'selected' : '' }}>boots</option>
                         <option value="shoes" {{ $currentCategory === 'shoes' ? 'selected' : '' }}>shoes</option>
+                        <option value="jerseys" {{ $currentCategory === 'jerseys' ? 'selected' : '' }}>Jerseys</option>
                         <option value="jewelry" {{ $currentCategory === 'jewelry' ? 'selected' : '' }}>Jewelry</option>
                     </select>
                     <div class="hint">Product will appear in this section on the home page and on the Products page.</div>
@@ -266,6 +282,8 @@
                         <option value="rick_owens" {{ $currentBrand === 'rick_owens' ? 'selected' : '' }}>rick owens</option>
                         <option value="supreme" {{ $currentBrand === 'supreme' ? 'selected' : '' }}>supreme</option>
                         <option value="erd" {{ $currentBrand === 'erd' ? 'selected' : '' }}>erd</option>
+                        <option value="vetements" {{ $currentBrand === 'vetements' ? 'selected' : '' }}>Vetements</option>
+                        <option value="underground" {{ $currentBrand === 'underground' ? 'selected' : '' }}>Underground</option>
                     </select>
                     @error('brand')
                         <div class="error">{{ $message }}</div>

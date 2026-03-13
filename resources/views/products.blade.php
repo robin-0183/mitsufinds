@@ -2,16 +2,17 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
         <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
         <title>Products · {{ config('app.name', 'mxtsu') }}</title>
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
         <style>
-            html { font-size: 90%; }
+            html { font-size: 90%; overflow-x: hidden; -webkit-text-size-adjust: 100%; }
             * {
                 box-sizing: border-box;
             }
+            body { overflow-x: hidden; }
 
             body {
                 margin: 0;
@@ -142,11 +143,6 @@
                 align-items: flex-start;
             }
 
-            @media (max-width: 768px) {
-                .products-layout { flex-direction: column; }
-                .filter-panel { width: 100%; }
-            }
-
             .filter-panel {
                 flex-shrink: 0;
                 width: 380px;
@@ -245,11 +241,11 @@
                 transition: transform 0.2s ease;
             }
 
-            .filter-hoodies-brands.is-open .filter-cat-chevron {
+            .filter-cat-parent-toggle.is-open .filter-cat-chevron {
                 transform: rotate(90deg);
             }
 
-            .filter-hoodies-brands {
+            .filter-category-sublist {
                 list-style: none;
                 padding: 0;
                 margin: 0;
@@ -258,32 +254,32 @@
                 transition: max-height 0.2s ease;
             }
 
-            .filter-hoodies-brands.is-open {
-                max-height: 320px;
+            .filter-category-sublist.is-open {
+                max-height: 400px;
             }
 
-            .filter-hoodies-brands li {
+            .filter-category-sublist li {
                 margin-bottom: 0.4rem;
             }
 
-            .filter-hoodies-brands .filter-cat {
+            .filter-category-sublist .filter-cat {
                 padding-left: 1.25rem;
             }
 
-            .filter-cat-hoodies-toggle,
-            .filter-hoodies-brands .filter-cat {
+            .filter-cat-parent-toggle,
+            .filter-category-sublist .filter-cat {
                 font-family: 'Open Sans', system-ui, sans-serif;
                 color: #6b7280;
             }
 
-            .filter-cat-hoodies-toggle:hover,
-            .filter-hoodies-brands .filter-cat:hover {
+            .filter-cat-parent-toggle:hover,
+            .filter-category-sublist .filter-cat:hover {
                 color: #9ca3af;
                 background: #111111;
                 box-shadow: 0 0 12px 2px rgba(255, 255, 255, 0.35);
             }
 
-            .filter-hoodies-brands .filter-cat.active {
+            .filter-category-sublist .filter-cat.active {
                 color: #d1d5db;
                 background: #111111;
             }
@@ -478,18 +474,125 @@
                 }
             }
 
+            .filter-panel-backdrop {
+                display: none;
+                position: fixed;
+                inset: 0;
+                background: rgba(0, 0, 0, 0.6);
+                z-index: 999;
+                opacity: 0;
+                transition: opacity 0.25s ease;
+            }
+            body.filters-open .filter-panel-backdrop {
+                display: block;
+                opacity: 1;
+            }
+            .mobile-filters-btn {
+                display: none;
+                align-items: center;
+                gap: 0.5rem;
+                padding: 0.5rem 0.9rem;
+                min-height: 44px;
+                font-size: 0.9rem;
+                font-weight: 600;
+                color: #fff;
+                background: #111;
+                border: 1px solid rgba(255, 255, 255, 0.3);
+                border-radius: 0.5rem;
+                cursor: pointer;
+            }
+            .mobile-filters-btn:hover { background: #1a1a1a; }
+            .filter-panel-close {
+                display: none;
+                position: absolute;
+                top: 1rem;
+                right: 1rem;
+                width: 2.25rem;
+                height: 2.25rem;
+                align-items: center;
+                justify-content: center;
+                font-size: 1.5rem;
+                line-height: 1;
+                color: #9ca3af;
+                background: transparent;
+                border: none;
+                cursor: pointer;
+                padding: 0;
+            }
+            .filter-panel-close:hover { color: #fff; }
+
             @media (max-width: 768px) {
+                body.filters-open { overflow: hidden; }
+                .shell { padding: 1rem 1rem 2rem 1rem; }
                 .products-layout {
-                    flex-direction: column;
+                    flex-direction: row;
+                    align-items: stretch;
                 }
                 .filter-panel {
-                    position: static;
-                    width: 100%;
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    bottom: 0;
+                    width: 300px;
+                    max-width: 85vw;
+                    margin: 0;
                     margin-left: 0;
+                    margin-top: 0;
+                    min-height: 100vh;
+                    padding: 3rem 1rem 1.5rem 1rem;
+                    z-index: 1000;
+                    transform: translateX(-100%);
+                    transition: transform 0.25s ease;
+                    overflow-y: auto;
+                    border-radius: 0;
+                }
+                body.filters-open .filter-panel { transform: translateX(0); }
+                .filter-panel-close { display: flex; }
+                .filter-sidebar-title { padding-right: 2.5rem; }
+                .products-main { flex: 1; min-width: 0; }
+                .mobile-filters-btn { display: inline-flex; }
+                .products-topbar {
+                    display: flex;
+                    flex-wrap: wrap;
+                    align-items: center;
+                    justify-content: space-between;
+                    gap: 0.5rem;
+                    margin-bottom: 0.5rem;
                 }
                 .grid {
                     grid-template-columns: repeat(2, minmax(0, 1fr));
+                    gap: 1rem;
+                    margin-top: 0.5rem;
                 }
+                .products-count { font-size: 0.9rem; }
+                .back-link { left: 0.75rem; top: 0.75rem; font-size: 0.8rem; }
+                .filter-section { margin-bottom: 1.25rem; }
+                .filter-categories button,
+                .filter-categories .filter-cat { padding: 0.75rem 0.9rem; font-size: 0.95rem; }
+                .filter-price-inputs { flex-wrap: wrap; }
+                .product-card .card-title { font-size: 0.9rem; }
+                .product-card .card-price-pill { font-size: 0.85rem; }
+                .product-card .btn-primary { padding: 0.5rem 0.75rem; font-size: 0.85rem; }
+            }
+
+            @media (max-width: 480px) {
+                .shell { padding: 0.75rem 0.75rem 1.5rem; }
+                .filter-panel { width: 280px; padding: 2.75rem 0.75rem 1.25rem 0.75rem; }
+                .grid {
+                    grid-template-columns: 1fr;
+                    gap: 1rem;
+                    margin-top: 0.5rem;
+                }
+                .filter-heading { font-size: 0.75rem; margin-bottom: 0.75rem; }
+                .filter-categories .filter-cat { padding: 0.65rem 0.8rem; font-size: 0.9rem; min-height: 44px; display: flex; align-items: center; }
+                .filter-category-sublist .filter-cat { padding-left: 1rem; }
+                .product-card .card-body { padding: 0.75rem; }
+                .product-card .card-title { font-size: 0.85rem; }
+                .back-link { min-height: 44px; padding: 0.5rem 0; }
+                .mobile-filters-btn { padding: 0.65rem 1rem; }
+                .filter-panel-close { min-width: 44px; min-height: 44px; }
+                .product-card .btn-primary { min-height: 44px; padding: 0.6rem 0.85rem; }
+                .product-card .card-fav-btn { width: 40px; height: 40px; min-width: 44px; min-height: 44px; top: 0.5rem; right: 0.5rem; }
             }
 
             @keyframes product-card-in {
@@ -798,7 +901,9 @@
                 $initialMaxPrice = min($maxPrice, $priceMaxRounded);
             @endphp
             <div class="products-layout">
+                <div class="filter-panel-backdrop" id="filter-backdrop" aria-hidden="true"></div>
                 <aside class="filter-panel" role="navigation" aria-label="Product filters">
+                    <button type="button" class="filter-panel-close" id="filter-panel-close" aria-label="Close filters">&times;</button>
                     <h2 class="filter-sidebar-title">
                         Filters
                         <span class="filter-favorites" id="filter-favorites" aria-hidden="true" style="display:none;">
@@ -818,26 +923,102 @@
                             <ul class="filter-categories">
                                 <li><button type="button" class="filter-cat active" data-category="" data-brand="">All</button></li>
                                 <li>
-                                    <button type="button" class="filter-cat filter-cat-hoodies-toggle" id="hoodies-toggle" data-category="hoodies" data-brand="" aria-expanded="false">
+                                    <button type="button" class="filter-cat filter-cat-parent-toggle filter-cat-hoodies-toggle" id="hoodies-toggle" data-category="hoodies" data-brand="" aria-expanded="false">
                                         <span class="filter-cat-parent">
                                             <span>Hoodies</span>
                                             <span class="filter-cat-chevron" aria-hidden="true">›</span>
                                         </span>
                                     </button>
-                                    <ul class="filter-hoodies-brands" id="hoodies-brands" aria-hidden="true">
+                                    <ul class="filter-category-sublist" id="hoodies-brands" aria-hidden="true">
                                         <li><button type="button" class="filter-cat filter-cat-brand" data-category="hoodies" data-brand="">All hoodies</button></li>
                                         <li><button type="button" class="filter-cat filter-cat-brand" data-category="hoodies" data-brand="balenciaga">Balenciaga</button></li>
                                         <li><button type="button" class="filter-cat filter-cat-brand" data-category="hoodies" data-brand="mm6">mm6</button></li>
                                         <li><button type="button" class="filter-cat filter-cat-brand" data-category="hoodies" data-brand="rick_owens">rick owens</button></li>
                                         <li><button type="button" class="filter-cat filter-cat-brand" data-category="hoodies" data-brand="supreme">supreme</button></li>
                                         <li><button type="button" class="filter-cat filter-cat-brand" data-category="hoodies" data-brand="erd">erd</button></li>
+                                        <li><button type="button" class="filter-cat filter-cat-brand" data-category="hoodies" data-brand="vetements">Vetements</button></li>
+                                        <li><button type="button" class="filter-cat filter-cat-brand" data-category="hoodies" data-brand="underground">Underground</button></li>
                                     </ul>
                                 </li>
-                                <li><button type="button" class="filter-cat" data-category="tees" data-brand="">Tees</button></li>
-                                <li><button type="button" class="filter-cat" data-category="jeans" data-brand="">Jeans</button></li>
-                                <li><button type="button" class="filter-cat" data-category="sweats" data-brand="">Sweats</button></li>
-                                <li><button type="button" class="filter-cat" data-category="boots" data-brand="">boots</button></li>
-                                <li><button type="button" class="filter-cat" data-category="shoes" data-brand="">shoes</button></li>
+                                <li>
+                                    <button type="button" class="filter-cat filter-cat-parent-toggle" id="tees-toggle" data-category="tees" data-brand="" aria-expanded="false">
+                                        <span class="filter-cat-parent">
+                                            <span>Tees</span>
+                                            <span class="filter-cat-chevron" aria-hidden="true">›</span>
+                                        </span>
+                                    </button>
+                                    <ul class="filter-category-sublist" id="tees-brands" aria-hidden="true">
+                                        <li><button type="button" class="filter-cat filter-cat-brand" data-category="tees" data-brand="">All tees</button></li>
+                                        <li><button type="button" class="filter-cat filter-cat-brand" data-category="tees" data-brand="balenciaga">Balenciaga</button></li>
+                                        <li><button type="button" class="filter-cat filter-cat-brand" data-category="tees" data-brand="mm6">mm6</button></li>
+                                        <li><button type="button" class="filter-cat filter-cat-brand" data-category="tees" data-brand="rick_owens">rick owens</button></li>
+                                        <li><button type="button" class="filter-cat filter-cat-brand" data-category="tees" data-brand="supreme">supreme</button></li>
+                                        <li><button type="button" class="filter-cat filter-cat-brand" data-category="tees" data-brand="erd">erd</button></li>
+                                        <li><button type="button" class="filter-cat filter-cat-brand" data-category="tees" data-brand="vetements">Vetements</button></li>
+                                        <li><button type="button" class="filter-cat filter-cat-brand" data-category="tees" data-brand="underground">Underground</button></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <button type="button" class="filter-cat filter-cat-parent-toggle" id="jeans-toggle" data-category="jeans" data-brand="" aria-expanded="false">
+                                        <span class="filter-cat-parent">
+                                            <span>Jeans</span>
+                                            <span class="filter-cat-chevron" aria-hidden="true">›</span>
+                                        </span>
+                                    </button>
+                                    <ul class="filter-category-sublist" id="jeans-brands" aria-hidden="true">
+                                        <li><button type="button" class="filter-cat filter-cat-brand" data-category="jeans" data-brand="">All jeans</button></li>
+                                        <li><button type="button" class="filter-cat filter-cat-brand" data-category="jeans" data-brand="balenciaga">Balenciaga</button></li>
+                                        <li><button type="button" class="filter-cat filter-cat-brand" data-category="jeans" data-brand="rick_owens">Rick Owens</button></li>
+                                        <li><button type="button" class="filter-cat filter-cat-brand" data-category="jeans" data-brand="mm6">mm6</button></li>
+                                        <li><button type="button" class="filter-cat filter-cat-brand" data-category="jeans" data-brand="acne">Acne</button></li>
+                                        <li><button type="button" class="filter-cat filter-cat-brand" data-category="jeans" data-brand="vetements">Vetements</button></li>
+                                        <li><button type="button" class="filter-cat filter-cat-brand" data-category="jeans" data-brand="underground">Underground</button></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <button type="button" class="filter-cat filter-cat-parent-toggle" id="sweats-toggle" data-category="sweats" data-brand="" aria-expanded="false">
+                                        <span class="filter-cat-parent">
+                                            <span>Sweats</span>
+                                            <span class="filter-cat-chevron" aria-hidden="true">›</span>
+                                        </span>
+                                    </button>
+                                    <ul class="filter-category-sublist" id="sweats-brands" aria-hidden="true">
+                                        <li><button type="button" class="filter-cat filter-cat-brand" data-category="sweats" data-brand="">All sweats</button></li>
+                                        <li><button type="button" class="filter-cat filter-cat-brand" data-category="sweats" data-brand="underground">Underground</button></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <button type="button" class="filter-cat filter-cat-parent-toggle" id="boots-toggle" data-category="boots" data-brand="" aria-expanded="false">
+                                        <span class="filter-cat-parent">
+                                            <span>boots</span>
+                                            <span class="filter-cat-chevron" aria-hidden="true">›</span>
+                                        </span>
+                                    </button>
+                                    <ul class="filter-category-sublist" id="boots-brands" aria-hidden="true">
+                                        <li><button type="button" class="filter-cat filter-cat-brand" data-category="boots" data-brand="">All boots</button></li>
+                                        <li><button type="button" class="filter-cat filter-cat-brand" data-category="boots" data-brand="balenciaga">Balenciaga</button></li>
+                                        <li><button type="button" class="filter-cat filter-cat-brand" data-category="boots" data-brand="rick_owens">Rick Owens</button></li>
+                                        <li><button type="button" class="filter-cat filter-cat-brand" data-category="boots" data-brand="vetements">Vetements</button></li>
+                                        <li><button type="button" class="filter-cat filter-cat-brand" data-category="boots" data-brand="underground">Underground</button></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <button type="button" class="filter-cat filter-cat-parent-toggle" id="shoes-toggle" data-category="shoes" data-brand="" aria-expanded="false">
+                                        <span class="filter-cat-parent">
+                                            <span>shoes</span>
+                                            <span class="filter-cat-chevron" aria-hidden="true">›</span>
+                                        </span>
+                                    </button>
+                                    <ul class="filter-category-sublist" id="shoes-brands" aria-hidden="true">
+                                        <li><button type="button" class="filter-cat filter-cat-brand" data-category="shoes" data-brand="">All shoes</button></li>
+                                        <li><button type="button" class="filter-cat filter-cat-brand" data-category="shoes" data-brand="nike">Nike</button></li>
+                                        <li><button type="button" class="filter-cat filter-cat-brand" data-category="shoes" data-brand="balenciaga">Balenciaga</button></li>
+                                        <li><button type="button" class="filter-cat filter-cat-brand" data-category="shoes" data-brand="rick_owens">Rick Owens</button></li>
+                                        <li><button type="button" class="filter-cat filter-cat-brand" data-category="shoes" data-brand="mm6">mm6</button></li>
+                                        <li><button type="button" class="filter-cat filter-cat-brand" data-category="shoes" data-brand="underground">Underground</button></li>
+                                    </ul>
+                                </li>
+                                <li><button type="button" class="filter-cat" data-category="jerseys" data-brand="">Jerseys</button></li>
                                 <li><button type="button" class="filter-cat" data-category="jewelry" data-brand="">jewelry</button></li>
                             </ul>
                         </div>
@@ -892,6 +1073,9 @@
                 </aside>
                 <div class="products-main">
                     <div class="products-topbar">
+                        <button type="button" class="mobile-filters-btn" id="mobile-filters-btn" aria-label="Open filters">
+                            Filters
+                        </button>
                         <div class="products-count">
                             Showing {{ $products->count() }} results
                         </div>
@@ -976,13 +1160,14 @@
 
                 function applyFilters() {
                     if (!grid || !cards.length) return;
-                    var cat = document.querySelector('.filter-cat.active:not(.filter-cat-hoodies-toggle)');
+                    var cat = document.querySelector('.filter-cat.active:not(.filter-cat-parent-toggle)');
                     if (!cat) cat = document.querySelector('.filter-cat.active');
                     var category = cat ? (cat.getAttribute('data-category') || '') : '';
                     var brand = cat ? (cat.getAttribute('data-brand') || '') : '';
                     var minP = parsePrice(priceMinInput.value, 1);
                     var maxP = parsePrice(priceMaxInput.value, maxVal);
                     if (minP > maxP) { var t = minP; minP = maxP; maxP = t; }
+                    var categoriesWithBrand = ['hoodies', 'tees', 'jeans', 'sweats', 'boots', 'shoes'];
                     cards.forEach(function (card) {
                         var c = (card.getAttribute('data-category') || '');
                         var b = (card.getAttribute('data-brand') || '');
@@ -990,7 +1175,7 @@
                         var price = p === '' || p === null ? null : parseFloat(p);
                         var matchCat = !category || c === category || (category === 'jeans' && c === 'jeans_sweats');
                         var matchBrand = true;
-                        if (category === 'hoodies' && brand !== '') {
+                        if (categoriesWithBrand.indexOf(category) >= 0 && brand !== '') {
                             matchBrand = b === brand;
                         }
                         var matchPrice = true;
@@ -999,17 +1184,8 @@
                         } else if (minP > 0 || maxP < maxVal) {
                             matchPrice = false;
                         }
-                        var isVisible = card.style.display !== 'none' && !card.classList.contains('card--exiting');
                         if (matchCat && matchBrand && matchPrice) {
                             card.style.display = '';
-                            card.classList.remove('card--exiting');
-                        } else if (isVisible) {
-                            card.classList.add('card--exiting');
-                            card.addEventListener('animationend', function onOutEnd() {
-                                card.removeEventListener('animationend', onOutEnd);
-                                card.style.display = 'none';
-                                card.classList.remove('card--exiting');
-                            }, { once: true });
                         } else {
                             card.style.display = 'none';
                         }
@@ -1059,20 +1235,29 @@
                     applyFilters();
                 }
 
-                var hoodiesToggle = document.getElementById('hoodies-toggle');
-                var hoodiesBrands = document.getElementById('hoodies-brands');
-                if (hoodiesToggle && hoodiesBrands) {
-                    hoodiesToggle.addEventListener('click', function () {
-                        hoodiesBrands.classList.toggle('is-open');
-                        var open = hoodiesBrands.classList.contains('is-open');
-                        hoodiesToggle.setAttribute('aria-expanded', open);
-                        hoodiesBrands.setAttribute('aria-hidden', !open);
-                    });
+                function setupCategoryToggle(toggleId, sublistId) {
+                    var toggle = document.getElementById(toggleId);
+                    var sublist = document.getElementById(sublistId);
+                    if (toggle && sublist) {
+                        toggle.addEventListener('click', function () {
+                            sublist.classList.toggle('is-open');
+                            toggle.classList.toggle('is-open');
+                            var open = sublist.classList.contains('is-open');
+                            toggle.setAttribute('aria-expanded', open);
+                            sublist.setAttribute('aria-hidden', !open);
+                        });
+                    }
                 }
+                setupCategoryToggle('hoodies-toggle', 'hoodies-brands');
+                setupCategoryToggle('tees-toggle', 'tees-brands');
+                setupCategoryToggle('jeans-toggle', 'jeans-brands');
+                setupCategoryToggle('sweats-toggle', 'sweats-brands');
+                setupCategoryToggle('boots-toggle', 'boots-brands');
+                setupCategoryToggle('shoes-toggle', 'shoes-brands');
 
                 catButtons.forEach(function (btn) {
                     btn.addEventListener('click', function () {
-                        if (btn.classList.contains('filter-cat-hoodies-toggle')) return;
+                        if (btn.classList.contains('filter-cat-parent-toggle')) return;
                         catButtons.forEach(function (b) { b.classList.remove('active'); });
                         btn.classList.add('active');
                         applyFilters();
@@ -1081,13 +1266,31 @@
 
                 var hash = (window.location.hash || '').slice(1).toLowerCase();
                 if (hash) {
-                    var catBtn = document.querySelector('.filter-cat[data-category="' + hash + '"]');
-                    if (catBtn && !catBtn.classList.contains('filter-cat-hoodies-toggle')) {
+                    var selector = '.filter-cat[data-category="' + hash + '"]:not(.filter-cat-parent-toggle)';
+                    var catBtn = document.querySelector(selector);
+                    if (catBtn) {
                         catButtons.forEach(function (b) { b.classList.remove('active'); });
                         catBtn.classList.add('active');
                         applyFilters();
                     }
                 }
+
+                (function () {
+                    var mobileFiltersBtn = document.getElementById('mobile-filters-btn');
+                    var filterBackdrop = document.getElementById('filter-backdrop');
+                    var filterPanelClose = document.getElementById('filter-panel-close');
+                    function openFilters() {
+                        document.body.classList.add('filters-open');
+                        if (filterBackdrop) filterBackdrop.setAttribute('aria-hidden', 'false');
+                    }
+                    function closeFilters() {
+                        document.body.classList.remove('filters-open');
+                        if (filterBackdrop) filterBackdrop.setAttribute('aria-hidden', 'true');
+                    }
+                    if (mobileFiltersBtn) mobileFiltersBtn.addEventListener('click', openFilters);
+                    if (filterPanelClose) filterPanelClose.addEventListener('click', closeFilters);
+                    if (filterBackdrop) filterBackdrop.addEventListener('click', closeFilters);
+                })();
 
                 if (priceMinInput) {
                     priceMinInput.addEventListener('input', syncMinFromInput);
